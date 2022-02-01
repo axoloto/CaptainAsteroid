@@ -20,7 +20,7 @@ public:
 
     std::uint32_t State;
 
-    inline bool Pressed(Keys key) const
+    inline bool pressed(Keys key) const
     {
       return (State & (std::uint32_t)key) != 0;
     }
@@ -28,6 +28,8 @@ public:
 
   Game();
 
-  void Update(KeyState state, float deltaTime);
+  void update(KeyState state, float deltaTime);
+
+  void getSpaceShip(float &x, float &y);
 };
 }// namespace AsteroidsCPP

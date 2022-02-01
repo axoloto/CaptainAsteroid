@@ -14,7 +14,14 @@ Game::Game()
   LOG_INFO("Initialize Plugin Game Engine");
 }
 
-void Game::Update(KeyState keyState, float deltaTime)
+void Game::update(KeyState keyState, float deltaTime)
 {
 }
+
+void Game::getSpaceShip(float &x, float &y)
+{
+  x = (float)(rand() % 4);
+  y = (float)(6.888f);
+}
+
 }// namespace AsteroidsCPP

@@ -20,6 +20,12 @@ public class PluginControl : MonoBehaviour
     static extern IntPtr HelloWorld();
 
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
+    static extern IntPtr CreateInstance();
+
+    [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
+    static extern void DeleteInstance(IntPtr ptr);
+
+    [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern int AddNumbers(int a, int b);
 
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
@@ -35,6 +41,13 @@ public class PluginControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log($"Plugin Controller !!!!! Creating CPP Instance");
+        if(m_GamePtr == IntPtr.Zero)
+        {
+            m_GamePtr = CreateInstance();
+        }
+        Debug.Log($"Plugin Controller !!!!! Created CPP Instance" + m_GamePtr);
+
         //Demo
         var ret = Marshal.PtrToStringAnsi(HelloWorld());
         Debug.Log("Got back string: " + ret);
@@ -42,6 +55,13 @@ public class PluginControl : MonoBehaviour
         int b = UnityEngine.Random.Range(0, 100);
         var retInt = AddNumbers(a, b);
         Debug.Log($"Plugin Controller !!!!! Adding numbers {a} and {b}: " + retInt);
+    }
+
+    void OnDestroy()
+    {
+        DeleteInstance(m_GamePtr);
+        Debug.Log($"Plugin Controller !!!!! Removing CPP Instance");
+        m_GamePtr = IntPtr.Zero;
     }
 
     void Update()
@@ -52,7 +72,7 @@ public class PluginControl : MonoBehaviour
 
     public bool isInGame()
     {
-        return m_GamePtr != null;
+        return m_GamePtr != IntPtr.Zero;
     }
 
     public int Multiply()

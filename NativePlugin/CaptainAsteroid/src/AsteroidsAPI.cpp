@@ -1,6 +1,7 @@
 #include "AsteroidsAPI.hpp"
 
 #include "AsteroidsGame.hpp"
+#include "Logging.hpp"
 
 #include <string>
 
@@ -14,12 +15,18 @@ const char *HelloWorld()
 
 AsteroidsCPP::Game *CreateInstance()
 {
-
+  LOG_INFO("Creating an instance of Asteroids Plugin");
   return new AsteroidsCPP::Game();
 }
 
-void DeleteInstance()
+void DeleteInstance(AsteroidsCPP::Game *ptr)
 {
+  if (ptr)
+  {
+    LOG_INFO("Removing Asteroids Plugin instance");
+    delete ptr;
+    ptr = nullptr;
+  }
 }
 
 std::uint32_t AddNumbers(std::uint32_t a, std::uint32_t b)
@@ -31,28 +38,5 @@ std::uint32_t MultiplyNumbers(std::uint32_t a, std::uint32_t b)
 {
   return a * b;
 }
-
-void GetSpaceShip(void *gamePtr, float &x, float &y)
-{
-  if (gamePtr != nullptr)
-  {
-    x = (float)(rand() % 4);
-    y = (float)(rand() % 4);
-  }
-
-  x = 10.0f;
-  y = 7.0f;
-}
-
-
-/*
-ASTEROID_EXPORT void GetSpaceShipCoords(void *gamePtr, float &x, float &y);
-
-    ASTEROID_EXPORT void
-      Update(void *gamePtr, AsteroidsCPP::Game::KeyState keyState, float deltaTime)
-    {
-      static_cast<AsteroidsCPP::Game *>(gamePtr)->Update(keyState, deltaTime);
-    }
-*/
 
 }// namespace AsteroidsCPP

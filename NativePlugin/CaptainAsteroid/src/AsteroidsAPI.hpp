@@ -22,18 +22,21 @@ extern "C"
     ASTEROID_EXPORT const char *HelloWorld();
 
     ASTEROID_EXPORT AsteroidsCPP::Game *CreateInstance();
-    ASTEROID_EXPORT void DeleteInstance();
+    ASTEROID_EXPORT void DeleteInstance(AsteroidsCPP::Game *ptr);
 
     ASTEROID_EXPORT std::uint32_t AddNumbers(std::uint32_t a, std::uint32_t b);
 
     ASTEROID_EXPORT std::uint32_t MultiplyNumbers(std::uint32_t a, std::uint32_t b);
 
-    ASTEROID_EXPORT void GetSpaceShip(void *gamePtr, float &x, float &y);
+    ASTEROID_EXPORT void GetSpaceShip(AsteroidsCPP::Game *gamePtr, float &x, float &y)
+    {
+      if (gamePtr) gamePtr->getSpaceShip(x, y);
+    }
 
     ASTEROID_EXPORT void
-      Update(void *gamePtr, AsteroidsCPP::Game::KeyState keyState, float deltaTime)
+      Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Game::KeyState keyState, float deltaTime)
     {
-      static_cast<AsteroidsCPP::Game *>(gamePtr)->Update(keyState, deltaTime);
+      if (gamePtr) gamePtr->update(keyState, deltaTime);
     }
   }// namespace AsteroidsCPP
 }
