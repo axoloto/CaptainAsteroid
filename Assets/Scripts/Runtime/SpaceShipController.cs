@@ -25,11 +25,18 @@ public class SpaceShipController : MonoBehaviour
         int a = UnityEngine.Random.Range(0, 100);
         int b = UnityEngine.Random.Range(0, 100);
         int retInt = plg.Multiply();
+
+        float x = spaceShip.position.x;
+        float y = spaceShip.position.y;
+        plg.GetSpaceShipCoords(ref x, ref y);
+
+        spaceShip.position = new Vector3(x, y, 0.0f);
+
         Debug.Log($"LOOP PPPPPPP numbers {a} and {b}: " + retInt);
     }
 
     public void Move(float i)
     {
-       spaceShip.position += Vector3.up * 0.08f; 
+       //spaceShip.position += Vector3.up * 0.08f; 
     }
 }

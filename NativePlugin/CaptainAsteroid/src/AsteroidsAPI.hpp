@@ -18,13 +18,18 @@ extern "C"
   namespace AsteroidsCPP
   {
     // Sample Functions
+
     ASTEROID_EXPORT const char *HelloWorld();
+
+    ASTEROID_EXPORT AsteroidsCPP::Game *CreateInstance();
+    ASTEROID_EXPORT void DeleteInstance();
 
     ASTEROID_EXPORT std::uint32_t AddNumbers(std::uint32_t a, std::uint32_t b);
 
     ASTEROID_EXPORT std::uint32_t MultiplyNumbers(std::uint32_t a, std::uint32_t b);
 
-    // TODO: Implement Asteroid API here
+    ASTEROID_EXPORT void GetSpaceShip(void *gamePtr, float &x, float &y);
+
     ASTEROID_EXPORT void
       Update(void *gamePtr, AsteroidsCPP::Game::KeyState keyState, float deltaTime)
     {

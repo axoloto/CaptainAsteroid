@@ -26,6 +26,9 @@ public class PluginControl : MonoBehaviour
     static extern int MultiplyNumbers(int a, int b);
 
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
+    static extern void GetSpaceShip(IntPtr gamePtr, ref float x, ref float y);
+
+    [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern void Update(IntPtr gamePtr, int keyState, float deltaTime);
     #endregion
 
@@ -57,6 +60,16 @@ public class PluginControl : MonoBehaviour
         int a = UnityEngine.Random.Range(0, 100);
         int b = UnityEngine.Random.Range(0, 100);
         return AddNumbers(a, b);
+    }
+
+    public void GetSpaceShipCoords(ref float x, ref float y)
+    {
+        if(isInGame())
+        {
+            Debug.Log($"Plugin Controller / Old space ship coords, x" + x + " y " + y);
+            GetSpaceShip(m_GamePtr, ref x, ref y);
+            Debug.Log($"Plugin Controller / New space ship coords, x" + x + " y " + y);
+        }
     }
 
     public void SendUserCommandAndTime(int keyState, float deltaTime)
