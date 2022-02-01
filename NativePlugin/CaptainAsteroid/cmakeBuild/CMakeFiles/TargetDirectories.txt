@@ -1,9 +1,0 @@
-C:/Dev/CaptainAsteroid/NativePlugin/CaptainAsteroid/cmakeBuild/CMakeFiles/INSTALL.dir
-C:/Dev/CaptainAsteroid/NativePlugin/CaptainAsteroid/cmakeBuild/CMakeFiles/ALL_BUILD.dir
-C:/Dev/CaptainAsteroid/NativePlugin/CaptainAsteroid/cmakeBuild/CMakeFiles/ZERO_CHECK.dir
-C:/Dev/CaptainAsteroid/NativePlugin/CaptainAsteroid/cmakeBuild/src/CMakeFiles/CaptainAsteroid.dir
-C:/Dev/CaptainAsteroid/NativePlugin/CaptainAsteroid/cmakeBuild/src/CMakeFiles/INSTALL.dir
-C:/Dev/CaptainAsteroid/NativePlugin/CaptainAsteroid/cmakeBuild/src/utils/CMakeFiles/Utils.dir
-C:/Dev/CaptainAsteroid/NativePlugin/CaptainAsteroid/cmakeBuild/src/utils/CMakeFiles/INSTALL.dir
-C:/Dev/CaptainAsteroid/NativePlugin/CaptainAsteroid/cmakeBuild/src/physics/CMakeFiles/Physics.dir
-C:/Dev/CaptainAsteroid/NativePlugin/CaptainAsteroid/cmakeBuild/src/physics/CMakeFiles/INSTALL.dir

@@ -3,13 +3,20 @@ set -eo pipefail
 printf "======================= ENV DEFINITION ========================== \n"
 
 DEV_DIR=$(pwd)
+
+cd ..
+cd ..
+UNITY_PLUGIN_DIR="$(pwd)/Assets/Plugins/Runtime"
+cd $DEV_DIR
+
 DEV_BUILD_DIR="$DEV_DIR/cmakeBuild"
 INSTALL_DIR="install"
 DEV_INSTALL_DIR="$DEV_DIR/$INSTALL_DIR"
 
 paths=" - root folder = $DEV_DIR\n"
 paths+=" - build folder = $DEV_BUILD_DIR\n"
-paths+=" - install folder = $DEV_INSTALL_DIR\n"
+#paths+=" - install folder = $DEV_INSTALL_DIR\n"
+paths+=" - unity folder = $UNITY_PLUGIN_DIR\n"
 printf "%b" "$paths\n"
 
 # Choosing Build Mode Release/Debug/RelWithDebInfo
@@ -32,7 +39,8 @@ mkdir -p "$DEV_INSTALL_DIR/$DEV_BUILD_TYPE"
 # Preparing Cmake folder
 cmake -S "$DEV_DIR" -B "$DEV_BUILD_DIR" \
  -DCMAKE_BUILD_TYPE="$DEV_BUILD_TYPE" \
- -DCMAKE_INSTALL_PREFIX="$DEV_INSTALL_DIR/$DEV_BUILD_TYPE"
+ -DCMAKE_INSTALL_PREFIX="$UNITY_PLUGIN_DIR"
+# -DCMAKE_INSTALL_PREFIX="$DEV_INSTALL_DIR/$DEV_BUILD_TYPE"
 
 printf "========================= CMAKE BUILD ============================ \n"
 

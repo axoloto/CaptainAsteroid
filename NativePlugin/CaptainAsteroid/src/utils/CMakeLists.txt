@@ -15,5 +15,3 @@ target_compile_definitions(Utils PUBLIC -DVERSION_PATCH="${PROJECT_VERSION_PATCH
 target_include_directories(Utils PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(Utils PUBLIC fmt::fmt spdlog::spdlog)
-
-install(TARGETS Utils RUNTIME DESTINATION lib)

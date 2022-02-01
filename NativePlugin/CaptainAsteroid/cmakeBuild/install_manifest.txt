@@ -1,3 +1,0 @@
-C:/Dev/CaptainAsteroid/NativePlugin/CaptainAsteroid/install/Release/lib/Utils.lib
-C:/Dev/CaptainAsteroid/NativePlugin/CaptainAsteroid/install/Release/lib/Physics.lib
-C:/Dev/CaptainAsteroid/NativePlugin/CaptainAsteroid/install/Release/dll/CaptainAsteroid.dll

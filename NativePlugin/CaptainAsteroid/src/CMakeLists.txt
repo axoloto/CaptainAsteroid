@@ -7,4 +7,4 @@ add_library(CaptainAsteroid SHARED ${SRC})
 
 target_link_libraries(CaptainAsteroid PRIVATE project_options project_warnings Utils Physics)
 
-install(TARGETS CaptainAsteroid RUNTIME DESTINATION dll)
+install(TARGETS CaptainAsteroid RUNTIME DESTINATION .)
