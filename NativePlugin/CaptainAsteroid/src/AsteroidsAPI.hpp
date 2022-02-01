@@ -34,7 +34,7 @@ extern "C"
     }
 
     ASTEROID_EXPORT void
-      Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Game::KeyState keyState, float deltaTime)
+      Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::KeyState keyState, float deltaTime)
     {
       if (gamePtr) gamePtr->update(keyState, deltaTime);
     }

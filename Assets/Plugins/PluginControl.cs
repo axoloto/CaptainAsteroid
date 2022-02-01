@@ -47,14 +47,6 @@ public class PluginControl : MonoBehaviour
             m_GamePtr = CreateInstance();
         }
         Debug.Log($"Plugin Controller !!!!! Created CPP Instance" + m_GamePtr);
-
-        //Demo
-        var ret = Marshal.PtrToStringAnsi(HelloWorld());
-        Debug.Log("Got back string: " + ret);
-        int a = UnityEngine.Random.Range(0, 100);
-        int b = UnityEngine.Random.Range(0, 100);
-        var retInt = AddNumbers(a, b);
-        Debug.Log($"Plugin Controller !!!!! Adding numbers {a} and {b}: " + retInt);
     }
 
     void OnDestroy()
@@ -86,9 +78,9 @@ public class PluginControl : MonoBehaviour
     {
         if(isInGame())
         {
-            Debug.Log($"Plugin Controller / Old space ship coords, x" + x + " y " + y);
+            //Debug.Log($"Plugin Controller / Old space ship coords, x" + x + " y " + y);
             GetSpaceShip(m_GamePtr, ref x, ref y);
-            Debug.Log($"Plugin Controller / New space ship coords, x" + x + " y " + y);
+            //Debug.Log($"Plugin Controller / New space ship coords, x" + x + " y " + y);
         }
     }
 

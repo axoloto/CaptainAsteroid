@@ -10,29 +10,21 @@ public class SpaceShipController : MonoBehaviour
     public GameObject pluginController;
     PluginControl plg;
 
-    // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("I am alive and my name is ");
         spaceShip = GetComponent<Transform>();
-
         plg = pluginController.GetComponent<PluginControl>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        int a = UnityEngine.Random.Range(0, 100);
-        int b = UnityEngine.Random.Range(0, 100);
-        int retInt = plg.Multiply();
-
         float x = spaceShip.position.x;
         float y = spaceShip.position.y;
         plg.GetSpaceShipCoords(ref x, ref y);
 
         spaceShip.position = new Vector3(x, y, 0.0f);
 
-        Debug.Log($"LOOP PPPPPPP numbers {a} and {b}: " + retInt);
+        Debug.Log(" SpaceShip Coords x " + spaceShip.position.x + " y " + spaceShip.position.y);
     }
 
     public void Move(float i)

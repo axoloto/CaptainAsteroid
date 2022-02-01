@@ -18,32 +18,23 @@ public class AsteroidsGame : MonoBehaviour
         Space = 1 << 4,
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         plg = pluginController.GetComponent<PluginControl>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(plg.isInGame())
-        {
-            return;
-        }
-
-        int a = UnityEngine.Random.Range(0, 100);
-        int b = UnityEngine.Random.Range(0, 100);
-        var retInt = plg.Multiply();
-        Debug.Log($"LOOP GAAAAAME Multiply numbers {a} and {b}: " + retInt);
+        if(!plg.isInGame()) return;
 
         int keyState = 0;
-
         keyState |= Input.GetKey(KeyCode.LeftArrow) ? (int)KeyState.Left : 0;
         keyState |= Input.GetKey(KeyCode.RightArrow) ? (int)KeyState.Right : 0;
         keyState |= Input.GetKey(KeyCode.UpArrow) ? (int)KeyState.Up : 0;
         keyState |= Input.GetKey(KeyCode.DownArrow) ? (int)KeyState.Down : 0;
         keyState |= Input.GetKey(KeyCode.Space) ? (int)KeyState.Space : 0;
+
+        Debug.Log(" Delta Time " + Time.deltaTime + " KeyState " + keyState);
 
         plg.SendUserCommandAndTime(keyState, Time.deltaTime);
     }
