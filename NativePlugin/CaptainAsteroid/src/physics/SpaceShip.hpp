@@ -2,7 +2,7 @@
 
 #include <array>
 #include <memory>
-
+/*
 namespace AsteroidsCPP
 {
 constexpr float MAX_SPEED = 0.05f;
@@ -50,3 +50,6 @@ private:
   float m_rotDeg;
 };
 }// namespace AsteroidsCPP
+
+
+*/

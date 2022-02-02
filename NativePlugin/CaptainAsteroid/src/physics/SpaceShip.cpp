@@ -5,8 +5,9 @@
 #include <algorithm>
 #include <cmath>
 
-using namespace AsteroidsCPP;
+//using namespace AsteroidsCPP;
 
+/*
 void SpaceShip::init(float boundaryV, float boundaryH)
 {
   m_boundaryV = boundaryV;
@@ -54,3 +55,5 @@ void SpaceShip::update(KeyState keyState, float deltaTime)
     m_y *= -1.0f;
   }
 }
+
+*/

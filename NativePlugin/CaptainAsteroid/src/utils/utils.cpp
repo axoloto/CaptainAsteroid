@@ -5,6 +5,8 @@
 #include <ostream>
 #include <sstream>
 
+using namespace AsteroidsCPP;
+
 const std::string Utils::GetSrcDir()
 {
   return std::string(SOURCE_DIR);

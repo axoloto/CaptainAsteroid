@@ -1,7 +1,12 @@
 #pragma once
 
-#include "SpaceShip.hpp"
+#include "GameManager.hpp"
+//#include "SpaceShip.hpp"
 #include "Utils.hpp"
+
+#include "entityx/Event.h"
+#include "entityx/Entity.h"
+#include "entityx/System.h"
 
 #include <cstdint>
 #include <memory>
@@ -13,13 +18,23 @@ class Game
 public:
   Game();
 
-  void update(KeyState state, float deltaTime);
+  void init(float boundaryV, float boundaryH);
+
+  void update(Utils::KeyState state, float deltaTime);
 
   void getSpaceShipCoords(float &x, float &y, float &angle);
 
-  void init(float boundaryV, float boundaryH);
-
 private:
-  std::unique_ptr<SpaceShip> m_ship;
+  void createSystems(float boundaryV, float boundaryH);
+
+  entityx::EventManager m_eventManager;
+
+  entityx::EntityManager m_entityManager;
+
+  entityx::SystemManager m_systemManager;
+
+  GameManager m_gameManager;
+
+  //std::unique_ptr<SpaceShip> m_ship;
 };
 }// namespace AsteroidsCPP

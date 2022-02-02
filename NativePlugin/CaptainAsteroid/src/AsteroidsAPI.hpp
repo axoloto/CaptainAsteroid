@@ -10,8 +10,13 @@
 #define ASTEROID_EXPORT
 #endif
 
-#include "Game.hpp"//WIP to remove
+//#include "Game.hpp"//WIP to remove
+#include "Utils.hpp"
 #include <cstdint>
+namespace AsteroidsCPP
+{
+class Game;
+}
 
 extern "C"
 {
@@ -24,20 +29,10 @@ extern "C"
     ASTEROID_EXPORT AsteroidsCPP::Game *CreateInstance();
     ASTEROID_EXPORT void DeleteInstance(AsteroidsCPP::Game *ptr);
 
-    ASTEROID_EXPORT void Init(AsteroidsCPP::Game *gamePtr, float boundaryV, float boundaryH)
-    {
-      if (gamePtr) gamePtr->init(boundaryV, boundaryH);
-    }
+    ASTEROID_EXPORT void Init(AsteroidsCPP::Game *gamePtr, float boundaryV, float boundaryH);
 
-    ASTEROID_EXPORT void GetSpaceShipCoords(AsteroidsCPP::Game *gamePtr, float &x, float &y, float &angle)
-    {
-      if (gamePtr) gamePtr->getSpaceShipCoords(x, y, angle);
-    }
+    ASTEROID_EXPORT void GetSpaceShipCoords(AsteroidsCPP::Game *gamePtr, float &x, float &y, float &angle);
 
-    ASTEROID_EXPORT void
-      Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::KeyState keyState, float deltaTime)
-    {
-      if (gamePtr) gamePtr->update(keyState, deltaTime);
-    }
+    ASTEROID_EXPORT void Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Utils::KeyState keyState, float deltaTime);
   }// namespace AsteroidsCPP
 }

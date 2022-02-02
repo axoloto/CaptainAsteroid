@@ -29,4 +29,19 @@ void DeleteInstance(AsteroidsCPP::Game *instance)
   }
 }
 
+void Init(AsteroidsCPP::Game *gamePtr, float boundaryV, float boundaryH)
+{
+  if (gamePtr) gamePtr->init(boundaryV, boundaryH);
+}
+
+void GetSpaceShipCoords(AsteroidsCPP::Game *gamePtr, float &x, float &y, float &angle)
+{
+  if (gamePtr) gamePtr->getSpaceShipCoords(x, y, angle);
+}
+
+void Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Utils::KeyState keyState, float deltaTime)
+{
+  if (gamePtr) gamePtr->update(keyState, deltaTime);
+}
+
 }// namespace AsteroidsCPP

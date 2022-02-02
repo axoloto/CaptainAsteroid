@@ -2,14 +2,18 @@
 
 #include "entityx/System.h"
 
+namespace AsteroidsCPP
+{
 class MovementS : public entityx::System<MovementS>
 {
-  MovementS(int width, int height) : width(width), height(height) {}
+public:
+  MovementS(float boundaryV, float boundaryH) : m_boundaryV(boundaryV), m_boundaryH(boundaryH){};
 
   void update(entityx::EntityManager &entities,
     entityx::EventManager &events,
     double dt);
 
 private:
-  int width, height;
+  float m_boundaryV, m_boundaryH;
 };
+}// namespace AsteroidsCPP

@@ -2,6 +2,8 @@
 
 #include "entityx/System.h"
 
+namespace AsteroidsCPP
+{
 class CollisionS : public entityx::System<CollisionS>
 {
 public:
@@ -13,3 +15,4 @@ public:
 
 private:
 };
+}// namespace AsteroidsCPP

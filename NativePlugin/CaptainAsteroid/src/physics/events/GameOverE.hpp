@@ -1,14 +1,12 @@
 #pragma once
 
+#include "entityx/Event.h"
 #include "entityx/Entity.h"
 
 namespace AsteroidsCPP
 {
-struct PositionC : entityx::Component<PositionC>
+struct GameOverE : public entityx::Event<GameOverE>
 {
-  PositionC();
-
-  float x, y;
-  float angle;
+  GameOverE(){};
 };
 }// namespace AsteroidsCPP

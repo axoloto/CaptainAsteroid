@@ -1,14 +1,10 @@
 #pragma once
 
 #include "entityx/Entity.h"
-
 namespace AsteroidsCPP
 {
-struct PositionC : entityx::Component<PositionC>
+struct LaserC : public entityx::Component<LaserC>
 {
-  PositionC();
-
-  float x, y;
-  float angle;
+  LaserC();
 };
 }// namespace AsteroidsCPP
