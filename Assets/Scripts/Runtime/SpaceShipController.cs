@@ -20,11 +20,14 @@ public class SpaceShipController : MonoBehaviour
     {
         float x = spaceShip.position.x;
         float y = spaceShip.position.y;
-        plg.GetSpaceShipCoords(ref x, ref y);
+        float rotDeg = 0.0f;
+        plg.GetSpaceShipCoords(ref x, ref y, ref rotDeg);
 
         spaceShip.position = new Vector3(x, y, 0.0f);
 
-        Debug.Log(" SpaceShip Coords x " + spaceShip.position.x + " y " + spaceShip.position.y);
+        spaceShip.Rotate(0,0, rotDeg);
+        
+        Debug.Log(" SpaceShip Coords x " + spaceShip.position.x + " y " + spaceShip.position.y + " rotation " + rotDeg);
     }
 
     public void Move(float i)

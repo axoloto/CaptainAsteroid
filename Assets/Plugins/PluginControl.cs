@@ -32,7 +32,7 @@ public class PluginControl : MonoBehaviour
     static extern int MultiplyNumbers(int a, int b);
 
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
-    static extern void GetSpaceShip(IntPtr gamePtr, ref float x, ref float y);
+    static extern void GetSpaceShipCoords(IntPtr gamePtr, ref float x, ref float y, ref float angle);
 
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern void Update(IntPtr gamePtr, int keyState, float deltaTime);
@@ -74,13 +74,11 @@ public class PluginControl : MonoBehaviour
         return AddNumbers(a, b);
     }
 
-    public void GetSpaceShipCoords(ref float x, ref float y)
+    public void GetSpaceShipCoords(ref float x, ref float y, ref float angle)
     {
         if(isInGame())
         {
-            //Debug.Log($"Plugin Controller / Old space ship coords, x" + x + " y " + y);
-            GetSpaceShip(m_GamePtr, ref x, ref y);
-            //Debug.Log($"Plugin Controller / New space ship coords, x" + x + " y " + y);
+            GetSpaceShipCoords(m_GamePtr, ref x, ref y, ref angle);
         }
     }
 

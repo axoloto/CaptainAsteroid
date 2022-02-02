@@ -28,9 +28,9 @@ extern "C"
 
     ASTEROID_EXPORT std::uint32_t MultiplyNumbers(std::uint32_t a, std::uint32_t b);
 
-    ASTEROID_EXPORT void GetSpaceShip(AsteroidsCPP::Game *gamePtr, float &x, float &y)
+    ASTEROID_EXPORT void GetSpaceShipCoords(AsteroidsCPP::Game *gamePtr, float &x, float &y, float &angle)
     {
-      if (gamePtr) gamePtr->getSpaceShip(x, y);
+      if (gamePtr) gamePtr->getSpaceShipCoords(x, y, angle);
     }
 
     ASTEROID_EXPORT void

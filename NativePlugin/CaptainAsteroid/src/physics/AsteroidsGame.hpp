@@ -15,7 +15,7 @@ public:
 
   void update(KeyState state, float deltaTime);
 
-  void getSpaceShip(float &x, float &y);
+  void getSpaceShipCoords(float &x, float &y, float &angle);
 
 private:
   std::unique_ptr<SpaceShip> m_ship;
