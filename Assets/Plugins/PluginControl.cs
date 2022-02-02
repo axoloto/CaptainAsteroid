@@ -26,10 +26,7 @@ public class PluginControl : MonoBehaviour
     static extern void DeleteInstance(IntPtr ptr);
 
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
-    static extern int AddNumbers(int a, int b);
-
-    [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
-    static extern int MultiplyNumbers(int a, int b);
+    static extern void Init(IntPtr gamePtr, float boundaryV, float boundaryH);
 
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern void GetSpaceShipCoords(IntPtr gamePtr, ref float x, ref float y, ref float angle);
@@ -41,18 +38,23 @@ public class PluginControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log($"Plugin Controller !!!!! Creating CPP Instance");
+        Debug.Log("Plugin Controller Creating CPP Instance");
+
         if(m_GamePtr == IntPtr.Zero)
         {
             m_GamePtr = CreateInstance();
         }
-        Debug.Log($"Plugin Controller !!!!! Created CPP Instance" + m_GamePtr);
+
+        if(m_GamePtr == IntPtr.Zero)
+        {
+            Debug.LogError("Incorrect Captain Asteroids plugin instanciation");
+        }
     }
 
     void OnDestroy()
     {
         DeleteInstance(m_GamePtr);
-        Debug.Log($"Plugin Controller !!!!! Removing CPP Instance");
+        Debug.Log("Plugin Controller Removing CPP Instance");
         m_GamePtr = IntPtr.Zero;
     }
 
@@ -62,21 +64,14 @@ public class PluginControl : MonoBehaviour
         // GameObjects will do what they need
     }
 
-    public bool isInGame()
+    public bool InstanceReady()
     {
         return m_GamePtr != IntPtr.Zero;
     }
 
-    public int Multiply()
-    {
-        int a = UnityEngine.Random.Range(0, 100);
-        int b = UnityEngine.Random.Range(0, 100);
-        return AddNumbers(a, b);
-    }
-
     public void GetSpaceShipCoords(ref float x, ref float y, ref float angle)
     {
-        if(isInGame())
+        if(InstanceReady())
         {
             GetSpaceShipCoords(m_GamePtr, ref x, ref y, ref angle);
         }
@@ -84,9 +79,17 @@ public class PluginControl : MonoBehaviour
 
     public void SendUserCommandAndTime(int keyState, float deltaTime)
     {
-        if(isInGame())
+        if(InstanceReady())
         {
             Update(m_GamePtr, keyState, deltaTime);
+        }
+    }
+
+    public void InitPlugin(float boundaryV, float boundaryH)
+    {
+        if(InstanceReady())
+        {
+            Init(m_GamePtr, boundaryV, boundaryH);
         }
     }
 }

@@ -19,24 +19,14 @@ AsteroidsCPP::Game *CreateInstance()
   return new AsteroidsCPP::Game();
 }
 
-void DeleteInstance(AsteroidsCPP::Game *ptr)
+void DeleteInstance(AsteroidsCPP::Game *instance)
 {
-  if (ptr)
+  if (instance)
   {
     LOG_INFO("Removing Asteroids Plugin instance");
-    delete ptr;
-    ptr = nullptr;
+    delete instance;
+    instance = nullptr;
   }
-}
-
-std::uint32_t AddNumbers(std::uint32_t a, std::uint32_t b)
-{
-  return a + b;
-}
-
-std::uint32_t MultiplyNumbers(std::uint32_t a, std::uint32_t b)
-{
-  return a * b;
 }
 
 }// namespace AsteroidsCPP

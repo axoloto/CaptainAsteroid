@@ -17,6 +17,8 @@ public:
 
   void getSpaceShipCoords(float &x, float &y, float &angle);
 
+  void init(float boundaryV, float boundaryH);
+
 private:
   std::unique_ptr<SpaceShip> m_ship;
 };

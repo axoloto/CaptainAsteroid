@@ -32,15 +32,18 @@ struct KeyState
 class SpaceShip
 {
 public:
-  SpaceShip() : m_x(0.0f), m_y(0.0f), m_vel(0.0f), m_thrust(0.0f), m_angleDeg(0.0f), m_rotDeg(0.0f){};
+  SpaceShip() : m_x(0.0f), m_y(0.0f), m_vel(0.0f),
+                m_thrust(0.0f), m_angleDeg(0.0f), m_rotDeg(0.0f){};
   ~SpaceShip() = default;
+
+  void init(float boundaryV, float boundaryH);
+  void update(KeyState keyState, float deltaTime);
 
   std::array<float, 3> getCoords() const { return { m_x, m_y, m_rotDeg }; }
 
-  void update(KeyState keyState, float deltaTime);
-
 private:
   float m_x, m_y;
+  float m_boundaryV, m_boundaryH;
   float m_thrust;
   float m_vel;
   float m_angleDeg;

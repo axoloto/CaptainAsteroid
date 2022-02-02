@@ -16,6 +16,11 @@ Game::Game()
   m_ship = std::make_unique<SpaceShip>();
 }
 
+void Game::init(float boundaryV, float boundaryH)
+{
+  m_ship->init(boundaryV, boundaryH);
+}
+
 void Game::update(KeyState keyState, float deltaTime)
 {
   m_ship->update(keyState, deltaTime);
