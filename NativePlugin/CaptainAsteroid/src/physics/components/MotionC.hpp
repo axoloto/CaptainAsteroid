@@ -5,7 +5,7 @@ namespace AsteroidsCPP
 {
 struct MotionC : public entityx::Component<MotionC>
 {
-  MotionC();
+  MotionC(float acc = 0, float vel = 0, float rot = 0);
 
   float acc;
   float vel;

@@ -3,7 +3,9 @@
 #include "entityx/Event.h"
 #include "entityx/Entity.h"
 
+#include "events/PlayGameE.hpp"
 #include "events/GameOverE.hpp"
+#include "events/VictoryE.hpp"
 
 namespace AsteroidsCPP
 {
@@ -27,7 +29,9 @@ public:
 
   bool isRunning() const;
 
+  void receive(const PlayGameE &playGame);
   void receive(const GameOverE &gameOver);
+  void receive(const VictoryE &victory);
 
 private:
   entityx::EntityManager &m_entityManager;

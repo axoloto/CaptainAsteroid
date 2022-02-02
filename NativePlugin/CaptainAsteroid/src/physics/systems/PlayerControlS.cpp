@@ -2,6 +2,7 @@
 
 #include "components/MotionC.hpp"
 #include "components/LaserC.hpp"
+#include "components/PlayerControlC.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -22,7 +23,8 @@ void PlayerControlS::update(
 
   MotionC::Handle motion;
   LaserC::Handle laser;
-  for (entityx::Entity entity : entities.entities_with_components(motion, laser))
+  PlayerControlC::Handle playerControl;
+  for (entityx::Entity entity : entities.entities_with_components(playerControl, motion, laser))
   {
     if (m_keyState.pressed(Utils::KeyState::Keys::Down))
     {

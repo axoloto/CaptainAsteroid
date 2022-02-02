@@ -18,8 +18,9 @@ void MovementS::update(
     float y = position->y;
     float angleDeg = position->angle;
 
-    x += std::cos(angleDeg * Utils::PI / 180.0f) * motion->vel * dt;
-    y += std::sin(angleDeg * Utils::PI / 180.0f) * motion->vel * dt;
+    angleDeg += motion->rot;
+    x += std::cos(angleDeg * Utils::PI / 180.0f) * motion->vel * (float)dt;
+    y += std::sin(angleDeg * Utils::PI / 180.0f) * motion->vel * (float)dt;
 
     if (x > m_boundaryH || x < -m_boundaryH)
     {
@@ -34,5 +35,6 @@ void MovementS::update(
 
     position->x = x;
     position->y = y;
+    position->angle = angleDeg;
   }
 }
