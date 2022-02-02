@@ -1,4 +1,4 @@
-#include "AsteroidsGame.hpp"
+#include "Game.hpp"
 
 #include "Logging.hpp"
 

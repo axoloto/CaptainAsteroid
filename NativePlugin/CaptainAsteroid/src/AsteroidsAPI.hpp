@@ -10,7 +10,7 @@
 #define ASTEROID_EXPORT
 #endif
 
-#include "AsteroidsGame.hpp"
+#include "Game.hpp"//WIP to remove
 #include <cstdint>
 
 extern "C"
