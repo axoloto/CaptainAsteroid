@@ -7,6 +7,7 @@ add_library(Physics ${SRC})
 add_subdirectory(components)
 add_subdirectory(systems)
 add_subdirectory(events)
+add_subdirectory(entities)
 
 target_include_directories(Physics PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 

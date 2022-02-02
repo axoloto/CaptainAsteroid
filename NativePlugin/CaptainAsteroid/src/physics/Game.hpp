@@ -1,8 +1,9 @@
 #pragma once
 
 #include "GameManager.hpp"
-//#include "SpaceShip.hpp"
 #include "Utils.hpp"
+#include "entities/SpaceShip.hpp"
+#include "entities/AsteroidField.hpp"
 
 #include "entityx/Event.h"
 #include "entityx/Entity.h"
@@ -24,6 +25,8 @@ public:
 
   void getSpaceShipCoords(float &x, float &y, float &angle);
 
+  void getEntitiesCoords(){};
+
 private:
   void createSystems(float boundaryV, float boundaryH);
 
@@ -35,6 +38,8 @@ private:
 
   GameManager m_gameManager;
 
-  //std::unique_ptr<SpaceShip> m_ship;
+  SpaceShip m_spaceShip;
+
+  AsteroidField m_asteroidField;
 };
 }// namespace AsteroidsCPP

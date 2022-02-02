@@ -13,33 +13,26 @@
 
 #include "events/PlayGameE.hpp"
 
-#include <chrono>
-#include <algorithm>
-#include <cmath>
-
 namespace AsteroidsCPP
 {
 Game::Game() : m_eventManager(),
                m_entityManager(m_eventManager),
                m_systemManager(m_entityManager, m_eventManager),
-               m_gameManager(m_entityManager, m_eventManager)
+               m_gameManager(m_entityManager, m_eventManager),
+               m_spaceShip(m_entityManager),
+               m_asteroidField(m_entityManager)
 {
   Utils::InitializeLogger();
-
-  //m_ship = std::make_unique<SpaceShip>();
 }
 
 void Game::init(float boundaryV, float boundaryH)
 {
   LOG_INFO("Initializing Plugin Game Engine");
   m_gameManager.init();
-  createSystems(boundaryV, boundaryH);
+  m_spaceShip.init();
+  m_asteroidField.init();
 
-  entityx::Entity spaceShip = m_entityManager.create();
-  spaceShip.assign<MotionC>();
-  spaceShip.assign<PositionC>();
-  spaceShip.assign<LaserC>();
-  spaceShip.assign<PlayerControlC>();
+  createSystems(boundaryV, boundaryH);
 
   m_eventManager.emit<PlayGameE>();
 }
@@ -54,10 +47,7 @@ void Game::createSystems(float boundaryV, float boundaryH)
 
 void Game::update(Utils::KeyState keyState, float deltaTime)
 {
-  //if (keyState.State != 0)
-  {
-    m_eventManager.emit<PlayerInputE>(keyState);
-  }
+  m_eventManager.emit<PlayerInputE>(keyState);
 
   if (m_gameManager.isRunning() && m_gameManager.gameState() == GS_Playing)
   {
@@ -69,16 +59,10 @@ void Game::update(Utils::KeyState keyState, float deltaTime)
 
 void Game::getSpaceShipCoords(float &x, float &y, float &rotDeg)
 {
-  // WIP
-  PlayerControlC::Handle playerControl;
-  PositionC::Handle position;
-  MotionC::Handle motion;
-  for (entityx::Entity entity : m_entityManager.entities_with_components(playerControl, position, motion))
-  {
-    x = position->x;
-    y = position->y;
-    rotDeg = motion->rot;
-  }
+  auto coordsAndRot = m_spaceShip.getPosAndDir();
+  x = coordsAndRot[0];
+  y = coordsAndRot[1];
+  rotDeg = coordsAndRot[2];
 }
 
 }// namespace AsteroidsCPP
