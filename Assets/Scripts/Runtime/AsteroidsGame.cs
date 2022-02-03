@@ -6,13 +6,6 @@ using UnityEngine;
 
 public class AsteroidsGame : MonoBehaviour
 {
-    public Camera m_camera;
-    public GameObject m_pluginController;
-    PluginControl m_plg;
-
-    const int m_maxNbAsteroid = 200;
-    float[] m_posAsteroidList = new float[m_maxNbAsteroid * 3];
-
     enum EntityType : int
     {
         Asteroid_XXL = 1 << 0,
@@ -20,6 +13,20 @@ public class AsteroidsGame : MonoBehaviour
         Asteroid_S = 1 << 2,
         LaserShot = 1 << 3,
     }
+
+    public Camera m_camera;
+    public GameObject m_pluginController;
+    PluginControl m_plg;
+
+    public List<GameObject> m_pooledAsteroids;
+    public GameObject m_asteroidObject;
+    public const int m_maxNbAsteroids = 200; 
+    float[] m_posAsteroidList = new float[m_maxNbAsteroids * 3];
+
+    public List<GameObject> m_pooledLaserShots;
+    public GameObject m_laserShotObject;
+    public const int m_maxNbLaserShots = 300;
+    float[] m_posLaserShotList = new float[m_maxNbLaserShots * 3];
 
     enum KeyState : int
     {
@@ -33,9 +40,10 @@ public class AsteroidsGame : MonoBehaviour
     void Start()
     {
         m_plg = m_pluginController.GetComponent<PluginControl>();
+
         if(!m_plg.InstanceReady())
         {
-            Debug.LogError("Incorrect Captain Asteroids plugin instantiation");
+            Debug.LogError("Incorrect plugin instantiation");
             return;
         }
 
@@ -49,14 +57,26 @@ public class AsteroidsGame : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Incorrect camera setup, cannot init Captain Asteroids plugin");
+            Debug.LogError("Incorrect camera setup, cannot init plugin");
+            return;
         }
+
+        InitPools();
     }
 
     void Update()
     {
         if(!m_plg.InstanceReady()) return;
 
+        UpdatePlugin();
+
+        ResetPools();
+
+        FillPools();
+    }
+
+    void UpdatePlugin()
+    {
         int keyState = 0;
         keyState |= Input.GetKey(KeyCode.LeftArrow) ? (int)KeyState.Left : 0;
         keyState |= Input.GetKey(KeyCode.RightArrow) ? (int)KeyState.Right : 0;
@@ -64,22 +84,60 @@ public class AsteroidsGame : MonoBehaviour
         keyState |= Input.GetKey(KeyCode.DownArrow) ? (int)KeyState.Down : 0;
         keyState |= Input.GetKey(KeyCode.Space) ? (int)KeyState.Space : 0;
 
-        //Debug.Log(" Delta Time " + Time.deltaTime + " KeyState " + keyState);
+        Debug.Log("Delta Time :" + Time.deltaTime + " KeyState :" + keyState);
 
         m_plg.SendUserCommandAndTime(keyState, Time.deltaTime);
+    }
 
-        int filledAmount = 0;
-        m_plg.FillPosEntityList(m_posAsteroidList, m_maxNbAsteroid * 3, out filledAmount, (int)EntityType.Asteroid_M);
-        Debug.Log(" Fill Pos Entity " + m_posAsteroidList[0] + "  " + m_posAsteroidList[1] + " " + filledAmount);
+    void InitPools()
+    {
+        GameObject tmp;
 
-        EntityPool.Instance.ResetPool();
-
-        for(int i = 0; i < filledAmount; ++i)
+        m_pooledAsteroids = new List<GameObject>();
+        for(int i = 0; i < m_maxNbAsteroids; ++i)
         {
-            GameObject asteroid = EntityPool.Instance.GetPooledObject();
+            tmp = Instantiate(m_asteroidObject);
+            tmp.SetActive(false);
+            m_pooledAsteroids.Add(tmp);
+        }
+
+        m_pooledLaserShots = new List<GameObject>();
+        for(int i = 0; i < m_maxNbLaserShots; ++i)
+        {
+            tmp = Instantiate(m_asteroidObject);
+            tmp.SetActive(false);
+            m_pooledLaserShots.Add(tmp);
+        }
+    }
+
+    void ResetPools()
+    {
+        for(int i = 0; i < m_pooledAsteroids.Count; ++i)
+        {
+            m_pooledAsteroids[i].SetActive(false);
+        }
+
+        for(int i = 0; i < m_pooledLaserShots.Count; ++i)
+        {
+            m_pooledLaserShots[i].SetActive(false);
+        }
+    }
+
+    void FillPools()
+    {
+        int currNbAsteroids = 0;
+        m_plg.FillPosEntityList(m_posAsteroidList, m_posAsteroidList.Length, out currNbAsteroids, (int)EntityType.Asteroid_M);
+
+        if(currNbAsteroids > m_pooledAsteroids.Count) currNbAsteroids = m_pooledAsteroids.Count; // Should never happen
+
+        for(int i = 0; i < currNbAsteroids; i++)
+        {
+            GameObject asteroid = m_pooledAsteroids[i];
             if(asteroid != null)
             {
-                asteroid.transform.position = new Vector3(m_posAsteroidList[i], m_posAsteroidList[i+1], 0);
+                int j = i * 3;
+                asteroid.transform.position = new Vector3(m_posAsteroidList[j], m_posAsteroidList[j+1], 0);
+                asteroid.transform.rotation = Quaternion.Euler(0, 0, m_posAsteroidList[j+2]);
                 asteroid.SetActive(true);
             }
         }

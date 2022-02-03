@@ -262,6 +262,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &794752000 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6023077191482882407, guid: f559b15a470e1ca4fa2d1464866aca69, type: 3}
+  m_PrefabInstance: {fileID: 872153594}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &872153594
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -279,11 +284,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6023077191482882405, guid: f559b15a470e1ca4fa2d1464866aca69, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.71
+      value: -2.91
       objectReference: {fileID: 0}
     - target: {fileID: 6023077191482882405, guid: f559b15a470e1ca4fa2d1464866aca69, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.35
+      value: 16.78
       objectReference: {fileID: 0}
     - target: {fileID: 6023077191482882405, guid: f559b15a470e1ca4fa2d1464866aca69, type: 3}
       propertyPath: m_LocalPosition.z
@@ -345,11 +350,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6023077191482882405, guid: f559b15a470e1ca4fa2d1464866aca69, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.159
+      value: -1.8700001
       objectReference: {fileID: 0}
     - target: {fileID: 6023077191482882405, guid: f559b15a470e1ca4fa2d1464866aca69, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.489
+      value: 18.02
       objectReference: {fileID: 0}
     - target: {fileID: 6023077191482882405, guid: f559b15a470e1ca4fa2d1464866aca69, type: 3}
       propertyPath: m_LocalPosition.z
@@ -406,11 +411,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6023077191482882405, guid: f559b15a470e1ca4fa2d1464866aca69, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.39
+      value: -0.43
       objectReference: {fileID: 0}
     - target: {fileID: 6023077191482882405, guid: f559b15a470e1ca4fa2d1464866aca69, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.09
+      value: 18.5
       objectReference: {fileID: 0}
     - target: {fileID: 6023077191482882405, guid: f559b15a470e1ca4fa2d1464866aca69, type: 3}
       propertyPath: m_LocalPosition.z
@@ -548,7 +553,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1631698054}
   - component: {fileID: 1631698053}
-  - component: {fileID: 1631698055}
   m_Layer: 0
   m_Name: AsteroidGame
   m_TagString: Untagged
@@ -570,6 +574,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_camera: {fileID: 1151198478}
   m_pluginController: {fileID: 23843697}
+  m_pooledAsteroids: []
+  m_asteroidObject: {fileID: 1955355726}
+  m_pooledLaserShots: []
+  m_laserShotObject: {fileID: 794752000}
 --- !u!4 &1631698054
 Transform:
   m_ObjectHideFlags: 0
@@ -588,21 +596,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1631698055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1631698052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45ce728a663a56b4c90fb1c7117139fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pooledAsteroids: []
-  m_asteroid: {fileID: 1955355726}
-  m_maxNbAsteroids: 20
 --- !u!4 &1738763209 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6023077191482882405, guid: f559b15a470e1ca4fa2d1464866aca69, type: 3}

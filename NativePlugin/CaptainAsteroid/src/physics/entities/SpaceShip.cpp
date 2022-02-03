@@ -23,11 +23,10 @@ std::array<float, 3> SpaceShip::getPosAndDir()
   // WIP
   PlayerControlC::Handle playerControl;
   PositionC::Handle position;
-  MotionC::Handle motion;
   std::array<float, 3> coordsAndRot = { 0, 0, 0 };
-  for (entityx::Entity entity : m_entityManager.entities_with_components(playerControl, position, motion))
+  for (entityx::Entity entity : m_entityManager.entities_with_components(playerControl, position))
   {
-    coordsAndRot = { position->x, position->y, motion->rot };
+    coordsAndRot = { position->x, position->y, position->angle };
   }
 
   return coordsAndRot;

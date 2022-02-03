@@ -14,24 +14,22 @@ void AsteroidField::init(int nbAsteroids)
   for (int i = 0; i < m_nbAsteroids; ++i)
   {
     entityx::Entity asteroid = m_entityManager.create();
-    asteroid.assign<MotionC>(0, rand() % 2, 0);
-    asteroid.assign<PositionC>(rand() % 10, rand() % 12, rand() % 10);
+    asteroid.assign<MotionC>(rand() % 5, 0);
+    asteroid.assign<PositionC>(rand() % 10, rand() % 12, rand() % 360);
   }
 }
 
 void AsteroidField::fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType)
 {
   PositionC::Handle position;
-  MotionC::Handle motion;
 
   int i = 0;
-  for (entityx::Entity entity : m_entityManager.entities_with_components(position, motion))//bug wip
+  for (entityx::Entity entity : m_entityManager.entities_with_components(position))//bug wip
   {
     if (i >= size) break;// Should not happen
-
     posEntities[i++] = position->x;
     posEntities[i++] = position->y;
-    posEntities[i++] = position->x;// TODO
+    posEntities[i++] = position->angle;
   }
 
   *nbEntities = m_nbAsteroids;
