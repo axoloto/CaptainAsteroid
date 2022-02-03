@@ -568,7 +568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_camera: {fileID: 1151198478}
-  pluginController: {fileID: 23843697}
+  m_pluginController: {fileID: 23843697}
 --- !u!4 &1631698054
 Transform:
   m_ObjectHideFlags: 0

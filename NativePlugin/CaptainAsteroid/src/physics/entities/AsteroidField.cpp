@@ -14,21 +14,26 @@ void AsteroidField::init(int nbAsteroids)
   for (int i = 0; i < m_nbAsteroids; ++i)
   {
     entityx::Entity asteroid = m_entityManager.create();
-    asteroid.assign<MotionC>();
-    asteroid.assign<PositionC>();
+    asteroid.assign<MotionC>(0, rand() % 2, 0);
+    asteroid.assign<PositionC>(rand() % 10, rand() % 12, 0);
   }
 }
 
-std::array<float, 2> AsteroidField::getCoords()
+void AsteroidField::fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType)
 {
-  // WIP
   PositionC::Handle position;
   MotionC::Handle motion;
   std::array<float, 2> coords = { 0, 0 };
+
+  int i = 0;
   for (entityx::Entity entity : m_entityManager.entities_with_components(position, motion))
   {
-    // coordsAndRot = { position->x, position->y, motion->rot };
+    if (i >= size) break;// Should not happen
+
+    posEntities[i++] = position->x;
+    posEntities[i++] = position->y;
+    posEntities[i++] = position->x;// TODO
   }
 
-  return coords;
+  *nbEntities = m_nbAsteroids;
 }

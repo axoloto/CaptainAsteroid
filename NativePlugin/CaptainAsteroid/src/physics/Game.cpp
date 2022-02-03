@@ -30,7 +30,7 @@ void Game::init(float boundaryV, float boundaryH)
   LOG_INFO("Initializing Plugin Game Engine");
   m_gameManager.init();
   m_spaceShip.init();
-  m_asteroidField.init();
+  m_asteroidField.init(30);
 
   createSystems(boundaryV, boundaryH);
 
@@ -69,9 +69,15 @@ void Game::fillPosEntityList(float *posEntities, int size, int *nbEntities, Util
 {
   for (int i = 0; i < size; ++i)
   {
-    posEntities[i] = 99.9f;
+    //  posEntities[i] = 99.9f;
   }
-  *nbEntities = 3;
+
+  if (entityType & Utils::EntityType::Asteroid_XXL
+      || entityType & Utils::EntityType::Asteroid_M
+      || entityType & Utils::EntityType::Asteroid_S)
+  {
+    m_asteroidField.fillPosArray(posEntities, size, nbEntities, entityType);
+  }
 }
 
 }// namespace AsteroidsCPP

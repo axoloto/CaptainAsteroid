@@ -12,7 +12,7 @@ public:
   AsteroidField(entityx::EntityManager &entityManager) : m_entityManager(entityManager){};
 
   void init(int nbAsteroids = 10);
-  std::array<float, 2> getCoords();
+  void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType);
 
 private:
   entityx::EntityManager &m_entityManager;
