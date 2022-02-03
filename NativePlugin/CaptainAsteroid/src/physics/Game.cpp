@@ -76,7 +76,7 @@ void Game::fillPosEntityList(float *posEntities, int size, int *nbEntities, Util
       || entityType & Utils::EntityType::Asteroid_M
       || entityType & Utils::EntityType::Asteroid_S)
   {
-    m_asteroidField.fillPosArray(posEntities, size, nbEntities, entityType);
+    m_asteroidField.fillPosEntityList(posEntities, size, nbEntities, entityType);
   }
 }
 

@@ -2,6 +2,8 @@
 
 #include <array>
 
+#include "utils.hpp"
+
 #include "entityx/System.h"
 
 namespace AsteroidsCPP

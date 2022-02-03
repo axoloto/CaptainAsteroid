@@ -23,10 +23,9 @@ void AsteroidField::fillPosEntityList(float *posEntities, int size, int *nbEntit
 {
   PositionC::Handle position;
   MotionC::Handle motion;
-  std::array<float, 2> coords = { 0, 0 };
 
   int i = 0;
-  for (entityx::Entity entity : m_entityManager.entities_with_components(position, motion))
+  for (entityx::Entity entity : m_entityManager.entities_with_components(position, motion))//bug wip
   {
     if (i >= size) break;// Should not happen
 
