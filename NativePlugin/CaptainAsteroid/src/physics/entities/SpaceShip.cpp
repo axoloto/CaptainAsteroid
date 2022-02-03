@@ -2,6 +2,7 @@
 
 #include "Utils.hpp"
 
+#include "components/SizeC.hpp"
 #include "components/MotionC.hpp"
 #include "components/PositionC.hpp"
 #include "components/PlayerControlC.hpp"
@@ -16,6 +17,7 @@ void SpaceShip::init()
   spaceShip.assign<PositionC>();
   spaceShip.assign<LaserC>();
   spaceShip.assign<PlayerControlC>();
+  spaceShip.assign<SizeC>(0.5f);
 }
 
 std::array<float, 3> SpaceShip::getPosAndDir()

@@ -33,7 +33,7 @@ void Game::init(float boundaryV, float boundaryH)
   LOG_INFO("Initializing Plugin Game Engine");
   m_gameManager.init();
   m_spaceShip.init();
-  m_asteroidField.init(30);
+  m_asteroidField.init(30, boundaryV, boundaryH);
   m_laserShots.init();
 
   createSystems(boundaryV, boundaryH);

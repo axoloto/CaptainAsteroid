@@ -13,7 +13,7 @@ class AsteroidField
 public:
   AsteroidField(entityx::EntityManager &entityManager) : m_entityManager(entityManager){};
 
-  void init(int nbAsteroids = 10);
+  void init(int nbAsteroids, float boundaryV, float boundaryH);
   void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType);
 
 private:

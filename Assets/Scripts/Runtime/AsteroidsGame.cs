@@ -145,8 +145,6 @@ public class AsteroidsGame : MonoBehaviour
         int currNbLaserShots = 0;
         m_plg.FillPosEntityList(m_posLaserShotList, m_posLaserShotList.Length, out currNbLaserShots, (int)EntityType.LaserShot);
         
-        Debug.Log("Nb laser :" + currNbLaserShots);
-
         if(currNbLaserShots > m_pooledLaserShots.Count) currNbLaserShots = m_pooledLaserShots.Count; // Should never happen
 
         for(int i = 0; i < currNbLaserShots; i++)
@@ -160,5 +158,7 @@ public class AsteroidsGame : MonoBehaviour
                 laserShot.SetActive(true);
             }
         }
+
+        Debug.Log("Current Nb Asteroids : " + currNbAsteroids + " Current Nb Laser Shots :" + currNbLaserShots);
     }
 }
