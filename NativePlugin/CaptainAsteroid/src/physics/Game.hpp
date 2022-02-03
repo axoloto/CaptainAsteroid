@@ -4,6 +4,7 @@
 #include "Utils.hpp"
 #include "entities/SpaceShip.hpp"
 #include "entities/AsteroidField.hpp"
+#include "entities/LaserShots.hpp"
 
 #include "entityx/Event.h"
 #include "entityx/Entity.h"
@@ -41,5 +42,7 @@ private:
   SpaceShip m_spaceShip;
 
   AsteroidField m_asteroidField;
+
+  LaserShots m_laserShots;
 };
 }// namespace AsteroidsCPP

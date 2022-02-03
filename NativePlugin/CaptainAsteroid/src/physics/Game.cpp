@@ -3,8 +3,10 @@
 #include "Logging.hpp"
 
 #include "systems/PlayerControlS.hpp"
-#include "systems/MovementS.hpp"
-#include "systems/CollisionS.hpp"
+#include "systems/MoveS.hpp"
+#include "systems/CollideS.hpp"
+#include "systems/FireLaserS.hpp"
+#include "systems/ReduceLifeTimeS.hpp"
 
 #include "components/MotionC.hpp"
 #include "components/PositionC.hpp"
@@ -20,7 +22,8 @@ Game::Game() : m_eventManager(),
                m_systemManager(m_entityManager, m_eventManager),
                m_gameManager(m_entityManager, m_eventManager),
                m_spaceShip(m_entityManager),
-               m_asteroidField(m_entityManager)
+               m_asteroidField(m_entityManager),
+               m_laserShots(m_entityManager)
 {
   Utils::InitializeLogger();
 }
@@ -31,6 +34,7 @@ void Game::init(float boundaryV, float boundaryH)
   m_gameManager.init();
   m_spaceShip.init();
   m_asteroidField.init(30);
+  m_laserShots.init();
 
   createSystems(boundaryV, boundaryH);
 
@@ -40,8 +44,10 @@ void Game::init(float boundaryV, float boundaryH)
 void Game::createSystems(float boundaryV, float boundaryH)
 {
   m_systemManager.add<PlayerControlS>();
-  m_systemManager.add<MovementS>(boundaryV, boundaryH);
-  m_systemManager.add<CollisionS>();
+  m_systemManager.add<MoveS>(boundaryV, boundaryH);
+  m_systemManager.add<CollideS>(m_asteroidField);
+  m_systemManager.add<FireLaserS>(m_laserShots);
+  m_systemManager.add<ReduceLifeTimeS>();
   m_systemManager.configure();
 }
 
@@ -52,8 +58,10 @@ void Game::update(Utils::KeyState keyState, float deltaTime)
   if (m_gameManager.isRunning() && m_gameManager.gameState() == GS_Playing)
   {
     m_systemManager.update<PlayerControlS>(deltaTime);
-    m_systemManager.update<MovementS>(deltaTime);
-    m_systemManager.update<CollisionS>(deltaTime);
+    m_systemManager.update<MoveS>(deltaTime);
+    m_systemManager.update<CollideS>(deltaTime);
+    m_systemManager.update<FireLaserS>(deltaTime);
+    m_systemManager.update<ReduceLifeTimeS>(deltaTime);
   }
 }
 
@@ -67,16 +75,15 @@ void Game::getSpaceShipCoords(float &x, float &y, float &rotDeg)
 
 void Game::fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType)
 {
-  for (int i = 0; i < size; ++i)
-  {
-    //  posEntities[i] = 99.9f;
-  }
-
   if (entityType & Utils::EntityType::Asteroid_XXL
       || entityType & Utils::EntityType::Asteroid_M
       || entityType & Utils::EntityType::Asteroid_S)
   {
     m_asteroidField.fillPosEntityList(posEntities, size, nbEntities, entityType);
+  }
+  else if (entityType & Utils::EntityType::LaserShot)
+  {
+    m_laserShots.fillPosEntityList(posEntities, size, nbEntities, entityType);
   }
 }
 

@@ -27,7 +27,7 @@ void PlayerControlS::update(
   for (entityx::Entity entity : entities.entities_with_components(playerControl, motion, laser))
   {
     float acc = 0.0f;
-    if (m_keyState.pressed(Utils::KeyState::Keys::Down))
+    if (m_keyState.pressed(Utils::KeyState::Keys::Down))//use playerControl
     {
       acc = -thrustCoeff;
     }
@@ -50,7 +50,7 @@ void PlayerControlS::update(
     motion->vel *= frictionCoeff;
     motion->vel = std::max(0.0f, std::min(motion->vel, 20.0f));
 
-    //gun->isMainFirePressed = m_keyHandler.isPressed(playerControl->shoot);
+    laser->isFiring = m_keyState.pressed(Utils::KeyState::Keys::Space);
   }
 }
 

@@ -104,7 +104,7 @@ public class AsteroidsGame : MonoBehaviour
         m_pooledLaserShots = new List<GameObject>();
         for(int i = 0; i < m_maxNbLaserShots; ++i)
         {
-            tmp = Instantiate(m_asteroidObject);
+            tmp = Instantiate(m_laserShotObject);
             tmp.SetActive(false);
             m_pooledLaserShots.Add(tmp);
         }
@@ -139,6 +139,25 @@ public class AsteroidsGame : MonoBehaviour
                 asteroid.transform.position = new Vector3(m_posAsteroidList[j], m_posAsteroidList[j+1], 0);
                 asteroid.transform.rotation = Quaternion.Euler(0, 0, m_posAsteroidList[j+2]);
                 asteroid.SetActive(true);
+            }
+        }
+
+        int currNbLaserShots = 0;
+        m_plg.FillPosEntityList(m_posLaserShotList, m_posLaserShotList.Length, out currNbLaserShots, (int)EntityType.LaserShot);
+        
+        Debug.Log("Nb laser :" + currNbLaserShots);
+
+        if(currNbLaserShots > m_pooledLaserShots.Count) currNbLaserShots = m_pooledLaserShots.Count; // Should never happen
+
+        for(int i = 0; i < currNbLaserShots; i++)
+        {
+            GameObject laserShot = m_pooledLaserShots[i];
+            if(laserShot != null)
+            {
+                int j = i * 3;
+                laserShot.transform.position = new Vector3(m_posLaserShotList[j], m_posLaserShotList[j+1], 0);
+                laserShot.transform.rotation = Quaternion.Euler(0, 0, m_posLaserShotList[j+2]);
+                laserShot.SetActive(true);
             }
         }
     }
