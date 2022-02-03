@@ -25,7 +25,7 @@ public:
 
   void getSpaceShipCoords(float &x, float &y, float &angle);
 
-  void getEntitiesCoords(){};
+  void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType);
 
 private:
   void createSystems(float boundaryV, float boundaryH);

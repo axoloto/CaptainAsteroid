@@ -29,10 +29,14 @@ public class PluginControl : MonoBehaviour
     static extern void Init(IntPtr gamePtr, float boundaryV, float boundaryH);
 
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
+    static extern void Update(IntPtr gamePtr, int keyState, float deltaTime);
+
+    [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern void GetSpaceShipCoords(IntPtr gamePtr, ref float x, ref float y, ref float angle);
 
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
-    static extern void Update(IntPtr gamePtr, int keyState, float deltaTime);
+    static extern void FillPosEntityList(IntPtr gamePtr, IntPtr posEntities, int size, out int nbEntities, int typeEntity);
+
     #endregion
 
     // Start is called before the first frame update
@@ -74,6 +78,20 @@ public class PluginControl : MonoBehaviour
         if(InstanceReady())
         {
             GetSpaceShipCoords(m_GamePtr, ref x, ref y, ref angle);
+        }
+    }
+
+    public unsafe void FillPosEntityList(float[] posEntities, int size, out int nbEntities, int entityType)
+    {
+        nbEntities = 0;
+
+        if(InstanceReady())
+        {
+            // Pin Memory
+            fixed (float* fixPtr = posEntities)
+            {
+                FillPosEntityList(m_GamePtr, (IntPtr)fixPtr, size, out nbEntities, entityType);
+            }
         }
     }
 

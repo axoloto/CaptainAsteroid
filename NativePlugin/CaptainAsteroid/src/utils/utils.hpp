@@ -6,6 +6,14 @@ namespace AsteroidsCPP
 {
 namespace Utils
 {
+  enum EntityType : std::uint32_t
+  {
+    Asteroid_XXL = 1 << 0,
+    Asteroid_M = 1 << 1,
+    Asteroid_S = 1 << 2,
+    LaserShot = 1 << 3,
+  };
+
   struct KeyState
   {
     enum class Keys : std::uint32_t
@@ -16,6 +24,7 @@ namespace Utils
       Down = 1 << 3,
       Space = 1 << 4,
     };
+
 
     std::uint32_t State;
 

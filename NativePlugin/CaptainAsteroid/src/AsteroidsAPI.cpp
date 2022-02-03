@@ -34,14 +34,20 @@ void Init(AsteroidsCPP::Game *gamePtr, float boundaryV, float boundaryH)
   if (gamePtr) gamePtr->init(boundaryV, boundaryH);
 }
 
+void Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Utils::KeyState keyState, float deltaTime)
+{
+  if (gamePtr) gamePtr->update(keyState, deltaTime);
+}
+
 void GetSpaceShipCoords(AsteroidsCPP::Game *gamePtr, float &x, float &y, float &angle)
 {
   if (gamePtr) gamePtr->getSpaceShipCoords(x, y, angle);
 }
 
-void Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Utils::KeyState keyState, float deltaTime)
+void FillPosEntityList(AsteroidsCPP::Game *gamePtr, float *posEntities, int size, int *nbEntities, AsteroidsCPP::Utils::EntityType entityType)
 {
-  if (gamePtr) gamePtr->update(keyState, deltaTime);
+  if (gamePtr) gamePtr->fillPosEntityList(posEntities, size, nbEntities, entityType);
 }
+
 
 }// namespace AsteroidsCPP

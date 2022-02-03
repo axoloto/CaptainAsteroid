@@ -65,4 +65,13 @@ void Game::getSpaceShipCoords(float &x, float &y, float &rotDeg)
   rotDeg = coordsAndRot[2];
 }
 
+void Game::fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType)
+{
+  for (int i = 0; i < size; ++i)
+  {
+    posEntities[i] = 99.9f;
+  }
+  *nbEntities = 3;
+}
+
 }// namespace AsteroidsCPP
