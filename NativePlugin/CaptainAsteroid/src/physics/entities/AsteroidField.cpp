@@ -15,7 +15,7 @@ void AsteroidField::init(int nbAsteroids)
   {
     entityx::Entity asteroid = m_entityManager.create();
     asteroid.assign<MotionC>(0, rand() % 2, 0);
-    asteroid.assign<PositionC>(rand() % 10, rand() % 12, 0);
+    asteroid.assign<PositionC>(rand() % 10, rand() % 12, rand() % 10);
   }
 }
 

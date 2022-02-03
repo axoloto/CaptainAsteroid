@@ -71,5 +71,17 @@ public class AsteroidsGame : MonoBehaviour
         int filledAmount = 0;
         m_plg.FillPosEntityList(m_posAsteroidList, m_maxNbAsteroid * 3, out filledAmount, (int)EntityType.Asteroid_M);
         Debug.Log(" Fill Pos Entity " + m_posAsteroidList[0] + "  " + m_posAsteroidList[1] + " " + filledAmount);
+
+        EntityPool.Instance.ResetPool();
+
+        for(int i = 0; i < filledAmount; ++i)
+        {
+            GameObject asteroid = EntityPool.Instance.GetPooledObject();
+            if(asteroid != null)
+            {
+                asteroid.transform.position = new Vector3(m_posAsteroidList[i], m_posAsteroidList[i+1], 0);
+                asteroid.SetActive(true);
+            }
+        }
     }
 }
