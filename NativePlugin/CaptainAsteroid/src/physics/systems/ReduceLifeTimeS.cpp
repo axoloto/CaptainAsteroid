@@ -2,6 +2,7 @@
 
 #include "components/LifeTimeC.hpp"
 #include "components/IdentityC.hpp"
+#include "components/DeathC.hpp"
 
 using namespace AsteroidsCPP;
 
@@ -16,10 +17,7 @@ void ReduceLifeTimeS::update(
   {
     if (live->lifeTime <= 0.0f)
     {
-      if (entity.component<IdentityC>()->id == Id::LaserShot)
-        m_laserShots.destroyShot(entity);
-      else
-        entity.destroy();
+      entity.assign<DeathC>();
     }
     else
     {

@@ -18,7 +18,7 @@ public:
 
   void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType);
 
-  void createShot(const PositionC &initPos);
+  void createShot(const PositionC &initPos, const MotionC &initMot);
   void destroyShot(entityx::Entity shot);
 
 private:

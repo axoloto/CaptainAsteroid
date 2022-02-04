@@ -11,16 +11,25 @@ namespace AsteroidsCPP
 class AsteroidField
 {
 public:
-  AsteroidField(entityx::EntityManager &entityManager) : m_entityManager(entityManager){};
+  AsteroidField(entityx::EntityManager &entityManager) : m_entityManager(entityManager),
+                                                         m_nbMaxAsteroidsByType(200),
+                                                         m_nbAsteroidsXXL(0),
+                                                         m_nbAsteroidsM(0),
+                                                         m_nbAsteroidsS(0){};
 
-  void init(int nbAsteroids, float boundaryV, float boundaryH);
+  void init(size_t nbAsteroids, float boundaryV, float boundaryH);
   void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType);
 
-  void removeAsteroid(entityx::Entity asteroid);
+  void createAsteroidsFromParent(entityx::Entity parent);
+
+  void destroyAsteroid(entityx::Entity asteroid);
 
 private:
   entityx::EntityManager &m_entityManager;
 
-  int m_nbAsteroids;
+  size_t m_nbMaxAsteroidsByType;
+  size_t m_nbAsteroidsXXL;
+  size_t m_nbAsteroidsM;
+  size_t m_nbAsteroidsS;
 };
 }// namespace AsteroidsCPP

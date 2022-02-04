@@ -7,6 +7,8 @@
 #include "systems/CollideS.hpp"
 #include "systems/FireLaserS.hpp"
 #include "systems/ReduceLifeTimeS.hpp"
+#include "systems/CreateAsteroidChildS.hpp"
+#include "systems/RemoveDeadS.hpp"
 
 #include "components/MotionC.hpp"
 #include "components/PositionC.hpp"
@@ -26,27 +28,38 @@ Game::Game() : m_eventManager(),
                m_laserShots(m_entityManager)
 {
   Utils::InitializeLogger();
+  LOG_INFO("Game Created");
 }
 
-void Game::init(float boundaryV, float boundaryH)
+void Game::init(Utils::InitParams initParams)
 {
-  LOG_INFO("Initializing Plugin Game Engine");
   m_gameManager.init();
-  m_spaceShip.init();
-  m_asteroidField.init(30, boundaryV, boundaryH);
 
-  createSystems(boundaryV, boundaryH);
+  m_spaceShip.init();
+
+  m_asteroidField.init(
+    initParams.initNbAsteroidsXXL,
+    initParams.boundaryDomainV,
+    initParams.boundaryDomainH);
+
+  createSystems(
+    initParams.boundaryDomainV,
+    initParams.boundaryDomainH);
 
   m_eventManager.emit<PlayGameE>();
+
+  LOG_INFO("Game Initialized");
 }
 
 void Game::createSystems(float boundaryV, float boundaryH)
 {
   m_systemManager.add<PlayerControlS>();
   m_systemManager.add<MoveS>(boundaryV, boundaryH);
-  m_systemManager.add<CollideS>(m_asteroidField);
+  m_systemManager.add<CollideS>(m_asteroidField, m_laserShots);
   m_systemManager.add<FireLaserS>(m_laserShots);
   m_systemManager.add<ReduceLifeTimeS>(m_laserShots);
+  m_systemManager.add<CreateAsteroidChildS>(m_asteroidField);
+  m_systemManager.add<RemoveDeadS>(m_asteroidField, m_laserShots);
   m_systemManager.configure();
 }
 
@@ -54,13 +67,15 @@ void Game::update(Utils::KeyState keyState, float deltaTime)
 {
   m_eventManager.emit<PlayerInputE>(keyState);
 
-  if (m_gameManager.isRunning() && m_gameManager.gameState() == GS_Playing)
+  if (m_gameManager.isGameRunning())
   {
     m_systemManager.update<PlayerControlS>(deltaTime);
     m_systemManager.update<MoveS>(deltaTime);
     m_systemManager.update<CollideS>(deltaTime);
     m_systemManager.update<FireLaserS>(deltaTime);
     m_systemManager.update<ReduceLifeTimeS>(deltaTime);
+    m_systemManager.update<CreateAsteroidChildS>(deltaTime);
+    m_systemManager.update<RemoveDeadS>(deltaTime);
   }
 }
 

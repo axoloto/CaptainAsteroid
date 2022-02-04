@@ -18,8 +18,8 @@ void PlayerControlS::update(
 {
   constexpr float maxAcc = 0.05f;
   constexpr float thrustCoeff = 20.0f;
-  constexpr float angleCoeff = 0.7f;
-  constexpr float frictionCoeff = 0.99f;
+  constexpr float angleCoeff = 1.2f;
+  constexpr float frictionCoeff = 0.997f;
 
   MotionC::Handle motion;
   LaserC::Handle laser;

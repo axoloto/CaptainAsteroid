@@ -1,6 +1,7 @@
 #pragma once
 
 #include "entities/AsteroidField.hpp"
+#include "entities/LaserShots.hpp"
 
 #include "components/PositionC.hpp"
 
@@ -12,7 +13,7 @@ namespace AsteroidsCPP
 class CollideS : public entityx::System<CollideS>
 {
 public:
-  CollideS(AsteroidField &asteroidField);
+  CollideS(AsteroidField &asteroidField, LaserShots &laserShots);
 
   void update(
     entityx::EntityManager &entities,
@@ -33,6 +34,10 @@ private:
     entityx::EventManager &events,
     entityx::Entity spaceShip);
 
+  void destroyLaserShot(
+    entityx::EntityManager &entities,
+    entityx::Entity laserShot);
+
   void handleCollision(
     entityx::EntityManager &entities,
     entityx::EventManager &events,
@@ -46,5 +51,6 @@ private:
     float rad2) const;
 
   AsteroidField &m_asteroidField;
+  LaserShots &m_laserShots;
 };
 }// namespace AsteroidsCPP

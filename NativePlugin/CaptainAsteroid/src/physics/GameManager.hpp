@@ -27,7 +27,7 @@ public:
 
   GameState gameState() const;
 
-  bool isRunning() const;
+  bool isGameRunning() const;
 
   void receive(const PlayGameE &playGame);
   void receive(const GameOverE &gameOver);
@@ -39,8 +39,6 @@ private:
   entityx::EventManager &m_eventManager;
 
   GameState m_gameState;
-
-  bool m_isRunning;
 };
 
 

@@ -7,8 +7,7 @@ GameManager::GameManager(entityx::EntityManager &entityManager,
   entityx::EventManager &eventManager)
   : m_entityManager(entityManager),
     m_eventManager(eventManager),
-    m_gameState(GS_Start),
-    m_isRunning(false)
+    m_gameState(GS_Start)
 {
 }
 
@@ -17,7 +16,6 @@ void GameManager::init()
   m_eventManager.subscribe<PlayGameE>(*this);
   m_eventManager.subscribe<GameOverE>(*this);
   m_eventManager.subscribe<VictoryE>(*this);
-  m_isRunning = true;
 }
 
 GameState GameManager::gameState() const
@@ -25,9 +23,9 @@ GameState GameManager::gameState() const
   return m_gameState;
 }
 
-bool GameManager::isRunning() const
+bool GameManager::isGameRunning() const
 {
-  return m_isRunning;
+  return m_gameState == GS_Playing;
 }
 
 void GameManager::receive(const PlayGameE &start)
@@ -39,12 +37,12 @@ void GameManager::receive(const GameOverE &gameOver)
 {
   m_gameState = GS_GameOver;
 
-  m_entityManager.reset();
+ // m_entityManager.reset();
 }
 
 void GameManager::receive(const VictoryE &victory)
 {
   m_gameState = GS_Victory;
 
-  m_entityManager.reset();
+ // m_entityManager.reset();
 }

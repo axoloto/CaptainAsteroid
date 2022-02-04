@@ -3,9 +3,7 @@
 #include "Utils.hpp"
 
 #include "components/RadiusC.hpp"
-#include "components/PositionC.hpp"
 #include "components/LifeTimeC.hpp"
-#include "components/PlayerControlC.hpp"
 #include "components/IdentityC.hpp"
 
 using namespace AsteroidsCPP;
@@ -30,13 +28,13 @@ void LaserShots::fillPosEntityList(float *posEntities, int size, int *nbEntities
   *nbEntities = m_nbShots;
 }
 
-void LaserShots::createShot(const PositionC &initPos)
+void LaserShots::createShot(const PositionC &initPos, const MotionC &initMot)
 {
   if (m_nbShots < m_maxNbShots)
   {
     entityx::Entity laserShot = m_entityManager.create();
     laserShot.assign<IdentityC>(Id::LaserShot);
-    laserShot.assign<MotionC>(m_shotVel, 0.0f);
+    laserShot.assign<MotionC>(m_shotVel + initMot.vel, 0.0f);
     laserShot.assign<PositionC>(initPos);
     laserShot.assign<LifeTimeC>(1.5f);
     laserShot.assign<RadiusC>(0.1f);

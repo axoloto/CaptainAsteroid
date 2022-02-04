@@ -7,47 +7,111 @@
 
 namespace AsteroidsCPP
 {
-
-const char *HelloWorld()
+AsteroidsCPP::Game *CreateNativeInstance()
 {
-  return "Hello Captain Asteroid!";
-}
-
-AsteroidsCPP::Game *CreateInstance()
-{
-  LOG_INFO("Creating an instance of Asteroids Plugin");
-  return new AsteroidsCPP::Game();
-}
-
-void DeleteInstance(AsteroidsCPP::Game *instance)
-{
-  if (instance)
+  AsteroidsCPP::Game *gamePtr = nullptr;
+  try
   {
-    LOG_INFO("Removing Asteroids Plugin instance");
-    delete instance;
-    instance = nullptr;
+    LOG_INFO("Creating Asteroids Plugin instance");
+    gamePtr = new AsteroidsCPP::Game();
+  }
+  catch (const std::exception &e)
+  {
+    if (gamePtr) delete gamePtr;
+    gamePtr = nullptr;
+    LOG_ERROR(" Run-time error while creating native instance, error type : {}", e.what());
+  }
+  catch (...)
+  {
+    if (gamePtr) delete gamePtr;
+    gamePtr = nullptr;
+    LOG_ERROR(" Run-time error while creating native instance, error type unknown");
+  }
+  return gamePtr;
+}
+
+void DeleteNativeInstance(AsteroidsCPP::Game *gamePtr)
+{
+  try
+  {
+    if (gamePtr)
+    {
+      LOG_INFO("Removing Asteroids Plugin instance");
+      delete gamePtr;
+      gamePtr = nullptr;
+    }
+  }
+  catch (const std::exception &e)
+  {
+    LOG_ERROR(" Run-time error while updating plugin, error type : {}", e.what());
+  }
+  catch (...)
+  {
+    LOG_ERROR(" Run-time error while updating plugin, error type unknown");
   }
 }
 
-void Init(AsteroidsCPP::Game *gamePtr, float boundaryV, float boundaryH)
+void Init(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Utils::InitParams initParams)
 {
-  if (gamePtr) gamePtr->init(boundaryV, boundaryH);
+  try
+  {
+    if (gamePtr) gamePtr->init(initParams);
+  }
+  catch (const std::exception &e)
+  {
+    LOG_ERROR(" Run-time error while updating plugin, error type : {}", e.what());
+  }
+  catch (...)
+  {
+    LOG_ERROR(" Run-time error while updating plugin, error type unknown");
+  }
 }
 
 void Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Utils::KeyState keyState, float deltaTime)
 {
-  if (gamePtr) gamePtr->update(keyState, deltaTime);
+  try
+  {
+    if (gamePtr) gamePtr->update(keyState, deltaTime);
+  }
+  catch (const std::exception &e)
+  {
+    LOG_ERROR(" Run-time error while updating plugin, error type : {}", e.what());
+  }
+  catch (...)
+  {
+    LOG_ERROR(" Run-time error while updating plugin, error type unknown");
+  }
 }
 
 void GetSpaceShipCoords(AsteroidsCPP::Game *gamePtr, float &x, float &y, float &angle)
 {
-  if (gamePtr) gamePtr->getSpaceShipCoords(x, y, angle);
+  try
+  {
+    if (gamePtr) gamePtr->getSpaceShipCoords(x, y, angle);
+  }
+  catch (const std::exception &e)
+  {
+    LOG_ERROR(" Run-time error while getting space ship coords, error type : {}", e.what());
+  }
+  catch (...)
+  {
+    LOG_ERROR(" Run-time error while getting space ship coords, error type unknown");
+  }
 }
 
 void FillPosEntityList(AsteroidsCPP::Game *gamePtr, float *posEntities, int size, int *nbEntities, AsteroidsCPP::Utils::EntityType entityType)
 {
-  if (gamePtr) gamePtr->fillPosEntityList(posEntities, size, nbEntities, entityType);
+  try
+  {
+    if (gamePtr) gamePtr->fillPosEntityList(posEntities, size, nbEntities, entityType);
+  }
+  catch (const std::exception &e)
+  {
+    LOG_ERROR(" Run-time error while filling pos entity list, error type : {}", e.what());
+  }
+  catch (...)
+  {
+    LOG_ERROR(" Run-time error while filling pos entity list, error type unknown");
+  }
 }
-
-
 }// namespace AsteroidsCPP

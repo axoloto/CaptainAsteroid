@@ -10,9 +10,9 @@
 #define ASTEROID_EXPORT
 #endif
 
-//#include "Game.hpp"//WIP to remove
 #include "Utils.hpp"
 #include <cstdint>
+
 namespace AsteroidsCPP
 {
 class Game;
@@ -22,15 +22,12 @@ extern "C"
 {
   namespace AsteroidsCPP
   {
-    // Sample Functions
+    // TODO
+    ASTEROID_EXPORT AsteroidsCPP::Game *CreateNativeInstance();
 
-    ASTEROID_EXPORT const char *HelloWorld();
+    ASTEROID_EXPORT void DeleteNativeInstance(AsteroidsCPP::Game *ptr);
 
-    ASTEROID_EXPORT AsteroidsCPP::Game *CreateInstance();
-
-    ASTEROID_EXPORT void DeleteInstance(AsteroidsCPP::Game *ptr);
-
-    ASTEROID_EXPORT void Init(AsteroidsCPP::Game *gamePtr, float boundaryV, float boundaryH);
+    ASTEROID_EXPORT void Init(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Utils::InitParams initParams);
 
     ASTEROID_EXPORT void Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Utils::KeyState keyState, float deltaTime);
 

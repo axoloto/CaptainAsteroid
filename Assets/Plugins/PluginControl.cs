@@ -4,9 +4,21 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
+    [StructLayout(LayoutKind.Sequential)]
+    public struct InitParams
+    {
+        public float boundaryDomainV;
+        public float boundaryDomainH;
+        public int initNbAsteroidsXXL;
+        public int initNbAsteroidsM;
+        public int initNbAsteroidsS;
+        public int maxNbAsteroidsByType;
+    }
+
 public class PluginControl : MonoBehaviour
 {
     private IntPtr m_GamePtr = IntPtr.Zero;
+
 
     #region Native
 
@@ -17,65 +29,85 @@ public class PluginControl : MonoBehaviour
 #endif
 
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
-    static extern IntPtr HelloWorld();
+    static extern IntPtr CreateNativeInstance();
 
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
-    static extern IntPtr CreateInstance();
+    static extern void DeleteNativeInstance(IntPtr ptr);
 
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
-    static extern void DeleteInstance(IntPtr ptr);
-
-    [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
-    static extern void Init(IntPtr gamePtr, float boundaryV, float boundaryH);
+    static extern void Init(IntPtr gamePtr, InitParams initParams);
 
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern void Update(IntPtr gamePtr, int keyState, float deltaTime);
 
+    // Helper Function for Space Ship Controller
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern void GetSpaceShipCoords(IntPtr gamePtr, ref float x, ref float y, ref float angle);
 
+    // Generic Access to Entities positions and angle (x,y,theta) from native side
     [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern void FillPosEntityList(IntPtr gamePtr, IntPtr posEntities, int size, out int nbEntities, int typeEntity);
 
     #endregion
 
-    // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Plugin Controller Creating CPP Instance");
+        Debug.Log("Creating Native Instance");
 
-        if(m_GamePtr == IntPtr.Zero)
+        if(!IsNativeInstanceReady())
         {
-            m_GamePtr = CreateInstance();
+            m_GamePtr = CreateNativeInstance();
         }
 
-        if(m_GamePtr == IntPtr.Zero)
+        if(!IsNativeInstanceReady())
         {
-            Debug.LogError("Incorrect Captain Asteroids plugin instanciation");
+            Debug.LogError("Incorrect Captain Asteroids plugin instantiation");
         }
     }
 
     void OnDestroy()
     {
-        DeleteInstance(m_GamePtr);
-        Debug.Log("Plugin Controller Removing CPP Instance");
-        m_GamePtr = IntPtr.Zero;
+        if(IsNativeInstanceReady())
+        {
+            DeleteNativeInstance(m_GamePtr);
+            m_GamePtr = IntPtr.Zero;
+            Debug.Log("Removing Native Instance");
+        }
     }
 
     void Update()
     {
-        // Do nothing
-        // GameObjects will do what they need
     }
 
-    public bool InstanceReady()
+    bool IsNativeInstanceReady()
     {
         return m_GamePtr != IntPtr.Zero;
     }
 
+    public bool IsPluginReady()
+    {
+        return IsNativeInstanceReady();
+    }
+
+    public void InitPlugin(InitParams initParams)
+    {
+        if(IsNativeInstanceReady())
+        {
+            Init(m_GamePtr, initParams);
+        }
+    }
+
+    public void UpdatePlugin(int keyState, float deltaTime)
+    {
+        if(IsNativeInstanceReady())
+        {
+            Update(m_GamePtr, keyState, deltaTime);
+        }
+    }   
+
     public void GetSpaceShipCoords(ref float x, ref float y, ref float angle)
     {
-        if(InstanceReady())
+        if(IsNativeInstanceReady())
         {
             GetSpaceShipCoords(m_GamePtr, ref x, ref y, ref angle);
         }
@@ -85,29 +117,13 @@ public class PluginControl : MonoBehaviour
     {
         nbEntities = 0;
 
-        if(InstanceReady())
+        if(IsNativeInstanceReady())
         {
             // Pin Memory
             fixed (float* fixPtr = posEntities)
             {
                 FillPosEntityList(m_GamePtr, (IntPtr)fixPtr, size, out nbEntities, entityType);
             }
-        }
-    }
-
-    public void SendUserCommandAndTime(int keyState, float deltaTime)
-    {
-        if(InstanceReady())
-        {
-            Update(m_GamePtr, keyState, deltaTime);
-        }
-    }
-
-    public void InitPlugin(float boundaryV, float boundaryH)
-    {
-        if(InstanceReady())
-        {
-            Init(m_GamePtr, boundaryV, boundaryH);
         }
     }
 }

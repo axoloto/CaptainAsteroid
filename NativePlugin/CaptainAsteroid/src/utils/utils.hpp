@@ -14,6 +14,16 @@ namespace Utils
     LaserShot = 1 << 3,
   };
 
+  struct InitParams
+  {
+    float boundaryDomainV;
+    float boundaryDomainH;
+    int initNbAsteroidsXXL;
+    int initNbAsteroidsM;
+    int initNbAsteroidsS;
+    int maxNbAsteroidsByType;
+  };
+
   struct KeyState
   {
     enum class Keys : std::uint32_t
@@ -24,7 +34,6 @@ namespace Utils
       Down = 1 << 3,
       Space = 1 << 4,
     };
-
 
     std::uint32_t State;
 

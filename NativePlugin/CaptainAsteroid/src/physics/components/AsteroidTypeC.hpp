@@ -6,6 +6,7 @@ namespace AsteroidsCPP
 {
 enum class Type
 {
+  Unknown,
   XXL,
   M,
   S
