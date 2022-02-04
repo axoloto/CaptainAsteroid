@@ -14,6 +14,15 @@ public class AsteroidsGame : MonoBehaviour
         LaserShot = 1 << 3,
     }
 
+    enum KeyState : int
+    {
+        Left = 1 << 0,
+        Right = 1 << 1,
+        Up = 1 << 2,
+        Down = 1 << 3,
+        Space = 1 << 4,
+    }
+
     public Camera m_camera;
     public GameObject m_pluginController;
     PluginControl m_plg;
@@ -35,17 +44,8 @@ public class AsteroidsGame : MonoBehaviour
 
     public List<GameObject> m_pooledLaserShots;
     public GameObject m_laserShotObject;
-    public const int m_maxNbLaserShots = 300;
+    public const int m_maxNbLaserShots = 100;
     float[] m_posLaserShotList = new float[m_maxNbLaserShots * 3];
-
-    enum KeyState : int
-    {
-        Left = 1 << 0,
-        Right = 1 << 1,
-        Up = 1 << 2,
-        Down = 1 << 3,
-        Space = 1 << 4,
-    }
 
     void Start()
     {
@@ -59,7 +59,8 @@ public class AsteroidsGame : MonoBehaviour
 
         if(m_camera.orthographic)
         {
-            InitParams initParams;
+            PluginControl.InitParams initParams;
+
             initParams.initNbAsteroidsXXL = m_initNbAsteroidsXXL;
             initParams.initNbAsteroidsM = m_initNbAsteroidsM;
             initParams.initNbAsteroidsS = m_initNbAsteroidsS;
@@ -167,7 +168,6 @@ public class AsteroidsGame : MonoBehaviour
     {
         int currNbAsteroids = 0;
         m_plg.FillPosEntityList(m_posAsteroidList, m_posAsteroidList.Length, out currNbAsteroids, (int)EntityType.Asteroid_XXL);
-        Debug.Log("Pool xxl :" + currNbAsteroids);
 
         if(currNbAsteroids > m_pooledAsteroidsXXL.Count) currNbAsteroids = m_pooledAsteroidsXXL.Count; // Should never happen
 

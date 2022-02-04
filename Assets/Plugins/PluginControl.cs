@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
+// Class controlling access to Captain Asteroid Plugin
+public class PluginControl : MonoBehaviour
+{
+    private IntPtr m_GamePtr = IntPtr.Zero;
+
     [StructLayout(LayoutKind.Sequential)]
     public struct InitParams
     {
@@ -14,10 +19,6 @@ using UnityEngine;
         public int initNbAsteroidsS;
         public int maxNbAsteroidsByType;
     }
-
-public class PluginControl : MonoBehaviour
-{
-    private IntPtr m_GamePtr = IntPtr.Zero;
 
     #region Native
 

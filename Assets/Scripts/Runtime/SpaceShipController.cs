@@ -5,7 +5,6 @@ using UnityEngine;
 public class SpaceShipController : MonoBehaviour
 {
     private Transform spaceShip;
-    public float thrust;//wip
 
     public GameObject pluginController;
     PluginControl plg;
@@ -14,7 +13,6 @@ public class SpaceShipController : MonoBehaviour
     {
         spaceShip = GetComponent<Transform>();
         plg = pluginController.GetComponent<PluginControl>();
-        //plg.SetSpaceShipThrust(thrust);
     }
 
     void Update()
@@ -22,6 +20,7 @@ public class SpaceShipController : MonoBehaviour
         float x = spaceShip.position.x;
         float y = spaceShip.position.y;
         float angle = spaceShip.rotation.z;
+        
         plg.GetSpaceShipCoords(ref x, ref y, ref angle);
 
         spaceShip.position = new Vector3(x, y, 0.0f);
