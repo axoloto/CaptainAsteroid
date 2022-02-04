@@ -2,22 +2,24 @@
 
 #include "Utils.hpp"
 
-#include "components/SizeC.hpp"
+#include "components/RadiusC.hpp"
 #include "components/MotionC.hpp"
 #include "components/PositionC.hpp"
 #include "components/PlayerControlC.hpp"
 #include "components/LaserC.hpp"
+#include "components/IdentityC.hpp"
 
 using namespace AsteroidsCPP;
 
 void SpaceShip::init()
 {
   entityx::Entity spaceShip = m_entityManager.create();
+  spaceShip.assign<IdentityC>(Id::SpaceShip);
   spaceShip.assign<MotionC>();
   spaceShip.assign<PositionC>();
   spaceShip.assign<LaserC>();
   spaceShip.assign<PlayerControlC>();
-  spaceShip.assign<SizeC>(0.5f);
+  spaceShip.assign<RadiusC>(0.3f);
 }
 
 std::array<float, 3> SpaceShip::getPosAndDir()

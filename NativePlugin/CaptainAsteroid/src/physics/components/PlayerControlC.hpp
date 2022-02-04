@@ -5,6 +5,6 @@ namespace AsteroidsCPP
 {
 struct PlayerControlC : public entityx::Component<PlayerControlC>
 {
-  PlayerControlC();
+  PlayerControlC(){};
 };
 }// namespace AsteroidsCPP

@@ -8,7 +8,7 @@ namespace AsteroidsCPP
 {
 struct PositionC : entityx::Component<PositionC>
 {
-  PositionC(float x = 0, float y = 0, float angle = 0);
+  PositionC(float _x = 0, float _y = 0, float _angle = 0) : x(_x), y(_y), angle(_angle){};
 
   float dist2(const PositionC &other) const
   {

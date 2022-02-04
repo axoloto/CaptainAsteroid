@@ -16,6 +16,8 @@ public:
   void init(int nbAsteroids, float boundaryV, float boundaryH);
   void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType);
 
+  void removeAsteroid(entityx::Entity asteroid);
+
 private:
   entityx::EntityManager &m_entityManager;
 

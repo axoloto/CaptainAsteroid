@@ -34,7 +34,6 @@ void Game::init(float boundaryV, float boundaryH)
   m_gameManager.init();
   m_spaceShip.init();
   m_asteroidField.init(30, boundaryV, boundaryH);
-  m_laserShots.init();
 
   createSystems(boundaryV, boundaryH);
 
@@ -47,7 +46,7 @@ void Game::createSystems(float boundaryV, float boundaryH)
   m_systemManager.add<MoveS>(boundaryV, boundaryH);
   m_systemManager.add<CollideS>(m_asteroidField);
   m_systemManager.add<FireLaserS>(m_laserShots);
-  m_systemManager.add<ReduceLifeTimeS>();
+  m_systemManager.add<ReduceLifeTimeS>(m_laserShots);
   m_systemManager.configure();
 }
 
