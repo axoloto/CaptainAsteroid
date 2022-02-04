@@ -2,6 +2,7 @@
 Logs/
 Temp/
 Library/
+obj/
 
 NativePlugin/CaptainAsteroid/cmakeBuild/
 
