@@ -21,7 +21,7 @@ public:
 
   void init(Utils::InitParams initParams);
 
-  void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType);
+  void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType) const;
 
   void createAsteroidsFromParent(entityx::Entity parent);
 

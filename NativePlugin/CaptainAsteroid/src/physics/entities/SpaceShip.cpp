@@ -22,15 +22,15 @@ void SpaceShip::init()
   spaceShip.assign<RadiusC>(0.3f);
 }
 
-std::array<float, 3> SpaceShip::getPosAndDir()
+std::array<float, 3> SpaceShip::getPosAndDir() const
 {
-  // WIP
-  PlayerControlC::Handle playerControl;
   PositionC::Handle position;
+  PlayerControlC::Handle playerControl;
   std::array<float, 3> coordsAndRot = { 0, 0, 0 };
   for (entityx::Entity entity : m_entityManager.entities_with_components(playerControl, position))
   {
     coordsAndRot = { position->x, position->y, position->angle };
+    break;
   }
 
   return coordsAndRot;

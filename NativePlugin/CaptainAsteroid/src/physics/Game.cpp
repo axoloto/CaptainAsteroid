@@ -56,6 +56,8 @@ void Game::createSystems(float boundaryV, float boundaryH)
   m_systemManager.add<SplitAsteroidS>(m_asteroidField);
   m_systemManager.add<RemoveDeadS>(m_asteroidField, m_laserShots);
   m_systemManager.configure();
+
+  LOG_INFO("DOD Systems Initialized");
 }
 
 void Game::update(Utils::KeyState keyState, float deltaTime)
@@ -74,15 +76,15 @@ void Game::update(Utils::KeyState keyState, float deltaTime)
   }
 }
 
-void Game::getSpaceShipCoords(float &x, float &y, float &rotDeg)
+void Game::getSpaceShipCoords(float &x, float &y, float &angle) const
 {
-  auto coordsAndRot = m_spaceShip.getPosAndDir();
+  const std::array<float, 3> coordsAndRot = m_spaceShip.getPosAndDir();
   x = coordsAndRot[0];
   y = coordsAndRot[1];
-  rotDeg = coordsAndRot[2];
+  angle = coordsAndRot[2];
 }
 
-void Game::fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType)
+void Game::fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType) const
 {
   if (entityType & Utils::EntityType::Asteroid_XXL
       || entityType & Utils::EntityType::Asteroid_M

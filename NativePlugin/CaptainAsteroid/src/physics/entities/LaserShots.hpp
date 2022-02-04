@@ -14,9 +14,9 @@ namespace AsteroidsCPP
 class LaserShots
 {
 public:
-  LaserShots(entityx::EntityManager &entityManager) : m_entityManager(entityManager), m_nbShots(0), m_maxNbShots(200){};
+  LaserShots(entityx::EntityManager &entityManager) : m_entityManager(entityManager), m_shotVel(8.0f), m_maxNbShots(200), m_nbShots(0){};
 
-  void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType);
+  void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType) const;
 
   void createShot(const PositionC &initPos, const MotionC &initMot);
   void destroyShot(entityx::Entity shot);
@@ -24,8 +24,8 @@ public:
 private:
   entityx::EntityManager &m_entityManager;
 
-  const float m_shotVel = 8.0f;
-  size_t m_nbShots;
+  float m_shotVel;
   size_t m_maxNbShots;
+  size_t m_nbShots;
 };
 }// namespace AsteroidsCPP

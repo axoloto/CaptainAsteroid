@@ -19,7 +19,6 @@ public class PluginControl : MonoBehaviour
 {
     private IntPtr m_GamePtr = IntPtr.Zero;
 
-
     #region Native
 
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
@@ -84,6 +83,7 @@ public class PluginControl : MonoBehaviour
         return m_GamePtr != IntPtr.Zero;
     }
 
+    // Friendlier API
     public bool IsPluginReady()
     {
         return IsNativeInstanceReady();

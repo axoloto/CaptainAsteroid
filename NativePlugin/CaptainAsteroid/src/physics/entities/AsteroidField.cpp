@@ -136,7 +136,7 @@ void AsteroidField::destroyAsteroid(entityx::Entity asteroid)
   }
 }
 
-void AsteroidField::fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType)
+void AsteroidField::fillPosEntityList(float *posEntities, int sizeBuffer, int *nbEntities, Utils::EntityType entityType) const
 {
   int nbAsteroids = 0;
   auto selType = Type::Unknown;
@@ -163,7 +163,7 @@ void AsteroidField::fillPosEntityList(float *posEntities, int size, int *nbEntit
   size_t i = 0;
   for (entityx::Entity entity : m_entityManager.entities_with_components(position, identity, asteroidType))
   {
-    if (i >= size) break;// Should not happen
+    if (i >= sizeBuffer) break;// Should not happen
     if (identity->id != Id::Asteroid || asteroidType->type != selType) continue;
 
     posEntities[i++] = position->x;

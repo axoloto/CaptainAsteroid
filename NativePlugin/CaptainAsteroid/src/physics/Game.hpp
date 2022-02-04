@@ -25,10 +25,10 @@ public:
   void update(Utils::KeyState state, float deltaTime);
 
   // Helper function for specific access to Space Ship coords
-  void getSpaceShipCoords(float &x, float &y, float &angle);
+  void getSpaceShipCoords(float &x, float &y, float &angle) const;
 
   // Generic Access to any entities in the game (SpaceShip, Asteroids and LaserShots)
-  void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType);
+  void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType) const;
 
 private:
   // Creating DOD pipeline
