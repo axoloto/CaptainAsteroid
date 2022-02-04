@@ -7,7 +7,7 @@
 #include "systems/CollideS.hpp"
 #include "systems/FireLaserS.hpp"
 #include "systems/ReduceLifeTimeS.hpp"
-#include "systems/CreateAsteroidChildS.hpp"
+#include "systems/SplitAsteroidS.hpp"
 #include "systems/RemoveDeadS.hpp"
 
 #include "components/MotionC.hpp"
@@ -37,14 +37,9 @@ void Game::init(Utils::InitParams initParams)
 
   m_spaceShip.init();
 
-  m_asteroidField.init(
-    initParams.initNbAsteroidsXXL,
-    initParams.boundaryDomainV,
-    initParams.boundaryDomainH);
+  m_asteroidField.init(initParams);
 
-  createSystems(
-    initParams.boundaryDomainV,
-    initParams.boundaryDomainH);
+  createSystems(initParams.boundaryDomainV, initParams.boundaryDomainH);
 
   m_eventManager.emit<PlayGameE>();
 
@@ -55,10 +50,10 @@ void Game::createSystems(float boundaryV, float boundaryH)
 {
   m_systemManager.add<PlayerControlS>();
   m_systemManager.add<MoveS>(boundaryV, boundaryH);
-  m_systemManager.add<CollideS>(m_asteroidField, m_laserShots);
+  m_systemManager.add<CollideS>();
   m_systemManager.add<FireLaserS>(m_laserShots);
-  m_systemManager.add<ReduceLifeTimeS>(m_laserShots);
-  m_systemManager.add<CreateAsteroidChildS>(m_asteroidField);
+  m_systemManager.add<ReduceLifeTimeS>();
+  m_systemManager.add<SplitAsteroidS>(m_asteroidField);
   m_systemManager.add<RemoveDeadS>(m_asteroidField, m_laserShots);
   m_systemManager.configure();
 }
@@ -74,7 +69,7 @@ void Game::update(Utils::KeyState keyState, float deltaTime)
     m_systemManager.update<CollideS>(deltaTime);
     m_systemManager.update<FireLaserS>(deltaTime);
     m_systemManager.update<ReduceLifeTimeS>(deltaTime);
-    m_systemManager.update<CreateAsteroidChildS>(deltaTime);
+    m_systemManager.update<SplitAsteroidS>(deltaTime);
     m_systemManager.update<RemoveDeadS>(deltaTime);
   }
 }

@@ -1,8 +1,5 @@
 #pragma once
 
-#include "entities/AsteroidField.hpp"
-#include "entities/LaserShots.hpp"
-
 #include "components/PositionC.hpp"
 
 #include "entityx/System.h"
@@ -13,7 +10,7 @@ namespace AsteroidsCPP
 class CollideS : public entityx::System<CollideS>
 {
 public:
-  CollideS(AsteroidField &asteroidField, LaserShots &laserShots);
+  CollideS() = default;
 
   void update(
     entityx::EntityManager &entities,
@@ -21,22 +18,11 @@ public:
     double dt);
 
 private:
-  void bounce(
-    entityx::Entity entityA,
-    entityx::Entity entityB);
-
-  void destroyAsteroid(
-    entityx::EntityManager &entities,
-    entityx::Entity asteroid);
-
-  void destroySpaceShip(
-    entityx::EntityManager &entities,
-    entityx::EventManager &events,
-    entityx::Entity spaceShip);
-
-  void destroyLaserShot(
-    entityx::EntityManager &entities,
-    entityx::Entity laserShot);
+  bool areColliding(
+    const PositionC::Handle &pos1,
+    float rad1,
+    const PositionC::Handle &pos2,
+    float rad2) const;
 
   void handleCollision(
     entityx::EntityManager &entities,
@@ -44,13 +30,11 @@ private:
     entityx::Entity entityA,
     entityx::Entity entityB);
 
-  bool areColliding(
-    const PositionC::Handle &pos1,
-    float rad1,
-    const PositionC::Handle &pos2,
-    float rad2) const;
+  void bounceAsteroids(
+    entityx::Entity asteroidA,
+    entityx::Entity asteroidB);
 
-  AsteroidField &m_asteroidField;
-  LaserShots &m_laserShots;
+  void splitAsteroid(
+    entityx::Entity asteroid);
 };
 }// namespace AsteroidsCPP

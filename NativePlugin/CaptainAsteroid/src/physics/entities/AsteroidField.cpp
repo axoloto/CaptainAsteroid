@@ -14,15 +14,44 @@
 
 using namespace AsteroidsCPP;
 
-void AsteroidField::init(size_t nbAsteroids, float boundaryV, float boundaryH)
+void AsteroidField::init(Utils::InitParams initParams)
 {
-  m_nbAsteroidsXXL = nbAsteroids;
+  m_nbMaxAsteroidsByType = initParams.maxNbAsteroidsByType;
 
-  for (size_t i = 0; i < m_nbAsteroidsXXL; ++i)
+  m_nbAsteroidsXXL = initParams.initNbAsteroidsXXL;
+  m_nbAsteroidsM = initParams.initNbAsteroidsM;
+  m_nbAsteroidsS = initParams.initNbAsteroidsS;
+
+  initFieldWithRandomPos(Type::XXL, initParams.boundaryDomainH, initParams.boundaryDomainV);
+  initFieldWithRandomPos(Type::M, initParams.boundaryDomainH, initParams.boundaryDomainV);
+  initFieldWithRandomPos(Type::S, initParams.boundaryDomainH, initParams.boundaryDomainV);
+}
+
+void AsteroidField::initFieldWithRandomPos(Type type, float boundaryH, float boundaryV)
+{
+  float radius = 0.0f;
+  int nbAsteroids = 0;
+  if (type == Type::XXL)
+  {
+    radius = m_radiusXXL;
+    nbAsteroids = m_nbAsteroidsXXL;
+  }
+  else if (type == Type::M)
+  {
+    radius = m_radiusM;
+    nbAsteroids = m_nbAsteroidsM;
+  }
+  else if (type == Type::S)
+  {
+    radius = m_radiusS;
+    nbAsteroids = m_nbAsteroidsS;
+  }
+
+  for (size_t i = 0; i < nbAsteroids; ++i)
   {
     entityx::Entity asteroid = m_entityManager.create();
     asteroid.assign<IdentityC>(Id::Asteroid);
-    asteroid.assign<AsteroidTypeC>(Type::XXL);
+    asteroid.assign<AsteroidTypeC>(type);
     asteroid.assign<MotionC>((rand() % 100) / 30.0f + 0.5f, 0);
 
     float randX = (rand() % 100) / 50.0f * boundaryH - boundaryH;
@@ -33,7 +62,7 @@ void AsteroidField::init(size_t nbAsteroids, float boundaryV, float boundaryH)
     if (abs(randY) < 1.0f) randY += 4.0f;
 
     asteroid.assign<PositionC>(randX, randY, rand() % 360);
-    asteroid.assign<RadiusC>(0.55f);
+    asteroid.assign<RadiusC>(radius);
   }
 }
 
@@ -51,15 +80,15 @@ void AsteroidField::createAsteroidsFromParent(entityx::Entity parent)
       asteroid.assign<IdentityC>(Id::Asteroid);
       asteroid.assign<AsteroidTypeC>(Type::M);
       asteroid.assign<MotionC>((rand() % 100) / 30.0f + 0.5f, 0);
-      asteroid.assign<PositionC>(xParent + 0.3f, yParent + 0.3f, (float)(rand() % 360));
-      asteroid.assign<RadiusC>(0.3f);
+      asteroid.assign<PositionC>(xParent + m_radiusM, yParent + m_radiusM, (float)(rand() % 360));
+      asteroid.assign<RadiusC>(m_radiusM);
 
       asteroid = m_entityManager.create();
       asteroid.assign<IdentityC>(Id::Asteroid);
       asteroid.assign<AsteroidTypeC>(Type::M);
       asteroid.assign<MotionC>((rand() % 100) / 30.0f + 0.5f, 0);
-      asteroid.assign<PositionC>(xParent - 0.3f, yParent - 0.3f, (float)(rand() % 360));
-      asteroid.assign<RadiusC>(0.3f);
+      asteroid.assign<PositionC>(xParent - m_radiusM, yParent - m_radiusM, (float)(rand() % 360));
+      asteroid.assign<RadiusC>(m_radiusM);
 
       m_nbAsteroidsM += 2;
     }
@@ -69,15 +98,15 @@ void AsteroidField::createAsteroidsFromParent(entityx::Entity parent)
       asteroid.assign<IdentityC>(Id::Asteroid);
       asteroid.assign<AsteroidTypeC>(Type::S);
       asteroid.assign<MotionC>((rand() % 100) / 30.0f + 0.5f, 0);
-      asteroid.assign<PositionC>(xParent + 0.15f, yParent + 0.15f, (float)(rand() % 360));
-      asteroid.assign<RadiusC>(0.15f);
+      asteroid.assign<PositionC>(xParent + m_radiusS, yParent + m_radiusS, (float)(rand() % 360));
+      asteroid.assign<RadiusC>(m_radiusS);
 
       asteroid = m_entityManager.create();
       asteroid.assign<IdentityC>(Id::Asteroid);
       asteroid.assign<AsteroidTypeC>(Type::S);
       asteroid.assign<MotionC>((rand() % 100) / 30.0f + 0.5f, 0);
-      asteroid.assign<PositionC>(xParent - 0.15f, yParent - 0.15f, (float)(rand() % 360));
-      asteroid.assign<RadiusC>(0.15f);
+      asteroid.assign<PositionC>(xParent - m_radiusS, yParent - m_radiusS, (float)(rand() % 360));
+      asteroid.assign<RadiusC>(m_radiusS);
 
       m_nbAsteroidsS += 2;
     }

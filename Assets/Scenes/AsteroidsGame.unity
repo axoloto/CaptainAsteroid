@@ -659,13 +659,13 @@ MonoBehaviour:
   m_pluginController: {fileID: 23843697}
   m_pooledAsteroidsXXL: []
   m_asteroidObjectXXL: {fileID: 1955355726}
-  m_initNbAsteroidsXXL: 10
+  m_initNbAsteroidsXXL: 5
   m_pooledAsteroidsM: []
   m_asteroidObjectM: {fileID: 1687168601}
-  m_initNbAsteroidsM: 0
+  m_initNbAsteroidsM: 5
   m_pooledAsteroidsS: []
   m_asteroidObjectS: {fileID: 804539427}
-  m_initNbAsteroidsS: 0
+  m_initNbAsteroidsS: 5
   m_pooledLaserShots: []
   m_laserShotObject: {fileID: 286990626}
 --- !u!4 &1631698054
