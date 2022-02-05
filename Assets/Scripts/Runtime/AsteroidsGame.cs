@@ -76,7 +76,7 @@ public class AsteroidsGame : MonoBehaviour
             return;
         }
 
-        InitPools();
+        InitAllPools();
     }
 
     void Update()
@@ -85,9 +85,7 @@ public class AsteroidsGame : MonoBehaviour
         {
             UpdatePlugin();
 
-            ResetPools();
-
-            FillPools();
+            FillAllPools();
         }
     }
 
@@ -104,134 +102,63 @@ public class AsteroidsGame : MonoBehaviour
         m_plg.UpdatePlugin(keyState, Time.deltaTime);
     }
 
-    void InitPools()
+    void InitAllPools()
     {
-        GameObject tmp;
-
         m_pooledAsteroidsXXL = new List<GameObject>();
-        for(int i = 0; i < m_maxNbAsteroidsByType; ++i)
-        {
-            tmp = Instantiate(m_asteroidObjectXXL);
-            tmp.SetActive(false);
-            m_pooledAsteroidsXXL.Add(tmp);
-        }
+        InitPool(ref m_pooledAsteroidsXXL, m_asteroidObjectXXL, m_maxNbAsteroidsByType);
 
         m_pooledAsteroidsM = new List<GameObject>();
-        for(int i = 0; i < m_maxNbAsteroidsByType; ++i)
-        {
-            tmp = Instantiate(m_asteroidObjectM);
-            tmp.SetActive(false);
-            m_pooledAsteroidsM.Add(tmp);
-        }
+        InitPool(ref m_pooledAsteroidsM, m_asteroidObjectM, m_maxNbAsteroidsByType);
 
         m_pooledAsteroidsS = new List<GameObject>();
-        for(int i = 0; i < m_maxNbAsteroidsByType; ++i)
-        {
-            tmp = Instantiate(m_asteroidObjectS);
-            tmp.SetActive(false);
-            m_pooledAsteroidsS.Add(tmp);
-        }
+        InitPool(ref m_pooledAsteroidsS, m_asteroidObjectS, m_maxNbAsteroidsByType);
 
         m_pooledLaserShots = new List<GameObject>();
-        for(int i = 0; i < m_maxNbLaserShots; ++i)
+        InitPool(ref m_pooledLaserShots, m_laserShotObject, m_maxNbLaserShots);
+    }
+
+    void InitPool(ref List<GameObject> list, GameObject gameObjectType, int listSize)
+    {
+        GameObject tmp;
+        for(int i = 0; i < listSize; ++i)
         {
-            tmp = Instantiate(m_laserShotObject);
+            tmp = Instantiate(gameObjectType);
             tmp.SetActive(false);
-            m_pooledLaserShots.Add(tmp);
+            list.Add(tmp);
         }
     }
 
-    void ResetPools()
+    void FillAllPools()
     {
-        for(int i = 0; i < m_pooledAsteroidsXXL.Count; ++i)
-        {
-            m_pooledAsteroidsXXL[i].SetActive(false);
-        }
-
-        for(int i = 0; i < m_pooledAsteroidsM.Count; ++i)
-        {
-            m_pooledAsteroidsM[i].SetActive(false);
-        }
-
-        for(int i = 0; i < m_pooledAsteroidsS.Count; ++i)
-        {
-            m_pooledAsteroidsS[i].SetActive(false);
-        }
-
-        for(int i = 0; i < m_pooledLaserShots.Count; ++i)
-        {
-            m_pooledLaserShots[i].SetActive(false);
-        }
+        FillPool(ref m_pooledAsteroidsXXL, ref m_posAsteroidList, EntityType.Asteroid_XXL);
+        FillPool(ref m_pooledAsteroidsM, ref m_posAsteroidList, EntityType.Asteroid_M);
+        FillPool(ref m_pooledAsteroidsS, ref m_posAsteroidList, EntityType.Asteroid_S);
+        FillPool(ref m_pooledLaserShots, ref m_posLaserShotList, EntityType.LaserShot);
     }
 
-    void FillPools()
+    void FillPool(ref List<GameObject> pool, ref float[] buffer, EntityType type)
     {
-        int currNbAsteroids = 0;
-        m_plg.FillPosEntityList(m_posAsteroidList, m_posAsteroidList.Length, out currNbAsteroids, (int)EntityType.Asteroid_XXL);
+        int currNbEntities = 0;
 
-        if(currNbAsteroids > m_pooledAsteroidsXXL.Count) currNbAsteroids = m_pooledAsteroidsXXL.Count; // Should never happen
+        m_plg.FillPosEntityList(buffer, buffer.Length, out currNbEntities, (int)type);
 
-        for(int i = 0; i < currNbAsteroids; i++)
+        for(int i = 0; i < pool.Count; i++)
         {
-            GameObject asteroid = m_pooledAsteroidsXXL[i];
-            if(asteroid != null)
+            GameObject entity = pool[i];
+            if(entity != null)
             {
-                int j = i * 3;
-                asteroid.transform.position = new Vector3(m_posAsteroidList[j], m_posAsteroidList[j+1], 0);
-                asteroid.transform.rotation = Quaternion.Euler(0, 0, m_posAsteroidList[j+2]);
-                asteroid.SetActive(true);
+                if(i < currNbEntities)
+                {
+                    int j = i * 3;
+                    entity.transform.position = new Vector3(buffer[j], buffer[j+1], 0);
+                    entity.transform.rotation = Quaternion.Euler(0, 0, buffer[j+2]);
+                    entity.SetActive(true);
+                }
+                else
+                {
+                    entity.SetActive(false);
+                }
             }
-        }
-
-        m_plg.FillPosEntityList(m_posAsteroidList, m_posAsteroidList.Length, out currNbAsteroids, (int)EntityType.Asteroid_M);
-
-        if(currNbAsteroids > m_pooledAsteroidsM.Count) currNbAsteroids = m_pooledAsteroidsM.Count; // Should never happen
-
-        for(int i = 0; i < currNbAsteroids; i++)
-        {
-            GameObject asteroid = m_pooledAsteroidsM[i];
-            if(asteroid != null)
-            {
-                int j = i * 3;
-                asteroid.transform.position = new Vector3(m_posAsteroidList[j], m_posAsteroidList[j+1], 0);
-                asteroid.transform.rotation = Quaternion.Euler(0, 0, m_posAsteroidList[j+2]);
-                asteroid.SetActive(true);
-            }
-        }
-
-        m_plg.FillPosEntityList(m_posAsteroidList, m_posAsteroidList.Length, out currNbAsteroids, (int)EntityType.Asteroid_S);
-
-        if(currNbAsteroids > m_pooledAsteroidsS.Count) currNbAsteroids = m_pooledAsteroidsS.Count; // Should never happen
-
-        for(int i = 0; i < currNbAsteroids; i++)
-        {
-            GameObject asteroid = m_pooledAsteroidsS[i];
-            if(asteroid != null)
-            {
-                int j = i * 3;
-                asteroid.transform.position = new Vector3(m_posAsteroidList[j], m_posAsteroidList[j+1], 0);
-                asteroid.transform.rotation = Quaternion.Euler(0, 0, m_posAsteroidList[j+2]);
-                asteroid.SetActive(true);
-            }
-        }
-
-        int currNbLaserShots = 0;
-        m_plg.FillPosEntityList(m_posLaserShotList, m_posLaserShotList.Length, out currNbLaserShots, (int)EntityType.LaserShot);
-        
-        if(currNbLaserShots > m_pooledLaserShots.Count) currNbLaserShots = m_pooledLaserShots.Count; // Should never happen
-
-        for(int i = 0; i < currNbLaserShots; i++)
-        {
-            GameObject laserShot = m_pooledLaserShots[i];
-            if(laserShot != null)
-            {
-                int j = i * 3;
-                laserShot.transform.position = new Vector3(m_posLaserShotList[j], m_posLaserShotList[j+1], 0);
-                laserShot.transform.rotation = Quaternion.Euler(0, 0, m_posLaserShotList[j+2]);
-                laserShot.SetActive(true);
-            }
-        }
-
-        Debug.Log("Current Nb Asteroids : " + currNbAsteroids + " Current Nb Laser Shots :" + currNbLaserShots);
+        }        
     }
 }
