@@ -60,10 +60,10 @@ private:
   // and remove them from the entity pool
   //
   // Captain Asteroid, the player
-  SpaceShip m_spaceShip;
+  EntityHelper::SpaceShip m_spaceShip;
   // Field of asteroids of different sizes (XXL, M, S)
-  AsteroidField m_asteroidField;
+  EntityHelper::AsteroidField m_asteroidField;
   // All current laser shots in the universe!
-  LaserShots m_laserShots;
+  EntityHelper::LaserShots m_laserShots;
 };
 }// namespace CaptainAsteroidCPP

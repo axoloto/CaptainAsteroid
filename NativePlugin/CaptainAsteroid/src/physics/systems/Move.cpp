@@ -1,17 +1,19 @@
-#include "MoveS.hpp"
-using namespace CaptainAsteroidCPP;
+#include "Move.hpp"
 
 #include "Define.hpp"
-#include "components/MotionC.hpp"
-#include "components/PositionC.hpp"
 
-void MoveS::update(
+#include "components/Motion.hpp"
+#include "components/Position.hpp"
+
+using namespace CaptainAsteroidCPP::Sys;
+
+void Move::update(
   entityx::EntityManager &entities,
   entityx::EventManager &events,
   double dt)
 {
-  MotionC::Handle motion;
-  PositionC::Handle position;
+  Comp::Motion::Handle motion;
+  Comp::Position::Handle position;
   for (entityx::Entity entity : entities.entities_with_components(motion, position))
   {
     float x = position->x;

@@ -3,10 +3,10 @@
 #include "entityx/Event.h"
 #include "entityx/Entity.h"
 
-#include "events/PlayGameE.hpp"
-#include "events/GameOverE.hpp"
-#include "events/VictoryE.hpp"
-#include "events/AsteroidDestroyedE.hpp"
+#include "events/PlayGame.hpp"
+#include "events/GameOver.hpp"
+#include "events/Victory.hpp"
+#include "events/AsteroidDestroyed.hpp"
 
 #include "Define.hpp"
 
@@ -26,10 +26,10 @@ public:
 
   bool isGameRunning() const;
 
-  void receive(const PlayGameE &playGame);
-  void receive(const GameOverE &gameOver);
-  void receive(const VictoryE &victory);
-  void receive(const AsteroidDestroyedE &victory);
+  void receive(const Ev::PlayGame &playGame);
+  void receive(const Ev::GameOver &gameOver);
+  void receive(const Ev::Victory &victory);
+  void receive(const Ev::AsteroidDestroyed &victory);
 
 private:
   entityx::EntityManager &m_entityManager;

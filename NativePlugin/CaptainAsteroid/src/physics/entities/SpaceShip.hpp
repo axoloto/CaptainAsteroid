@@ -6,16 +6,19 @@
 
 namespace CaptainAsteroidCPP
 {
-class SpaceShip
+namespace EntityHelper
 {
-public:
-  SpaceShip(entityx::EntityManager &entityManager) : m_entityManager(entityManager){};
+  class SpaceShip
+  {
+  public:
+    SpaceShip(entityx::EntityManager &entityManager) : m_entityManager(entityManager){};
 
-  void init();
+    void init();
 
-  std::array<float, 3> getPosAndDir() const;
+    std::array<float, 3> getPosAndDir() const;
 
-private:
-  entityx::EntityManager &m_entityManager;
-};
+  private:
+    entityx::EntityManager &m_entityManager;
+  };
+}// namespace EntityHelper
 }// namespace CaptainAsteroidCPP

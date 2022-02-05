@@ -1,17 +1,17 @@
-#include "PlayerControlS.hpp"
+#include "PlayerControl.hpp"
 
-#include "components/MotionC.hpp"
-#include "components/LaserC.hpp"
-#include "components/PlayerControlC.hpp"
+#include "components/Motion.hpp"
+#include "components/Laser.hpp"
+#include "components/PlayerControl.hpp"
 
 #include <algorithm>
 #include <cmath>
 
-using namespace CaptainAsteroidCPP;
+using namespace CaptainAsteroidCPP::Sys;
 
-PlayerControlS::PlayerControlS(){};
+PlayerControl::PlayerControl(){};
 
-void PlayerControlS::update(
+void PlayerControl::update(
   entityx::EntityManager &entities,
   entityx::EventManager &events,
   double dt)
@@ -21,9 +21,9 @@ void PlayerControlS::update(
   constexpr float angleCoeff = 1.2f;
   constexpr float frictionCoeff = 0.997f;
 
-  MotionC::Handle motion;
-  LaserC::Handle laser;
-  PlayerControlC::Handle playerControl;
+  Comp::Motion::Handle motion;
+  Comp::Laser::Handle laser;
+  Comp::PlayerControl::Handle playerControl;
   for (entityx::Entity entity : entities.entities_with_components(playerControl, motion, laser))
   {
     float acc = 0.0f;
@@ -54,12 +54,12 @@ void PlayerControlS::update(
   }
 }
 
-void PlayerControlS::configure(entityx::EventManager &eventManager)
+void PlayerControl::configure(entityx::EventManager &eventManager)
 {
-  eventManager.subscribe<PlayerInputE>(*this);
+  eventManager.subscribe<Ev::PlayerInput>(*this);
 }
 
-void PlayerControlS::receive(const PlayerInputE &event)
+void PlayerControl::receive(const Ev::PlayerInput &event)
 {
   m_keyState = event.keyState;
 }

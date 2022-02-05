@@ -5,8 +5,11 @@
 
 namespace CaptainAsteroidCPP
 {
-struct PlayGameE : public entityx::Event<PlayGameE>
+namespace Ev
 {
-  PlayGameE(){};
-};
+  struct GameOver : public entityx::Event<GameOver>
+  {
+    GameOver(){};
+  };
+}// namespace Ev
 }// namespace CaptainAsteroidCPP

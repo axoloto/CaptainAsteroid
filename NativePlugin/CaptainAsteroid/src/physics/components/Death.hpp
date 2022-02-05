@@ -4,8 +4,11 @@
 
 namespace CaptainAsteroidCPP
 {
-struct DeathC : public entityx::Component<DeathC>
+namespace Comp
 {
-  DeathC(){};
-};
+  struct Death : public entityx::Component<Death>
+  {
+    Death(){};
+  };
+}// namespace Comp
 }// namespace CaptainAsteroidCPP

@@ -1,54 +1,54 @@
-#include "systems/CollideS.hpp"
+#include "systems/Collide.hpp"
 
-#include "components/PositionC.hpp"
-#include "components/IdentityC.hpp"
-#include "components/RadiusC.hpp"
-#include "components/MotionC.hpp"
-#include "components/AsteroidSizeC.hpp"
-#include "components/AsteroidParentC.hpp"
-#include "components/DeathC.hpp"
+#include "components/Position.hpp"
+#include "components/Identity.hpp"
+#include "components/Radius.hpp"
+#include "components/Motion.hpp"
+#include "components/AsteroidSize.hpp"
+#include "components/AsteroidParent.hpp"
+#include "components/Death.hpp"
 
-#include "events/GameOverE.hpp"
+#include "events/GameOver.hpp"
 
 #include "Define.hpp"
 
 #include <cmath>
 
-using namespace CaptainAsteroidCPP;
+using namespace CaptainAsteroidCPP::Sys;
 
-void CollideS::update(
+void Collide::update(
   entityx::EntityManager &entities,
   entityx::EventManager &events,
   double dt)
 {
-  RadiusC::Handle sizeA;
-  PositionC::Handle posA;
-  IdentityC::Handle idA;
+  Comp::Radius::Handle sizeA;
+  Comp::Position::Handle posA;
+  Comp::Identity::Handle idA;
   for (entityx::Entity entityA : entities.entities_with_components(sizeA, posA, idA))
   {
     // This entity has been destroyed in a previous collision, it will be removed soon
-    if (entityA.has_component<DeathC>())
+    if (entityA.has_component<Comp::Death>())
     {
       continue;
     }
 
-    RadiusC::Handle sizeB;
-    PositionC::Handle posB;
-    IdentityC::Handle idB;
+    Comp::Radius::Handle sizeB;
+    Comp::Position::Handle posB;
+    Comp::Identity::Handle idB;
     for (entityx::Entity entityB : entities.entities_with_components(sizeB, posB, idB))
     {
       if ((entityB == entityA)
           || !entityA.valid()
           || !entityB.valid()
-          || entityB.has_component<DeathC>()
-          || entityA.has_component<DeathC>()
+          || entityB.has_component<Comp::Death>()
+          || entityA.has_component<Comp::Death>()
           // Not interested by
           // space ship/laser shot
           // laser shot/laser shot
           // interactions for now
-          || (idA->id == Id::LaserShot && idB->id == Id::SpaceShip)
-          || (idB->id == Id::LaserShot && idA->id == Id::SpaceShip)
-          || (idB->id == Id::LaserShot && idA->id == Id::LaserShot))
+          || (idA->id == Comp::Id::LaserShot && idB->id == Comp::Id::SpaceShip)
+          || (idB->id == Comp::Id::LaserShot && idA->id == Comp::Id::SpaceShip)
+          || (idB->id == Comp::Id::LaserShot && idA->id == Comp::Id::LaserShot))
       {
         continue;
       }
@@ -61,49 +61,49 @@ void CollideS::update(
   }
 }
 
-void CollideS::handleCollision(
+void Collide::handleCollision(
   entityx::EntityManager &entities,
   entityx::EventManager &events,
   entityx::Entity entityA,
   entityx::Entity entityB)
 {
-  IdentityC::Handle idA = entityA.component<IdentityC>();
-  IdentityC::Handle idB = entityB.component<IdentityC>();
+  Comp::Identity::Handle idA = entityA.component<Comp::Identity>();
+  Comp::Identity::Handle idB = entityB.component<Comp::Identity>();
 
-  if (idA->id == Id::Asteroid && idB->id == Id::Asteroid)
+  if (idA->id == Comp::Id::Asteroid && idB->id == Comp::Id::Asteroid)
   {
     // Asteroids are bouncing again each other (in an approximate way)
     bounceAsteroids(entityA, entityB);
   }
-  else if (idA->id == Id::Asteroid && idB->id == Id::LaserShot)
+  else if (idA->id == Comp::Id::Asteroid && idB->id == Comp::Id::LaserShot)
   {
     splitAsteroid(entityA);
     // Laser shot also removed
-    entityB.assign<DeathC>();
+    entityB.assign<Comp::Death>();
   }
-  else if (idA->id == Id::LaserShot && idB->id == Id::Asteroid)
+  else if (idA->id == Comp::Id::LaserShot && idB->id == Comp::Id::Asteroid)
   {
     // Recursive call with swapped entities
     handleCollision(entities, events, entityB, entityA);
   }
-  else if (idA->id == Id::SpaceShip && idB->id == Id::Asteroid)
+  else if (idA->id == Comp::Id::SpaceShip && idB->id == Comp::Id::Asteroid)
   {
     // Captain Asteroid going down!
-    entityA.assign<DeathC>();
+    entityA.assign<Comp::Death>();
   }
-  else if (idA->id == Id::Asteroid && idB->id == Id::SpaceShip)
+  else if (idA->id == Comp::Id::Asteroid && idB->id == Comp::Id::SpaceShip)
   {
     // Recursive call with swapped entities
     handleCollision(entities, events, entityB, entityA);
   }
 }
 
-void CollideS::bounceAsteroids(
+void Collide::bounceAsteroids(
   entityx::Entity asteroidA,
   entityx::Entity asteroidB)
 {
-  PositionC::Handle posA = asteroidA.component<PositionC>();
-  PositionC::Handle posB = asteroidB.component<PositionC>();
+  Comp::Position::Handle posA = asteroidA.component<Comp::Position>();
+  Comp::Position::Handle posB = asteroidB.component<Comp::Position>();
 
   float angle = 90.0f;
   if ((posB->y - posA->y) >= 0.01f)
@@ -125,22 +125,22 @@ void CollideS::bounceAsteroids(
   }
 }
 
-void CollideS::splitAsteroid(entityx::Entity asteroid)
+void Collide::splitAsteroid(entityx::Entity asteroid)
 {
-  AsteroidSizeC::Handle asteroidType = asteroid.component<AsteroidSizeC>();
-  if (asteroidType && (asteroidType->type == AstSize::XXL || asteroidType->type == AstSize::M))
+  Comp::AsteroidSize::Handle asteroidSize = asteroid.component<Comp::AsteroidSize>();
+  if (asteroidSize && (asteroidSize->size == Comp::AstSize::XXL || asteroidSize->size == Comp::AstSize::M))
   {
     // For M and XXL asteroids, we will create children later on in the pipeline
-    asteroid.assign<AsteroidParentC>();
+    asteroid.assign<Comp::AsteroidParent>();
   }
   // Both laser shot and parent asteroid will be removed
-  asteroid.assign<DeathC>();
+  asteroid.assign<Comp::Death>();
 }
 
-bool CollideS::areColliding(
-  const PositionC::Handle &pos1,
+bool Collide::areColliding(
+  const Comp::Position::Handle &pos1,
   float rad1,
-  const PositionC::Handle &pos2,
+  const Comp::Position::Handle &pos2,
   float rad2) const
 {
   return (pos1->dist2(*pos2) < (rad1 + rad2) * (rad1 + rad2));

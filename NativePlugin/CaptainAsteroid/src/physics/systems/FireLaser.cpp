@@ -1,20 +1,20 @@
 
-#include "systems/FireLaserS.hpp"
+#include "systems/FireLaser.hpp"
 
-#include "components/MotionC.hpp"
-#include "components/PositionC.hpp"
-#include "components/LaserC.hpp"
-#include "components/LifeTimeC.hpp"
+#include "components/Motion.hpp"
+#include "components/Position.hpp"
+#include "components/Laser.hpp"
+#include "components/LifeTime.hpp"
 
-using namespace CaptainAsteroidCPP;
+using namespace CaptainAsteroidCPP::Sys;
 
-void FireLaserS::update(entityx::EntityManager &entities,
+void FireLaser::update(entityx::EntityManager &entities,
   entityx::EventManager &events,
   double dt)
 {
-  LaserC::Handle laser;
-  MotionC::Handle motion;
-  PositionC::Handle position;
+  Comp::Laser::Handle laser;
+  Comp::Motion::Handle motion;
+  Comp::Position::Handle position;
   for (entityx::Entity entity : entities.entities_with_components(laser, motion, position))
   {
     laser->nextShotTimer -= dt;

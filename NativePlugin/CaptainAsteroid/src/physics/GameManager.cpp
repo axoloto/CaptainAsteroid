@@ -14,10 +14,10 @@ GameManager::GameManager(entityx::EntityManager &entityManager,
 
 void GameManager::init()
 {
-  m_eventManager.subscribe<PlayGameE>(*this);
-  m_eventManager.subscribe<GameOverE>(*this);
-  m_eventManager.subscribe<VictoryE>(*this);
-  m_eventManager.subscribe<AsteroidDestroyedE>(*this);
+  m_eventManager.subscribe<Ev::PlayGame>(*this);
+  m_eventManager.subscribe<Ev::GameOver>(*this);
+  m_eventManager.subscribe<Ev::Victory>(*this);
+  m_eventManager.subscribe<Ev::AsteroidDestroyed>(*this);
 }
 
 Def::GameState GameManager::gameState() const
@@ -35,32 +35,32 @@ bool GameManager::isGameRunning() const
   return m_gameState == Def::GS_Playing;
 }
 
-void GameManager::receive(const PlayGameE &start)
+void GameManager::receive(const Ev::PlayGame &play)
 {
-  m_gameState = Def::GS_Playing;//WIP
+  m_gameState = Def::GS_Playing;
 }
 
-void GameManager::receive(const GameOverE &gameOver)
+void GameManager::receive(const Ev::GameOver &gameOver)
 {
   m_gameState = Def::GS_GameOver;
 }
 
-void GameManager::receive(const VictoryE &victory)
+void GameManager::receive(const Ev::Victory &victory)
 {
   m_gameState = Def::GS_Victory;
 }
 
-void GameManager::receive(const AsteroidDestroyedE &asteroidDestroyed)
+void GameManager::receive(const Ev::AsteroidDestroyed &asteroidDestroyed)
 {
-  if (asteroidDestroyed.type == AstSize::XXL)
+  if (asteroidDestroyed.type == Comp::AstSize::XXL)
   {
     m_score += 300;
   }
-  else if (asteroidDestroyed.type == AstSize::M)
+  else if (asteroidDestroyed.type == Comp::AstSize::M)
   {
     m_score += 150;
   }
-  else if (asteroidDestroyed.type == AstSize::S)
+  else if (asteroidDestroyed.type == Comp::AstSize::S)
   {
     m_score += 25;
   }

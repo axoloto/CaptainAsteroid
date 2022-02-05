@@ -2,22 +2,22 @@
 
 #include "Define.hpp"
 
-#include "components/RadiusC.hpp"
-#include "components/LifeTimeC.hpp"
-#include "components/IdentityC.hpp"
+#include "components/Radius.hpp"
+#include "components/LifeTime.hpp"
+#include "components/Identity.hpp"
 
-using namespace CaptainAsteroidCPP;
+using namespace CaptainAsteroidCPP::EntityHelper;
 
-void LaserShots::createShot(const PositionC &initPos, const MotionC &initMot)
+void LaserShots::createShot(const Comp::Position &initPos, const Comp::Motion &initMot)
 {
   if (m_nbShots < m_maxNbShots)
   {
     entityx::Entity laserShot = m_entityManager.create();
-    laserShot.assign<IdentityC>(Id::LaserShot);
-    laserShot.assign<MotionC>(m_shotVel + initMot.vel, 0.0f);
-    laserShot.assign<PositionC>(initPos);
-    laserShot.assign<LifeTimeC>(1.5f);
-    laserShot.assign<RadiusC>(0.1f);
+    laserShot.assign<Comp::Identity>(Comp::Id::LaserShot);
+    laserShot.assign<Comp::Motion>(m_shotVel + initMot.vel, 0.0f);
+    laserShot.assign<Comp::Position>(initPos);
+    laserShot.assign<Comp::LifeTime>(1.5f);
+    laserShot.assign<Comp::Radius>(0.1f);
     m_nbShots++;
   }
 }
@@ -30,14 +30,14 @@ void LaserShots::destroyShot(entityx::Entity shot)
 
 void LaserShots::fillPosEntityList(float *posEntities, int sizeBuffer, int *nbEntities, Def::EntityType entityType) const
 {
-  PositionC::Handle position;
-  LifeTimeC::Handle lifeTime;
-  IdentityC::Handle identity;
+  Comp::Position::Handle position;
+  Comp::LifeTime::Handle lifeTime;
+  Comp::Identity::Handle identity;
 
   int i = 0;
   for (entityx::Entity entity : m_entityManager.entities_with_components(identity, position, lifeTime))
   {
-    if (identity->id != Id::LaserShot) continue;
+    if (identity->id != Comp::Id::LaserShot) continue;
 
     if (i < sizeBuffer)
     {
