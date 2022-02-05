@@ -2,6 +2,8 @@
 
 #include "entityx/Entity.h"
 
+#include "Define.hpp"
+
 namespace AsteroidsCPP
 {
 enum class Type

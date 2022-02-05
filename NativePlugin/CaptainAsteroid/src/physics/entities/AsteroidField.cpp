@@ -11,6 +11,7 @@
 #include "components/AsteroidTypeC.hpp"
 
 #include "events/AsteroidDestroyedE.hpp"
+#include "events/VictoryE.hpp"
 
 #include <cmath>
 
@@ -27,6 +28,12 @@ void AsteroidField::init(Def::InitParams initParams)
   initFieldWithRandomPos(Type::XXL, initParams.boundaryDomainH, initParams.boundaryDomainV);
   initFieldWithRandomPos(Type::M, initParams.boundaryDomainH, initParams.boundaryDomainV);
   initFieldWithRandomPos(Type::S, initParams.boundaryDomainH, initParams.boundaryDomainV);
+
+  // Empty field, nothing to do
+  if (totalNbAsteroids() == 0)
+  {
+    m_eventManager.emit<VictoryE>();
+  }
 }
 
 void AsteroidField::initFieldWithRandomPos(Type type, float boundaryH, float boundaryV)
@@ -135,6 +142,12 @@ void AsteroidField::destroyAsteroid(entityx::Entity asteroid)
     }
 
     m_eventManager.emit<AsteroidDestroyedE>(type);
+
+    if (totalNbAsteroids() == 0)
+    {
+      m_eventManager.emit<VictoryE>();
+    }
+
     asteroid.destroy();
   }
 }
