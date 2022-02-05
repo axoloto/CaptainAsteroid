@@ -5,15 +5,18 @@ using UnityEngine.UI;
 
 public class Victory : MonoBehaviour 
 {
+    public static bool restartGame = false;
+
     public GameObject m_pluginController;
     CaptainAsteroidPlugin m_plg;
 
-	private Text victory;
+	private Text m_victoryText;
 
 	void Start()
     {
-		victory = GetComponent<Text>();
-		victory.enabled = false;
+        
+		m_victoryText = GetComponent<Text>();
+		m_victoryText.enabled = false;
 
         m_plg = m_pluginController.GetComponent<CaptainAsteroidPlugin>();
 
@@ -22,10 +25,20 @@ public class Victory : MonoBehaviour
             Debug.LogError("Incorrect plugin instantiation");
             return;
         }
+        
 	}
 
 	void Update() 
     {
-		victory.enabled = (m_plg.CurrentGameState() == CaptainAsteroidPlugin.GameState.Victory);
+		m_victoryText.enabled = (m_plg.CurrentGameState() == CaptainAsteroidPlugin.GameState.Victory);
+
+        if(m_victoryText.enabled)
+        {
+            restartGame = Input.GetKey(KeyCode.LeftArrow);
+        }
+        else
+        {
+            restartGame = false;
+        }
 	}
 }

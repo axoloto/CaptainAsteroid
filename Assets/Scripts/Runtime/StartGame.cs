@@ -5,15 +5,17 @@ using UnityEngine.UI;
 
 public class StartGame : MonoBehaviour 
 {
+    public static bool startGame = false;
+
     public GameObject m_pluginController;
     CaptainAsteroidPlugin m_plg;
 
-	private Text startGame;
+	private Text m_startGameText;
 
 	void Start()
     {
-		startGame = GetComponent<Text>();
-		startGame.enabled = false; 
+		m_startGameText = GetComponent<Text>();
+		m_startGameText.enabled = false; 
         
         m_plg = m_pluginController.GetComponent<CaptainAsteroidPlugin>();
 
@@ -26,6 +28,15 @@ public class StartGame : MonoBehaviour
 
 	void Update() 
     {
-		startGame.enabled = (m_plg.CurrentGameState() == CaptainAsteroidPlugin.GameState.StartGame);
+		m_startGameText.enabled = (m_plg.CurrentGameState() == CaptainAsteroidPlugin.GameState.StartGame);
+
+        if(m_startGameText.enabled)
+        {
+            startGame = Input.GetKey(KeyCode.LeftArrow);
+        }
+        else
+        {
+            startGame = false;
+        }
 	}
 }

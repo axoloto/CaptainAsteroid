@@ -26,6 +26,7 @@ public class CaptainAsteroidGame : MonoBehaviour
     public Camera m_camera;
     public GameObject m_pluginController;
     CaptainAsteroidPlugin m_plg;
+    bool m_isPluginInit = false;
 
     // Asteroids
     public List<GameObject> m_pooledAsteroidsXXL;
@@ -68,20 +69,7 @@ public class CaptainAsteroidGame : MonoBehaviour
             return;
         }
 
-        if(m_camera.orthographic)
-        {
-            CaptainAsteroidPlugin.InitParams initParams;
-
-            initParams.initNbAsteroidsXXL = m_initNbAsteroidsXXL;
-            initParams.initNbAsteroidsM = m_initNbAsteroidsM;
-            initParams.initNbAsteroidsS = m_initNbAsteroidsS;
-            initParams.maxNbAsteroidsByType = m_maxNbAsteroidsByType;
-            initParams.boundaryDomainV = m_camera.orthographicSize;
-            initParams.boundaryDomainH = m_camera.aspect * initParams.boundaryDomainV;
-
-            m_plg.InitPlugin(initParams);
-        }
-        else
+        if(!m_camera.orthographic)
         {
             Debug.LogError("Incorrect camera setup, cannot init plugin");
             return;
@@ -94,10 +82,39 @@ public class CaptainAsteroidGame : MonoBehaviour
     {
         if(m_plg.IsPluginReady())
         {
+            if(!m_isPluginInit && StartGame.startGame) InitPlugin();
+
+            if(m_isPluginInit && (GameOver.restartGame || Victory.restartGame)) ResetPlugin();
+
             UpdatePlugin();
 
             FillAllPools();
         }
+    }
+
+    void InitPlugin()
+    {
+        if(m_camera.orthographic)
+        {
+            CaptainAsteroidPlugin.InitParams initParams;
+
+            initParams.initNbAsteroidsXXL = m_initNbAsteroidsXXL;
+            initParams.initNbAsteroidsM = m_initNbAsteroidsM;
+            initParams.initNbAsteroidsS = m_initNbAsteroidsS;
+            initParams.maxNbAsteroidsByType = m_maxNbAsteroidsByType;
+            initParams.boundaryDomainV = m_camera.orthographicSize;
+            initParams.boundaryDomainH = m_camera.aspect * initParams.boundaryDomainV;
+
+            m_plg.InitPlugin(initParams);
+
+            m_isPluginInit = true;
+        }
+    }
+
+    void ResetPlugin()
+    {
+        m_plg.ResetPlugin();
+        InitPlugin();
     }
 
     void UpdatePlugin()

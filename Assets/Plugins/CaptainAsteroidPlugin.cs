@@ -103,15 +103,26 @@ public class CaptainAsteroidPlugin : MonoBehaviour
         return m_GamePtr != IntPtr.Zero;
     }
 
-    // Friendlier API
+    // API for other scripts
+    
+    public void ResetPlugin()
+    {
+        if(IsNativeInstanceReady())
+        {
+            DeleteNativeInstance(m_GamePtr);
+            m_GamePtr = IntPtr.Zero;
+        }
+        if(!IsNativeInstanceReady())
+        {
+            m_GamePtr = CreateNativeInstance();
+        }
+        Debug.Log("Resetting Native Instance");
+    }
+
+    // Friendlier than IsNativeInstanceReady outside of this class
     public bool IsPluginReady()
     {
         return IsNativeInstanceReady();
-    }
-
-    public GameState gameState()
-    {
-        return GameState.GameOver;
     }
 
     public void InitPlugin(InitParams initParams)

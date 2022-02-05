@@ -5,15 +5,17 @@ using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour 
 {
+    public static bool restartGame = false; 
+
     public GameObject m_pluginController;
     CaptainAsteroidPlugin m_plg;
 
-	private Text gameOver;
+	private Text m_gameOverText;
 
-	void Start ()
+	void Start()
     {
-		gameOver = GetComponent<Text>();
-		gameOver.enabled = false;
+		m_gameOverText = GetComponent<Text>();
+		m_gameOverText.enabled = false;
 
         m_plg = m_pluginController.GetComponent<CaptainAsteroidPlugin>();
 
@@ -24,8 +26,17 @@ public class GameOver : MonoBehaviour
         }
 	}
 
-	void Update () 
+	void Update() 
     {
-		gameOver.enabled = (m_plg.CurrentGameState() == CaptainAsteroidPlugin.GameState.GameOver);
+		m_gameOverText.enabled = (m_plg.CurrentGameState() == CaptainAsteroidPlugin.GameState.GameOver);
+        
+        if(m_gameOverText.enabled)
+        {
+            restartGame = Input.GetKey(KeyCode.LeftArrow);
+        }
+        else
+       {
+            restartGame = false;
+        }
 	}
 }
