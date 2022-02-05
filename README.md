@@ -107,7 +107,8 @@ Again, having zero experience with C#, I might have missed some good practices a
 I decided to create a Plugin Controller script to do the connection with the native C++ side. By doing so, I can call the API functions from different C# scripts connected to various Game Objects (Space Ship, pools, UI...).
 
 ## Next Steps
-
+- [ ] Realizing performance profiling of both CS and CPP sides
+- [ ] Adding some unit tests
 - [ ] Adding some enemy space ships
 - [ ] Improving the bouncing algorithm (collision between asteroids) and collision handling
 - [ ] Adding some multithreading to run the C++ plugin on its own thread. Given the current performance, I judged that it was not necessary for the moment
