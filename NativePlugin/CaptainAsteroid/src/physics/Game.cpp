@@ -2,36 +2,36 @@
 
 #include "Logging.hpp"
 
-#include "systems/PlayerControlS.hpp"
-#include "systems/MoveS.hpp"
-#include "systems/CollideS.hpp"
-#include "systems/FireLaserS.hpp"
-#include "systems/ReduceLifeTimeS.hpp"
-#include "systems/SplitAsteroidS.hpp"
-#include "systems/RemoveDeadS.hpp"
+#include "systems/ControlByPlayer.hpp"
+#include "systems/Move.hpp"
+#include "systems/Collide.hpp"
+#include "systems/FireLaser.hpp"
+#include "systems/ReduceLifeTime.hpp"
+#include "systems/SplitAsteroid.hpp"
+#include "systems/RemoveDead.hpp"
 
-#include "components/MotionC.hpp"
-#include "components/PositionC.hpp"
-#include "components/PlayerControlC.hpp"
-#include "components/LaserC.hpp"
+#include "components/Motion.hpp"
+#include "components/Position.hpp"
+#include "components/PlayerControl.hpp"
+#include "components/Laser.hpp"
 
-#include "events/PlayGameE.hpp"
+#include "events/PlayGame.hpp"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 Game::Game() : m_eventManager(),
                m_entityManager(m_eventManager),
                m_systemManager(m_entityManager, m_eventManager),
                m_gameManager(m_entityManager, m_eventManager),
                m_spaceShip(m_entityManager),
-               m_asteroidField(m_entityManager),
+               m_asteroidField(m_entityManager, m_eventManager),
                m_laserShots(m_entityManager)
 {
   Utils::InitializeLogger();
   LOG_INFO("Game Created");
 }
 
-void Game::init(Utils::InitParams initParams)
+void Game::init(Def::InitParams initParams)
 {
   m_gameManager.init();
 
@@ -41,38 +41,38 @@ void Game::init(Utils::InitParams initParams)
 
   createSystems(initParams.boundaryDomainV, initParams.boundaryDomainH);
 
-  m_eventManager.emit<PlayGameE>();
+  m_eventManager.emit<Ev::PlayGame>();
 
   LOG_INFO("Game Initialized");
 }
 
 void Game::createSystems(float boundaryV, float boundaryH)
 {
-  m_systemManager.add<PlayerControlS>();
-  m_systemManager.add<MoveS>(boundaryV, boundaryH);
-  m_systemManager.add<CollideS>();
-  m_systemManager.add<FireLaserS>(m_laserShots);
-  m_systemManager.add<ReduceLifeTimeS>();
-  m_systemManager.add<SplitAsteroidS>(m_asteroidField);
-  m_systemManager.add<RemoveDeadS>(m_asteroidField, m_laserShots);
+  m_systemManager.add<Sys::ControlByPlayer>();
+  m_systemManager.add<Sys::Move>(boundaryV, boundaryH);
+  m_systemManager.add<Sys::Collide>();
+  m_systemManager.add<Sys::FireLaser>(m_laserShots);
+  m_systemManager.add<Sys::ReduceLifeTime>();
+  m_systemManager.add<Sys::SplitAsteroid>(m_asteroidField);
+  m_systemManager.add<Sys::RemoveDead>(m_asteroidField, m_laserShots);
   m_systemManager.configure();
 
   LOG_INFO("DOD Systems Initialized");
 }
 
-void Game::update(Utils::KeyState keyState, float deltaTime)
+void Game::update(Def::KeyState keyState, float deltaTime)
 {
-  m_eventManager.emit<PlayerInputE>(keyState);
+  m_eventManager.emit<Ev::PlayerInput>(keyState);
 
   if (m_gameManager.isGameRunning())
   {
-    m_systemManager.update<PlayerControlS>(deltaTime);
-    m_systemManager.update<MoveS>(deltaTime);
-    m_systemManager.update<CollideS>(deltaTime);
-    m_systemManager.update<FireLaserS>(deltaTime);
-    m_systemManager.update<ReduceLifeTimeS>(deltaTime);
-    m_systemManager.update<SplitAsteroidS>(deltaTime);
-    m_systemManager.update<RemoveDeadS>(deltaTime);
+    m_systemManager.update<Sys::ControlByPlayer>(deltaTime);
+    m_systemManager.update<Sys::Move>(deltaTime);
+    m_systemManager.update<Sys::Collide>(deltaTime);
+    m_systemManager.update<Sys::FireLaser>(deltaTime);
+    m_systemManager.update<Sys::ReduceLifeTime>(deltaTime);
+    m_systemManager.update<Sys::SplitAsteroid>(deltaTime);
+    m_systemManager.update<Sys::RemoveDead>(deltaTime);
   }
 }
 
@@ -84,18 +84,33 @@ void Game::getSpaceShipCoords(float &x, float &y, float &angle) const
   angle = coordsAndRot[2];
 }
 
-void Game::fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType) const
+void Game::fillPosEntityList(float *posEntities, int size, int *nbEntities, Def::EntityType entityType) const
 {
-  if (entityType & Utils::EntityType::Asteroid_XXL
-      || entityType & Utils::EntityType::Asteroid_M
-      || entityType & Utils::EntityType::Asteroid_S)
+  if (entityType & Def::EntityType::Asteroid_XXL
+      || entityType & Def::EntityType::Asteroid_M
+      || entityType & Def::EntityType::Asteroid_S)
   {
     m_asteroidField.fillPosEntityList(posEntities, size, nbEntities, entityType);
   }
-  else if (entityType & Utils::EntityType::LaserShot)
+  else if (entityType & Def::EntityType::LaserShot)
   {
     m_laserShots.fillPosEntityList(posEntities, size, nbEntities, entityType);
   }
 }
 
-}// namespace AsteroidsCPP
+Def::GameState Game::currentGameState() const
+{
+  return m_gameManager.gameState();
+}
+
+std::int32_t Game::currentScore() const
+{
+  return m_gameManager.score();
+}
+
+std::int32_t Game::currentNbAsteroids() const
+{
+  return m_asteroidField.totalNbAsteroids();
+}
+
+}// namespace CaptainAsteroidCPP

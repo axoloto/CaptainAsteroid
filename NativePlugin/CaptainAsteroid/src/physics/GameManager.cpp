@@ -1,48 +1,67 @@
 
 #include "GameManager.hpp"
 
-using namespace AsteroidsCPP;
+using namespace CaptainAsteroidCPP;
 
 GameManager::GameManager(entityx::EntityManager &entityManager,
   entityx::EventManager &eventManager)
   : m_entityManager(entityManager),
     m_eventManager(eventManager),
-    m_gameState(GS_Start)
+    m_gameState(Def::GS_Start),
+    m_score(0)
 {
 }
 
 void GameManager::init()
 {
-  m_eventManager.subscribe<PlayGameE>(*this);
-  m_eventManager.subscribe<GameOverE>(*this);
-  m_eventManager.subscribe<VictoryE>(*this);
+  m_eventManager.subscribe<Ev::PlayGame>(*this);
+  m_eventManager.subscribe<Ev::GameOver>(*this);
+  m_eventManager.subscribe<Ev::Victory>(*this);
+  m_eventManager.subscribe<Ev::AsteroidDestroyed>(*this);
 }
 
-GameState GameManager::gameState() const
+Def::GameState GameManager::gameState() const
 {
   return m_gameState;
 }
 
+int GameManager::score() const
+{
+  return m_score;
+}
+
 bool GameManager::isGameRunning() const
 {
-  return m_gameState == GS_Playing;
+  return m_gameState == Def::GS_Playing;
 }
 
-void GameManager::receive(const PlayGameE &start)
+void GameManager::receive(const Ev::PlayGame &play)
 {
-  m_gameState = GS_Playing;//WIP
+  m_gameState = Def::GS_Playing;
 }
 
-void GameManager::receive(const GameOverE &gameOver)
+void GameManager::receive(const Ev::GameOver &gameOver)
 {
-  m_gameState = GS_GameOver;
-
- // m_entityManager.reset();
+  m_gameState = Def::GS_GameOver;
 }
 
-void GameManager::receive(const VictoryE &victory)
+void GameManager::receive(const Ev::Victory &victory)
 {
-  m_gameState = GS_Victory;
+  m_gameState = Def::GS_Victory;
+}
 
- // m_entityManager.reset();
+void GameManager::receive(const Ev::AsteroidDestroyed &asteroidDestroyed)
+{
+  if (asteroidDestroyed.type == Comp::AstSize::XXL)
+  {
+    m_score += 300;
+  }
+  else if (asteroidDestroyed.type == Comp::AstSize::M)
+  {
+    m_score += 150;
+  }
+  else if (asteroidDestroyed.type == Comp::AstSize::S)
+  {
+    m_score += 25;
+  }
 }

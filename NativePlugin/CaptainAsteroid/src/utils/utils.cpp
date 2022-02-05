@@ -5,7 +5,7 @@
 #include <ostream>
 #include <sstream>
 
-using namespace AsteroidsCPP;
+using namespace CaptainAsteroidCPP;
 
 const std::string Utils::GetSrcDir()
 {

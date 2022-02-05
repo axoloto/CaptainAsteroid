@@ -3,20 +3,15 @@
 #include "entityx/Event.h"
 #include "entityx/Entity.h"
 
-#include "events/PlayGameE.hpp"
-#include "events/GameOverE.hpp"
-#include "events/VictoryE.hpp"
+#include "events/PlayGame.hpp"
+#include "events/GameOver.hpp"
+#include "events/Victory.hpp"
+#include "events/AsteroidDestroyed.hpp"
 
-namespace AsteroidsCPP
-{
-enum GameState
-{
-  GS_Start,
-  GS_Playing,
-  GS_GameOver,
-  GS_Victory,
-};
+#include "Define.hpp"
 
+namespace CaptainAsteroidCPP
+{
 class GameManager : public entityx::Receiver<GameManager>
 {
 public:
@@ -25,21 +20,26 @@ public:
 
   void init();
 
-  GameState gameState() const;
+  Def::GameState gameState() const;
+
+  int score() const;
 
   bool isGameRunning() const;
 
-  void receive(const PlayGameE &playGame);
-  void receive(const GameOverE &gameOver);
-  void receive(const VictoryE &victory);
+  void receive(const Ev::PlayGame &playGame);
+  void receive(const Ev::GameOver &gameOver);
+  void receive(const Ev::Victory &victory);
+  void receive(const Ev::AsteroidDestroyed &victory);
 
 private:
   entityx::EntityManager &m_entityManager;
 
   entityx::EventManager &m_eventManager;
 
-  GameState m_gameState;
+  Def::GameState m_gameState;
+
+  int m_score;
 };
 
 
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

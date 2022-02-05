@@ -1,7 +1,8 @@
 #pragma once
 
 #include "GameManager.hpp"
-#include "Utils.hpp"
+#include "Define.hpp"
+#include "Define.hpp"
 #include "entities/SpaceShip.hpp"
 #include "entities/AsteroidField.hpp"
 #include "entities/LaserShots.hpp"
@@ -13,22 +14,31 @@
 #include <cstdint>
 #include <memory>
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 class Game
 {
 public:
   Game();
 
-  void init(Utils::InitParams initParams);
+  void init(Def::InitParams initParams);
 
-  void update(Utils::KeyState state, float deltaTime);
+  void update(Def::KeyState state, float deltaTime);
 
   // Helper function for specific access to Space Ship coords
   void getSpaceShipCoords(float &x, float &y, float &angle) const;
 
-  // Generic Access to any entities in the game (SpaceShip, Asteroids and LaserShots)
-  void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType) const;
+  // Generic access to any entities in the game (SpaceShip, Asteroids and LaserShots)
+  void fillPosEntityList(float *posEntities, int size, int *nbEntities, Def::EntityType entityType) const;
+
+  // Game status StartMenu / Playing / Victory / GameOver
+  Def::GameState currentGameState() const;
+
+  // Current game score
+  std::int32_t currentScore() const;
+
+  // Current number of remaining asteroids
+  std::int32_t currentNbAsteroids() const;
 
 private:
   // Creating DOD pipeline
@@ -50,10 +60,10 @@ private:
   // and remove them from the entity pool
   //
   // Captain Asteroid, the player
-  SpaceShip m_spaceShip;
+  EntityHelper::SpaceShip m_spaceShip;
   // Field of asteroids of different sizes (XXL, M, S)
-  AsteroidField m_asteroidField;
+  EntityHelper::AsteroidField m_asteroidField;
   // All current laser shots in the universe!
-  LaserShots m_laserShots;
+  EntityHelper::LaserShots m_laserShots;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP
