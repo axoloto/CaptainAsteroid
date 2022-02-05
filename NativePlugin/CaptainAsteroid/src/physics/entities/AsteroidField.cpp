@@ -61,7 +61,7 @@ void AsteroidField::initFieldWithRandomPos(Comp::AstSize size, float boundaryH, 
     entityx::Entity asteroid = m_entityManager.create();
     asteroid.assign<Comp::Identity>(Comp::Id::Asteroid);
     asteroid.assign<Comp::AsteroidSize>(size);
-    asteroid.assign<Comp::Motion>((rand() % 100) / 30.0f + 0.5f, 0);
+    asteroid.assign<Comp::Motion>((rand() % 100) / 50.0f + 0.5f, 0);
 
     float randX = (rand() % 100) / 50.0f * boundaryH - boundaryH;
     float randY = (rand() % 100) / 50.0f * boundaryV - boundaryV;
@@ -88,14 +88,14 @@ void AsteroidField::createAsteroidsFromParent(entityx::Entity parent)
       entityx::Entity asteroid = m_entityManager.create();
       asteroid.assign<Comp::Identity>(Comp::Id::Asteroid);
       asteroid.assign<Comp::AsteroidSize>(Comp::AstSize::M);
-      asteroid.assign<Comp::Motion>((rand() % 100) / 30.0f + 0.5f, 0);
+      asteroid.assign<Comp::Motion>((rand() % 100) / 50.0f + 0.5f, 0);
       asteroid.assign<Comp::Position>(xParent + m_radiusM, yParent + m_radiusM, (float)(rand() % 360));
       asteroid.assign<Comp::Radius>(m_radiusM);
 
       asteroid = m_entityManager.create();
       asteroid.assign<Comp::Identity>(Comp::Id::Asteroid);
       asteroid.assign<Comp::AsteroidSize>(Comp::AstSize::M);
-      asteroid.assign<Comp::Motion>((rand() % 100) / 30.0f + 0.5f, 0);
+      asteroid.assign<Comp::Motion>((rand() % 100) / 50.0f + 0.5f, 0);
       asteroid.assign<Comp::Position>(xParent - m_radiusM, yParent - m_radiusM, (float)(rand() % 360));
       asteroid.assign<Comp::Radius>(m_radiusM);
 
@@ -106,14 +106,14 @@ void AsteroidField::createAsteroidsFromParent(entityx::Entity parent)
       entityx::Entity asteroid = m_entityManager.create();
       asteroid.assign<Comp::Identity>(Comp::Id::Asteroid);
       asteroid.assign<Comp::AsteroidSize>(Comp::AstSize::S);
-      asteroid.assign<Comp::Motion>((rand() % 100) / 30.0f + 0.5f, 0);
+      asteroid.assign<Comp::Motion>((rand() % 100) / 50.0f + 0.5f, 0);
       asteroid.assign<Comp::Position>(xParent + m_radiusS, yParent + m_radiusS, (float)(rand() % 360));
       asteroid.assign<Comp::Radius>(m_radiusS);
 
       asteroid = m_entityManager.create();
       asteroid.assign<Comp::Identity>(Comp::Id::Asteroid);
       asteroid.assign<Comp::AsteroidSize>(Comp::AstSize::S);
-      asteroid.assign<Comp::Motion>((rand() % 100) / 30.0f + 0.5f, 0);
+      asteroid.assign<Comp::Motion>((rand() % 100) / 50.0f + 0.5f, 0);
       asteroid.assign<Comp::Position>(xParent - m_radiusS, yParent - m_radiusS, (float)(rand() % 360));
       asteroid.assign<Comp::Radius>(m_radiusS);
 

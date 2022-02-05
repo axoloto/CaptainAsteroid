@@ -17,11 +17,10 @@ void ControlByPlayer::update(
   entityx::EventManager &events,
   double dt)
 {
-  constexpr float maxAcc = 0.05f;
-  constexpr float maxSpeed = 10.0f;
-  constexpr float thrustCoeff = 15.0f;
-  constexpr float angleCoeff = 190.0f;
-  constexpr float frictionCoeff = 0.997f;
+  constexpr float maxSpeed = 6.0f;
+  constexpr float thrustCoeff = 8.0f;
+  constexpr float angleCoeff = 210.0f;
+  constexpr float frictionCoeff = 0.995f;
 
   Comp::Laser::Handle laser;
   Comp::Motion::Handle motion;
