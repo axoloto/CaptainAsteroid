@@ -39,7 +39,7 @@ It was a very interesting week and it gave me the chance to learn a ton in a res
 Download the Exe folder and launch CaptainAsteroid.exe. Have fun!
 
 ## I want to open the Unity project and tweak it
-Download or `git clone` the whole repo and open it through Unity Hub. You can modify the initial number of asteroids of each size (XXL, M, S), from 0 to 200. 
+Download or `git clone` the whole repo and open it through Unity Hub. Open the Asteroids Scene in Scene folder if not done already. You can modify the initial number of asteroids of each size (XXL, M, S), from 0 to 200. 
 
 ## I want to build the C++ plugin (advanced)
 
