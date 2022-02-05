@@ -23,7 +23,7 @@ It was a very interesting week and it gave me the chance to learn a ton in a res
 ## The Results
 
 - [x] Unity handles the UI and the rendering only, C++ plugin does all the physics processing
-- [x] Application is fast, about 3ms for the whole process (simulation + render) for a typical game situation (around 50 entities), up to 6ms with more than 100 asteroids in an overcrowded and perilous universe, but then the game session is usually very short...
+- [x] Application is fast, about 3-4 ms for the whole process (simulation + render) for a typical game situation (around 50 entities), up to 6-7 ms with more than 100 asteroids in an overcrowded and perilous universe, but then the game session is usually very short... (CPU: Intel i7-9750H, GPU: NVIDIA GTX1650)
 - [x] Physics engine is entirely based on a DOD/ECS pipeline
 - [x] Done in 5 days
 
@@ -118,6 +118,7 @@ I decided to create a Plugin Controller script to do the connection with the nat
 - [CMake](https://cmake.org/)
 - [Conan](https://conan.io/), an awesome open source package manager for C/C++
 - [Entityx](https://github.com/alecthomas/entityx), a fast and efficient open source library implementing generic DOD framework
+- [Triangulum](https://github.com/TransNeptunianStudios/Triangulum), another space shooter using Entityx framework, less asteroid-focused and with enemies
 - [spdlog](https://github.com/gabime/spdlog), an open source logging library
 - [Unity Talk about DOTS by Mike Geig](https://www.youtube.com/watch?v=BNMrevfB6Q0&list=PLX2vGYjWbI0S1wHRTyDiPtKLEPTWFi4cd&index=1), a very clear explanation about DOD/ECS and Unity's own implementation named Data-Oriented Technology Stack (DOTS)
 - [Making Space Invaders with Unity](https://www.youtube.com/watch?v=cnfwNzpoIlA), a nice introduction to understand Unity framework and UI implementation
