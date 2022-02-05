@@ -20,7 +20,12 @@ It was a very interesting week and it gave me the chance to learn a ton in a res
 - I had never implemented a DOD pipeline
 - I had never programmed in C#
   
+## The Results
 
+- [x] Unity handles the UI and the rendering only, C++ plugin does all the physics processing
+- [x] Application is fast, about 3ms for the whole process (simulation + render) for a typical game situation (around 50 entities), up to 6ms with more than 100 asteroids in an overcrowded universe but then the game session is usually very short...
+- [x] Physics engine is entirely based on a DOD/ECS pipeline
+- [x] Done in 5 days
 
 ## Commands
 | Key   |      Function      |
@@ -31,10 +36,10 @@ It was a very interesting week and it gave me the chance to learn a ton in a res
 
 
 ## I just want to play the game (and destroy some asteroids)
-Download the Exe folder and launch CaptainAsteroid.exe
+Download the Exe folder and launch CaptainAsteroid.exe. Have fun!
 
 ## I want to open the Unity project and tweak it
-Download or `git clone` the whole repo and open it on Unity Hub
+Download or `git clone` the whole repo and open it on Unity Hub. You can modify the initial number of asteroids of each type, from 0 to 200. 
 
 ## I want to build the C++ plugin (advanced)
 
@@ -80,21 +85,29 @@ Having never programmed in C#, I was not aware of the marshaling process and how
 
 These coordinates buffers are then used to update the positions of the pooled game objects which have generated at initialization step on C# side. All game objects in the pools with an index higher than the number of existing entities are deactivated. By doing so, there is no generation of game objects at each time iteration.
 
-Pros of this design:
+Pros:
 - Simple and very fast
 - No game object generation after initialization
-- No buffer allocation/copy after initialization
+- No buffer allocation after initialization
+- Fast transfer between C# and C++
 - Buffers are allocated on managed side, no potential memory leaks
 
 Cons:
-- Simplistic, buffers and pools have a fixed size so you are limiting the number of potential game entities to a certain bound. I set it to 200 for each entities, knowing very well that the game is not playable past 100 asteroids so it is a reasonable tradeoff and the limit could be definitely lower.
-- There is no id mapping between game objects on C# side and entities on C++ side, if I want to add some explosions in the game I will have to send their coordinates as any other entities because Unity doesn't know which asteroid has been destroyed or not.
+- Simplistic approach, buffers and pools have a fixed size so you are limiting the number of potential game entities to a certain bound. I set it to 200 for each entities, knowing very well that the game is not playable past 100 asteroids so it is a reasonable tradeoff and this maximum limit could be definitely lower.
+- There is no ID mapping between game objects on C# side and entities on C++ side. Unity doesn't know which asteroid has been destroyed or not. If I want to add some explosions in the game, I will have to send their coordinates as any other entities. 
 
 ### C# scripts implementation
 
-Again, I had zero experience with C# so I might miss some good practices and I apologies for any disturbing design in the C# scripts.
+Again, having zero experience with C# I might have missed some good practices and I apology for any disturbing design in the C# scripts.
 
-I decided to create a Plugin Controller script doing the API with the native C++ side so I could call the API functions from different C# scripts connected to the multiple Game Objects (Space Ship, pools, UI...).
+I decided to create a Plugin Controller script doing the connection with the native C++ side so I could call the API functions from different C# scripts connected to the multiple Game Objects (Space Ship, pools, UI...), once connected to this script.
+
+## Next Steps
+
+- [ ] Adding some enemy space ships
+- [ ] Improving the bouncing algorithm (collision between asteroids)
+- [ ] Might add some multithreading to run the C++ plugin on its own thread, but given the current performance, I judged that it was not necessary for now
+- [ ] Adding some explosions and sounds
 
 ## References and Inspirations
 
