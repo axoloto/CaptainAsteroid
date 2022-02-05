@@ -1,6 +1,6 @@
 #include "SpaceShip.hpp"
 
-#include "Utils.hpp"
+#include "Define.hpp"
 
 #include "components/RadiusC.hpp"
 #include "components/MotionC.hpp"

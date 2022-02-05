@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class AsteroidsGame : MonoBehaviour
+public class CaptainAsteroidGame : MonoBehaviour
 {
     enum EntityType : int
     {
@@ -25,7 +25,7 @@ public class AsteroidsGame : MonoBehaviour
 
     public Camera m_camera;
     public GameObject m_pluginController;
-    PluginControl m_plg;
+    CaptainAsteroidPlugin m_plg;
 
     public List<GameObject> m_pooledAsteroidsXXL;
     public GameObject m_asteroidObjectXXL;
@@ -49,7 +49,7 @@ public class AsteroidsGame : MonoBehaviour
 
     void Start()
     {
-        m_plg = m_pluginController.GetComponent<PluginControl>();
+        m_plg = m_pluginController.GetComponent<CaptainAsteroidPlugin>();
 
         if(!m_plg.IsPluginReady())
         {
@@ -57,9 +57,17 @@ public class AsteroidsGame : MonoBehaviour
             return;
         }
 
+        if(m_initNbAsteroidsXXL > m_maxNbAsteroidsByType ||
+        m_initNbAsteroidsM > m_maxNbAsteroidsByType ||
+        m_initNbAsteroidsS > m_maxNbAsteroidsByType)
+        {
+            Debug.LogError("Incorrect initial number of asteroids, please modify it");
+            return;
+        }
+
         if(m_camera.orthographic)
         {
-            PluginControl.InitParams initParams;
+            CaptainAsteroidPlugin.InitParams initParams;
 
             initParams.initNbAsteroidsXXL = m_initNbAsteroidsXXL;
             initParams.initNbAsteroidsM = m_initNbAsteroidsM;
@@ -120,6 +128,7 @@ public class AsteroidsGame : MonoBehaviour
     void InitPool(ref List<GameObject> list, GameObject gameObjectType, int listSize)
     {
         GameObject tmp;
+        
         for(int i = 0; i < listSize; ++i)
         {
             tmp = Instantiate(gameObjectType);

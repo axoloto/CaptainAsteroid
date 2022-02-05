@@ -10,7 +10,7 @@
 #define ASTEROID_EXPORT
 #endif
 
-#include "Utils.hpp"
+#include "Define.hpp"
 #include <cstdint>
 
 namespace AsteroidsCPP
@@ -27,13 +27,13 @@ extern "C"
 
     ASTEROID_EXPORT void DeleteNativeInstance(AsteroidsCPP::Game *ptr);
 
-    ASTEROID_EXPORT void Init(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Utils::InitParams initParams);
+    ASTEROID_EXPORT void Init(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Def::InitParams initParams);
 
-    ASTEROID_EXPORT void Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Utils::KeyState keyState, float deltaTime);
+    ASTEROID_EXPORT void Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Def::KeyState keyState, float deltaTime);
 
     ASTEROID_EXPORT void GetSpaceShipCoords(AsteroidsCPP::Game *gamePtr, float &x, float &y, float &angle);
 
-    ASTEROID_EXPORT void FillPosEntityList(AsteroidsCPP::Game *gamePtr, float *posEntities, int size, int *nbEntities, AsteroidsCPP::Utils::EntityType entityType);
+    ASTEROID_EXPORT void FillPosEntityList(AsteroidsCPP::Game *gamePtr, float *posEntities, int size, int *nbEntities, AsteroidsCPP::Def::EntityType entityType);
 
   }// namespace AsteroidsCPP
 }

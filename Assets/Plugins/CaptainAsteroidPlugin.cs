@@ -5,10 +5,17 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 
 // Class controlling access to Captain Asteroid Plugin
-public class PluginControl : MonoBehaviour
+public class CaptainAsteroidPlugin : MonoBehaviour
 {
     private IntPtr m_GamePtr = IntPtr.Zero;
 
+    public enum GameState : int
+    {
+        GameOver = 1 << 0,
+    }
+
+    // Input parameters to initialize the plugin
+    // Some are modifiable on Unity UI side
     [StructLayout(LayoutKind.Sequential)]
     public struct InitParams
     {
@@ -23,29 +30,35 @@ public class PluginControl : MonoBehaviour
     #region Native
 
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-    private const string AsteroidNativeDLL = "CaptainAsteroid.dll";
+    private const string CaptainAsteroidNativeDLL = "CaptainAsteroid.dll";
 #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-    private const string AsteroidNativeDLL = "__Internal";
+    private const string CaptainAsteroidNativeDLL = "__Internal";
 #endif
 
-    [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
+    // First call to be made to generate the game on native side
+    [DllImport(CaptainAsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern IntPtr CreateNativeInstance();
 
-    [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
+    // Last call to be made to release memory on native side
+    [DllImport(CaptainAsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern void DeleteNativeInstance(IntPtr ptr);
 
-    [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
+    // Initializing the native game with the input parameters
+    [DllImport(CaptainAsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern void Init(IntPtr gamePtr, InitParams initParams);
 
-    [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
+    // Updating the native game at each time frame with player input
+    [DllImport(CaptainAsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern void Update(IntPtr gamePtr, int keyState, float deltaTime);
 
-    // Helper Function for Space Ship Controller
-    [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
+    // Specific Function for Space Ship Controller
+    [DllImport(CaptainAsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern void GetSpaceShipCoords(IntPtr gamePtr, ref float x, ref float y, ref float angle);
 
-    // Generic Access to Entities positions and angle (x,y,theta) from native side
-    [DllImport(AsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
+    // Generic Access to Non Playable Entities positions and angle (x,y,theta) from native side, used for Asteroids and Laser Shots
+    // Buffer generated on managed memory side and never deleted during run-time, reused at every frame to improve performance
+    // Native plugin is only filling it up to nbEntities
+    [DllImport(CaptainAsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern void FillPosEntityList(IntPtr gamePtr, IntPtr posEntities, int size, out int nbEntities, int typeEntity);
 
     #endregion
@@ -61,7 +74,7 @@ public class PluginControl : MonoBehaviour
 
         if(!IsNativeInstanceReady())
         {
-            Debug.LogError("Incorrect Captain Asteroids plugin instantiation");
+            Debug.LogError("Incorrect Captain Asteroid plugin instantiation");
         }
     }
 
@@ -88,6 +101,11 @@ public class PluginControl : MonoBehaviour
     public bool IsPluginReady()
     {
         return IsNativeInstanceReady();
+    }
+
+    public GameState gameState()
+    {
+        return GameState.GameOver;
     }
 
     public void InitPlugin(InitParams initParams)

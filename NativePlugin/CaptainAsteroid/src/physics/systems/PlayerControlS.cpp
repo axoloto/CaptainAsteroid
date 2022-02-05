@@ -27,21 +27,21 @@ void PlayerControlS::update(
   for (entityx::Entity entity : entities.entities_with_components(playerControl, motion, laser))
   {
     float acc = 0.0f;
-    if (m_keyState.pressed(Utils::KeyState::Keys::Down))//use playerControl
+    if (m_keyState.pressed(Def::KeyState::Keys::Down))//use playerControl
     {
       acc = -thrustCoeff;
     }
-    if (m_keyState.pressed(Utils::KeyState::Keys::Up))
+    if (m_keyState.pressed(Def::KeyState::Keys::Up))
     {
       acc = thrustCoeff;
     }
 
     motion->rot = 0.0f;
-    if (m_keyState.pressed(Utils::KeyState::Keys::Left))
+    if (m_keyState.pressed(Def::KeyState::Keys::Left))
     {
       motion->rot = angleCoeff;
     }
-    if (m_keyState.pressed(Utils::KeyState::Keys::Right))
+    if (m_keyState.pressed(Def::KeyState::Keys::Right))
     {
       motion->rot = -angleCoeff;
     }
@@ -50,7 +50,7 @@ void PlayerControlS::update(
     motion->vel *= frictionCoeff;
     motion->vel = std::max(0.0f, std::min(motion->vel, 20.0f));
 
-    laser->isFiring = m_keyState.pressed(Utils::KeyState::Keys::Space);
+    laser->isFiring = m_keyState.pressed(Def::KeyState::Keys::Space);
   }
 }
 

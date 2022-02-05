@@ -51,7 +51,7 @@ void DeleteNativeInstance(AsteroidsCPP::Game *gamePtr)
   }
 }
 
-void Init(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Utils::InitParams initParams)
+void Init(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Def::InitParams initParams)
 {
   try
   {
@@ -67,7 +67,7 @@ void Init(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Utils::InitParams initParam
   }
 }
 
-void Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Utils::KeyState keyState, float deltaTime)
+void Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Def::KeyState keyState, float deltaTime)
 {
   try
   {
@@ -99,7 +99,7 @@ void GetSpaceShipCoords(AsteroidsCPP::Game *gamePtr, float &x, float &y, float &
   }
 }
 
-void FillPosEntityList(AsteroidsCPP::Game *gamePtr, float *posEntities, int size, int *nbEntities, AsteroidsCPP::Utils::EntityType entityType)
+void FillPosEntityList(AsteroidsCPP::Game *gamePtr, float *posEntities, int size, int *nbEntities, AsteroidsCPP::Def::EntityType entityType)
 {
   try
   {

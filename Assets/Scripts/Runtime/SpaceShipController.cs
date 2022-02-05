@@ -7,12 +7,12 @@ public class SpaceShipController : MonoBehaviour
     private Transform spaceShip;
 
     public GameObject pluginController;
-    PluginControl plg;
+    CaptainAsteroidPlugin plg;
 
     void Start()
     {
         spaceShip = GetComponent<Transform>();
-        plg = pluginController.GetComponent<PluginControl>();
+        plg = pluginController.GetComponent<CaptainAsteroidPlugin>();
     }
 
     void Update()
@@ -20,7 +20,7 @@ public class SpaceShipController : MonoBehaviour
         float x = spaceShip.position.x;
         float y = spaceShip.position.y;
         float angle = spaceShip.rotation.z;
-        
+
         plg.GetSpaceShipCoords(ref x, ref y, ref angle);
 
         spaceShip.position = new Vector3(x, y, 0.0f);

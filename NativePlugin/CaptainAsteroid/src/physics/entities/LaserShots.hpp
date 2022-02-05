@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Utils.hpp"
+#include "Define.hpp"
 
 #include "entityx/System.h"
 
@@ -16,7 +16,7 @@ class LaserShots
 public:
   LaserShots(entityx::EntityManager &entityManager) : m_entityManager(entityManager), m_shotVel(8.0f), m_maxNbShots(200), m_nbShots(0){};
 
-  void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType) const;
+  void fillPosEntityList(float *posEntities, int size, int *nbEntities, Def::EntityType entityType) const;
 
   void createShot(const PositionC &initPos, const MotionC &initMot);
   void destroyShot(entityx::Entity shot);

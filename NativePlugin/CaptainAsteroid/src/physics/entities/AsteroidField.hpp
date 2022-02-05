@@ -2,7 +2,7 @@
 
 #include <array>
 
-#include "Utils.hpp"
+#include "Define.hpp"
 
 #include "entityx/System.h"
 
@@ -19,9 +19,9 @@ public:
                                                          m_nbAsteroidsM(0),
                                                          m_nbAsteroidsS(0){};
 
-  void init(Utils::InitParams initParams);
+  void init(Def::InitParams initParams);
 
-  void fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType) const;
+  void fillPosEntityList(float *posEntities, int size, int *nbEntities, Def::EntityType entityType) const;
 
   void createAsteroidsFromParent(entityx::Entity parent);
 

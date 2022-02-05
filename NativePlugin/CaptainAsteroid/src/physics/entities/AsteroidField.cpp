@@ -1,6 +1,6 @@
 #include "AsteroidField.hpp"
 
-#include "Utils.hpp"
+#include "Define.hpp"
 
 #include "components/RadiusC.hpp"
 #include "components/MotionC.hpp"
@@ -14,7 +14,7 @@
 
 using namespace AsteroidsCPP;
 
-void AsteroidField::init(Utils::InitParams initParams)
+void AsteroidField::init(Def::InitParams initParams)
 {
   m_nbMaxAsteroidsByType = initParams.maxNbAsteroidsByType;
 
@@ -136,21 +136,21 @@ void AsteroidField::destroyAsteroid(entityx::Entity asteroid)
   }
 }
 
-void AsteroidField::fillPosEntityList(float *posEntities, int sizeBuffer, int *nbEntities, Utils::EntityType entityType) const
+void AsteroidField::fillPosEntityList(float *posEntities, int sizeBuffer, int *nbEntities, Def::EntityType entityType) const
 {
   int nbAsteroids = 0;
   auto selType = Type::Unknown;
-  if (entityType == Utils::EntityType::Asteroid_XXL)
+  if (entityType == Def::EntityType::Asteroid_XXL)
   {
     selType = Type::XXL;
     nbAsteroids = m_nbAsteroidsXXL;
   }
-  else if (entityType == Utils::EntityType::Asteroid_M)
+  else if (entityType == Def::EntityType::Asteroid_M)
   {
     selType = Type::M;
     nbAsteroids = m_nbAsteroidsM;
   }
-  else if (entityType == Utils::EntityType::Asteroid_S)
+  else if (entityType == Def::EntityType::Asteroid_S)
   {
     selType = Type::S;
     nbAsteroids = m_nbAsteroidsS;

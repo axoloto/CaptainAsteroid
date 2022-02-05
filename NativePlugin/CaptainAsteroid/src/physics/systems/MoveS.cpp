@@ -1,7 +1,7 @@
 #include "MoveS.hpp"
 using namespace AsteroidsCPP;
 
-#include "utils.hpp"
+#include "Define.hpp"
 #include "components/MotionC.hpp"
 #include "components/PositionC.hpp"
 
@@ -19,8 +19,8 @@ void MoveS::update(
     float angleDeg = position->angle;
 
     angleDeg += motion->rot;
-    x += std::cos(angleDeg * Utils::PI / 180.0f) * motion->vel * (float)dt;
-    y += std::sin(angleDeg * Utils::PI / 180.0f) * motion->vel * (float)dt;
+    x += std::cos(angleDeg * Def::PI / 180.0f) * motion->vel * (float)dt;
+    y += std::sin(angleDeg * Def::PI / 180.0f) * motion->vel * (float)dt;
 
     if (x > m_boundaryH || x < -m_boundaryH)
     {

@@ -10,7 +10,7 @@
 
 #include "events/GameOverE.hpp"
 
-#include "Utils.hpp"
+#include "Define.hpp"
 
 #include <cmath>
 
@@ -108,7 +108,7 @@ void CollideS::bounceAsteroids(
   float angle = 90.0f;
   if ((posB->y - posA->y) >= 0.01f)
   {
-    angle = atan((posB->x - posA->x) / (posB->y - posA->y)) * 180.0f / Utils::PI;
+    angle = atan((posB->x - posA->x) / (posB->y - posA->y)) * 180.0f / Def::PI;
   }
 
   if (posB->x > posA->x)

@@ -1,6 +1,6 @@
 #include "entities/LaserShots.hpp"
 
-#include "Utils.hpp"
+#include "Define.hpp"
 
 #include "components/RadiusC.hpp"
 #include "components/LifeTimeC.hpp"
@@ -28,7 +28,7 @@ void LaserShots::destroyShot(entityx::Entity shot)
   m_nbShots--;
 }
 
-void LaserShots::fillPosEntityList(float *posEntities, int sizeBuffer, int *nbEntities, Utils::EntityType entityType) const
+void LaserShots::fillPosEntityList(float *posEntities, int sizeBuffer, int *nbEntities, Def::EntityType entityType) const
 {
   PositionC::Handle position;
   LifeTimeC::Handle lifeTime;

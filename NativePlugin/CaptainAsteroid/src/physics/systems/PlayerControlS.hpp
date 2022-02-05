@@ -4,7 +4,7 @@
 #include "entityx/Event.h"
 
 #include "events/PlayerInputE.hpp"
-#include "Utils.hpp"
+#include "Define.hpp"
 
 namespace AsteroidsCPP
 {
@@ -22,6 +22,6 @@ public:
   void receive(const PlayerInputE &event);
 
 private:
-  Utils::KeyState m_keyState;
+  Def::KeyState m_keyState;
 };
 }// namespace AsteroidsCPP

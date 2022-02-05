@@ -31,7 +31,7 @@ Game::Game() : m_eventManager(),
   LOG_INFO("Game Created");
 }
 
-void Game::init(Utils::InitParams initParams)
+void Game::init(Def::InitParams initParams)
 {
   m_gameManager.init();
 
@@ -60,7 +60,7 @@ void Game::createSystems(float boundaryV, float boundaryH)
   LOG_INFO("DOD Systems Initialized");
 }
 
-void Game::update(Utils::KeyState keyState, float deltaTime)
+void Game::update(Def::KeyState keyState, float deltaTime)
 {
   m_eventManager.emit<PlayerInputE>(keyState);
 
@@ -84,15 +84,15 @@ void Game::getSpaceShipCoords(float &x, float &y, float &angle) const
   angle = coordsAndRot[2];
 }
 
-void Game::fillPosEntityList(float *posEntities, int size, int *nbEntities, Utils::EntityType entityType) const
+void Game::fillPosEntityList(float *posEntities, int size, int *nbEntities, Def::EntityType entityType) const
 {
-  if (entityType & Utils::EntityType::Asteroid_XXL
-      || entityType & Utils::EntityType::Asteroid_M
-      || entityType & Utils::EntityType::Asteroid_S)
+  if (entityType & Def::EntityType::Asteroid_XXL
+      || entityType & Def::EntityType::Asteroid_M
+      || entityType & Def::EntityType::Asteroid_S)
   {
     m_asteroidField.fillPosEntityList(posEntities, size, nbEntities, entityType);
   }
-  else if (entityType & Utils::EntityType::LaserShot)
+  else if (entityType & Def::EntityType::LaserShot)
   {
     m_laserShots.fillPosEntityList(posEntities, size, nbEntities, entityType);
   }

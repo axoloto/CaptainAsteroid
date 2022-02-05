@@ -7,16 +7,10 @@
 #include "events/GameOverE.hpp"
 #include "events/VictoryE.hpp"
 
+#include "Define.hpp"
+
 namespace AsteroidsCPP
 {
-enum GameState
-{
-  GS_Start,
-  GS_Playing,
-  GS_GameOver,
-  GS_Victory,
-};
-
 class GameManager : public entityx::Receiver<GameManager>
 {
 public:
@@ -25,7 +19,7 @@ public:
 
   void init();
 
-  GameState gameState() const;
+  Def::GameState gameState() const;
 
   bool isGameRunning() const;
 
@@ -38,7 +32,7 @@ private:
 
   entityx::EventManager &m_eventManager;
 
-  GameState m_gameState;
+  Def::GameState m_gameState;
 };
 
 
