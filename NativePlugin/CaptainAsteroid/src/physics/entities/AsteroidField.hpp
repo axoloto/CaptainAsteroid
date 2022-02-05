@@ -6,7 +6,7 @@
 
 #include "entityx/System.h"
 
-#include "components/AsteroidTypeC.hpp"
+#include "components/AsteroidSizeC.hpp"
 
 namespace AsteroidsCPP
 {
@@ -32,7 +32,7 @@ public:
   int totalNbAsteroids() const { return m_nbAsteroidsXXL + m_nbAsteroidsM + m_nbAsteroidsS; }
 
 private:
-  void initFieldWithRandomPos(Type type, float boundaryH, float boundaryV);
+  void initFieldWithRandomPos(AstSize type, float boundaryH, float boundaryV);
 
   entityx::EntityManager &m_entityManager;
   entityx::EventManager &m_eventManager;

@@ -8,7 +8,7 @@
 #include "components/PlayerControlC.hpp"
 #include "components/LifeTimeC.hpp"
 #include "components/IdentityC.hpp"
-#include "components/AsteroidTypeC.hpp"
+#include "components/AsteroidSizeC.hpp"
 
 #include "events/AsteroidDestroyedE.hpp"
 #include "events/VictoryE.hpp"
@@ -25,9 +25,9 @@ void AsteroidField::init(Def::InitParams initParams)
   m_nbAsteroidsM = initParams.initNbAsteroidsM;
   m_nbAsteroidsS = initParams.initNbAsteroidsS;
 
-  initFieldWithRandomPos(Type::XXL, initParams.boundaryDomainH, initParams.boundaryDomainV);
-  initFieldWithRandomPos(Type::M, initParams.boundaryDomainH, initParams.boundaryDomainV);
-  initFieldWithRandomPos(Type::S, initParams.boundaryDomainH, initParams.boundaryDomainV);
+  initFieldWithRandomPos(AstSize::XXL, initParams.boundaryDomainH, initParams.boundaryDomainV);
+  initFieldWithRandomPos(AstSize::M, initParams.boundaryDomainH, initParams.boundaryDomainV);
+  initFieldWithRandomPos(AstSize::S, initParams.boundaryDomainH, initParams.boundaryDomainV);
 
   // Empty field, nothing to do
   if (totalNbAsteroids() == 0)
@@ -36,21 +36,21 @@ void AsteroidField::init(Def::InitParams initParams)
   }
 }
 
-void AsteroidField::initFieldWithRandomPos(Type type, float boundaryH, float boundaryV)
+void AsteroidField::initFieldWithRandomPos(AstSize type, float boundaryH, float boundaryV)
 {
   float radius = 0.0f;
   int nbAsteroids = 0;
-  if (type == Type::XXL)
+  if (type == AstSize::XXL)
   {
     radius = m_radiusXXL;
     nbAsteroids = m_nbAsteroidsXXL;
   }
-  else if (type == Type::M)
+  else if (type == AstSize::M)
   {
     radius = m_radiusM;
     nbAsteroids = m_nbAsteroidsM;
   }
-  else if (type == Type::S)
+  else if (type == AstSize::S)
   {
     radius = m_radiusS;
     nbAsteroids = m_nbAsteroidsS;
@@ -60,7 +60,7 @@ void AsteroidField::initFieldWithRandomPos(Type type, float boundaryH, float bou
   {
     entityx::Entity asteroid = m_entityManager.create();
     asteroid.assign<IdentityC>(Id::Asteroid);
-    asteroid.assign<AsteroidTypeC>(type);
+    asteroid.assign<AsteroidSizeC>(type);
     asteroid.assign<MotionC>((rand() % 100) / 30.0f + 0.5f, 0);
 
     float randX = (rand() % 100) / 50.0f * boundaryH - boundaryH;
@@ -77,42 +77,42 @@ void AsteroidField::initFieldWithRandomPos(Type type, float boundaryH, float bou
 
 void AsteroidField::createAsteroidsFromParent(entityx::Entity parent)
 {
-  if (parent.has_component<AsteroidTypeC>() && parent.has_component<PositionC>())
+  if (parent.has_component<AsteroidSizeC>() && parent.has_component<PositionC>())
   {
-    auto type = parent.component<AsteroidTypeC>()->type;
+    auto type = parent.component<AsteroidSizeC>()->type;
     float xParent = parent.component<PositionC>()->x;
     float yParent = parent.component<PositionC>()->y;
 
-    if (type == Type::XXL && m_nbAsteroidsM < m_nbMaxAsteroidsByType - 2)
+    if (type == AstSize::XXL && m_nbAsteroidsM < m_nbMaxAsteroidsByType - 2)
     {
       entityx::Entity asteroid = m_entityManager.create();
       asteroid.assign<IdentityC>(Id::Asteroid);
-      asteroid.assign<AsteroidTypeC>(Type::M);
+      asteroid.assign<AsteroidSizeC>(AstSize::M);
       asteroid.assign<MotionC>((rand() % 100) / 30.0f + 0.5f, 0);
       asteroid.assign<PositionC>(xParent + m_radiusM, yParent + m_radiusM, (float)(rand() % 360));
       asteroid.assign<RadiusC>(m_radiusM);
 
       asteroid = m_entityManager.create();
       asteroid.assign<IdentityC>(Id::Asteroid);
-      asteroid.assign<AsteroidTypeC>(Type::M);
+      asteroid.assign<AsteroidSizeC>(AstSize::M);
       asteroid.assign<MotionC>((rand() % 100) / 30.0f + 0.5f, 0);
       asteroid.assign<PositionC>(xParent - m_radiusM, yParent - m_radiusM, (float)(rand() % 360));
       asteroid.assign<RadiusC>(m_radiusM);
 
       m_nbAsteroidsM += 2;
     }
-    else if (type == Type::M && m_nbAsteroidsS < m_nbMaxAsteroidsByType - 2)
+    else if (type == AstSize::M && m_nbAsteroidsS < m_nbMaxAsteroidsByType - 2)
     {
       entityx::Entity asteroid = m_entityManager.create();
       asteroid.assign<IdentityC>(Id::Asteroid);
-      asteroid.assign<AsteroidTypeC>(Type::S);
+      asteroid.assign<AsteroidSizeC>(AstSize::S);
       asteroid.assign<MotionC>((rand() % 100) / 30.0f + 0.5f, 0);
       asteroid.assign<PositionC>(xParent + m_radiusS, yParent + m_radiusS, (float)(rand() % 360));
       asteroid.assign<RadiusC>(m_radiusS);
 
       asteroid = m_entityManager.create();
       asteroid.assign<IdentityC>(Id::Asteroid);
-      asteroid.assign<AsteroidTypeC>(Type::S);
+      asteroid.assign<AsteroidSizeC>(AstSize::S);
       asteroid.assign<MotionC>((rand() % 100) / 30.0f + 0.5f, 0);
       asteroid.assign<PositionC>(xParent - m_radiusS, yParent - m_radiusS, (float)(rand() % 360));
       asteroid.assign<RadiusC>(m_radiusS);
@@ -124,19 +124,19 @@ void AsteroidField::createAsteroidsFromParent(entityx::Entity parent)
 
 void AsteroidField::destroyAsteroid(entityx::Entity asteroid)
 {
-  if (asteroid.has_component<AsteroidTypeC>())
+  if (asteroid.has_component<AsteroidSizeC>())
   {
-    auto type = asteroid.component<AsteroidTypeC>()->type;
+    auto type = asteroid.component<AsteroidSizeC>()->type;
 
-    if (type == Type::XXL)
+    if (type == AstSize::XXL)
     {
       m_nbAsteroidsXXL--;
     }
-    else if (type == Type::M)
+    else if (type == AstSize::M)
     {
       m_nbAsteroidsM--;
     }
-    else if (type == Type::S)
+    else if (type == AstSize::S)
     {
       m_nbAsteroidsS--;
     }
@@ -155,36 +155,38 @@ void AsteroidField::destroyAsteroid(entityx::Entity asteroid)
 void AsteroidField::fillPosEntityList(float *posEntities, int sizeBuffer, int *nbEntities, Def::EntityType entityType) const
 {
   int nbAsteroids = 0;
-  auto selType = Type::Unknown;
+  auto selSize = AstSize::Unknown;
   if (entityType == Def::EntityType::Asteroid_XXL)
   {
-    selType = Type::XXL;
+    selSize = AstSize::XXL;
     nbAsteroids = m_nbAsteroidsXXL;
   }
   else if (entityType == Def::EntityType::Asteroid_M)
   {
-    selType = Type::M;
+    selSize = AstSize::M;
     nbAsteroids = m_nbAsteroidsM;
   }
   else if (entityType == Def::EntityType::Asteroid_S)
   {
-    selType = Type::S;
+    selSize = AstSize::S;
     nbAsteroids = m_nbAsteroidsS;
   }
 
   PositionC::Handle position;
   IdentityC::Handle identity;
-  AsteroidTypeC::Handle asteroidType;
+  AsteroidSizeC::Handle asteroidSize;
 
   size_t i = 0;
-  for (entityx::Entity entity : m_entityManager.entities_with_components(position, identity, asteroidType))
+  for (entityx::Entity entity : m_entityManager.entities_with_components(position, identity, asteroidSize))
   {
-    if (i >= sizeBuffer) break;// Should not happen
-    if (identity->id != Id::Asteroid || asteroidType->type != selType) continue;
+    if (identity->id != Id::Asteroid || asteroidSize->type != selSize) continue;
 
-    posEntities[i++] = position->x;
-    posEntities[i++] = position->y;
-    posEntities[i++] = position->angle;
+    if (i < sizeBuffer)
+    {
+      posEntities[i++] = position->x;
+      posEntities[i++] = position->y;
+      posEntities[i++] = position->angle;
+    }
   }
 
   *nbEntities = (int)nbAsteroids;

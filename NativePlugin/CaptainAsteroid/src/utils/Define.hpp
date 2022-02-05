@@ -6,6 +6,7 @@ namespace AsteroidsCPP
 {
 namespace Def
 {
+  // Enums and Struct used by API to Unity
 
   enum GameState : std::uint32_t
   {

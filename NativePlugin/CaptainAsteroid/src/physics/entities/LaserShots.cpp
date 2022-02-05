@@ -37,12 +37,14 @@ void LaserShots::fillPosEntityList(float *posEntities, int sizeBuffer, int *nbEn
   int i = 0;
   for (entityx::Entity entity : m_entityManager.entities_with_components(identity, position, lifeTime))
   {
-    if (i >= sizeBuffer) break;// Should not happen
     if (identity->id != Id::LaserShot) continue;
 
-    posEntities[i++] = position->x;
-    posEntities[i++] = position->y;
-    posEntities[i++] = position->angle;
+    if (i < sizeBuffer)
+    {
+      posEntities[i++] = position->x;
+      posEntities[i++] = position->y;
+      posEntities[i++] = position->angle;
+    }
   }
 
   *nbEntities = (int)m_nbShots;

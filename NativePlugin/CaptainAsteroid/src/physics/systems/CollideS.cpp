@@ -4,7 +4,7 @@
 #include "components/IdentityC.hpp"
 #include "components/RadiusC.hpp"
 #include "components/MotionC.hpp"
-#include "components/AsteroidTypeC.hpp"
+#include "components/AsteroidSizeC.hpp"
 #include "components/AsteroidParentC.hpp"
 #include "components/DeathC.hpp"
 
@@ -127,8 +127,8 @@ void CollideS::bounceAsteroids(
 
 void CollideS::splitAsteroid(entityx::Entity asteroid)
 {
-  AsteroidTypeC::Handle asteroidType = asteroid.component<AsteroidTypeC>();
-  if (asteroidType && (asteroidType->type == Type::XXL || asteroidType->type == Type::M))
+  AsteroidSizeC::Handle asteroidType = asteroid.component<AsteroidSizeC>();
+  if (asteroidType && (asteroidType->type == AstSize::XXL || asteroidType->type == AstSize::M))
   {
     // For M and XXL asteroids, we will create children later on in the pipeline
     asteroid.assign<AsteroidParentC>();

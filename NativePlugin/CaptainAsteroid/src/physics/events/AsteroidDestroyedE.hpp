@@ -3,14 +3,14 @@
 #include "entityx/Event.h"
 #include "entityx/Entity.h"
 
-#include "components/AsteroidTypeC.hpp"
+#include "components/AsteroidSizeC.hpp"
 
 namespace AsteroidsCPP
 {
 struct AsteroidDestroyedE : public entityx::Event<AsteroidDestroyedE>
 {
-  AsteroidDestroyedE(Type _type) : type(_type){};
+  AsteroidDestroyedE(AstSize _type) : type(_type){};
 
-  Type type;
+  AstSize type;
 };
 }// namespace AsteroidsCPP

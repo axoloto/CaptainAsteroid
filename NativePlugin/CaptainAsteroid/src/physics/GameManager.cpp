@@ -52,15 +52,15 @@ void GameManager::receive(const VictoryE &victory)
 
 void GameManager::receive(const AsteroidDestroyedE &asteroidDestroyed)
 {
-  if (asteroidDestroyed.type == Type::XXL)
+  if (asteroidDestroyed.type == AstSize::XXL)
   {
     m_score += 300;
   }
-  else if (asteroidDestroyed.type == Type::M)
+  else if (asteroidDestroyed.type == AstSize::M)
   {
     m_score += 150;
   }
-  else if (asteroidDestroyed.type == Type::S)
+  else if (asteroidDestroyed.type == AstSize::S)
   {
     m_score += 25;
   }
