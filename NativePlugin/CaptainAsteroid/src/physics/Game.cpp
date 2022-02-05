@@ -2,7 +2,7 @@
 
 #include "Logging.hpp"
 
-#include "systems/PlayerControl.hpp"
+#include "systems/ControlByPlayer.hpp"
 #include "systems/Move.hpp"
 #include "systems/Collide.hpp"
 #include "systems/FireLaser.hpp"
@@ -48,7 +48,7 @@ void Game::init(Def::InitParams initParams)
 
 void Game::createSystems(float boundaryV, float boundaryH)
 {
-  m_systemManager.add<Sys::PlayerControl>();
+  m_systemManager.add<Sys::ControlByPlayer>();
   m_systemManager.add<Sys::Move>(boundaryV, boundaryH);
   m_systemManager.add<Sys::Collide>();
   m_systemManager.add<Sys::FireLaser>(m_laserShots);
@@ -66,7 +66,7 @@ void Game::update(Def::KeyState keyState, float deltaTime)
 
   if (m_gameManager.isGameRunning())
   {
-    m_systemManager.update<Sys::PlayerControl>(deltaTime);
+    m_systemManager.update<Sys::ControlByPlayer>(deltaTime);
     m_systemManager.update<Sys::Move>(deltaTime);
     m_systemManager.update<Sys::Collide>(deltaTime);
     m_systemManager.update<Sys::FireLaser>(deltaTime);

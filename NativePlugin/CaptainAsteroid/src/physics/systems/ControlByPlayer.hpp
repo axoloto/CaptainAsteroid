@@ -10,11 +10,11 @@ namespace CaptainAsteroidCPP
 {
 namespace Sys
 {
-  class PlayerControl : public entityx::System<PlayerControl>
+  class ControlByPlayer : public entityx::System<ControlByPlayer>
     , public entityx::Receiver<Ev::PlayerInput>
   {
   public:
-    PlayerControl();
+    ControlByPlayer();
 
     void update(entityx::EntityManager &entities,
       entityx::EventManager &events,

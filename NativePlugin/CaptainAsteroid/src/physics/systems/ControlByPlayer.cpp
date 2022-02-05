@@ -1,4 +1,4 @@
-#include "PlayerControl.hpp"
+#include "ControlByPlayer.hpp"
 
 #include "components/Motion.hpp"
 #include "components/Laser.hpp"
@@ -9,16 +9,17 @@
 
 using namespace CaptainAsteroidCPP::Sys;
 
-PlayerControl::PlayerControl(){};
+ControlByPlayer::ControlByPlayer(){};
 
-void PlayerControl::update(
+void ControlByPlayer::update(
   entityx::EntityManager &entities,
   entityx::EventManager &events,
   double dt)
 {
   constexpr float maxAcc = 0.05f;
+  constexpr float maxSpeed = 10.0f;
   constexpr float thrustCoeff = 20.0f;
-  constexpr float angleCoeff = 1.2f;
+  constexpr float angleCoeff = 0.5f;
   constexpr float frictionCoeff = 0.997f;
 
   Comp::Motion::Handle motion;
@@ -27,7 +28,7 @@ void PlayerControl::update(
   for (entityx::Entity entity : entities.entities_with_components(playerControl, motion, laser))
   {
     float acc = 0.0f;
-    if (m_keyState.pressed(Def::KeyState::Keys::Down))//use playerControl
+    if (m_keyState.pressed(Def::KeyState::Keys::Down))
     {
       acc = -thrustCoeff;
     }
@@ -48,18 +49,18 @@ void PlayerControl::update(
 
     motion->vel += acc * (float)dt;
     motion->vel *= frictionCoeff;
-    motion->vel = std::max(0.0f, std::min(motion->vel, 20.0f));
+    motion->vel = std::max(0.0f, std::min(motion->vel, maxSpeed));
 
     laser->isFiring = m_keyState.pressed(Def::KeyState::Keys::Space);
   }
 }
 
-void PlayerControl::configure(entityx::EventManager &eventManager)
+void ControlByPlayer::configure(entityx::EventManager &eventManager)
 {
   eventManager.subscribe<Ev::PlayerInput>(*this);
 }
 
-void PlayerControl::receive(const Ev::PlayerInput &event)
+void ControlByPlayer::receive(const Ev::PlayerInput &event)
 {
   m_keyState = event.keyState;
 }
