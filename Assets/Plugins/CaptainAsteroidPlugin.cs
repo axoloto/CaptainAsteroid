@@ -67,6 +67,12 @@ public class CaptainAsteroidPlugin : MonoBehaviour
     [DllImport(CaptainAsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern GameState CurrentGameState(IntPtr gamePtr);
 
+    [DllImport(CaptainAsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
+    static extern int CurrentScore(IntPtr gamePtr);
+
+    [DllImport(CaptainAsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
+    static extern int CurrentNbAsteroids(IntPtr gamePtr);
+
     #endregion
 
     void Start()
@@ -104,7 +110,7 @@ public class CaptainAsteroidPlugin : MonoBehaviour
     }
 
     // API for other scripts
-    
+
     public void ResetPlugin()
     {
         if(IsNativeInstanceReady())
@@ -170,5 +176,23 @@ public class CaptainAsteroidPlugin : MonoBehaviour
             return CurrentGameState(m_GamePtr);
         }
         return GameState.GameOver;
+    }
+
+    public int CurrentScore()
+    {
+        if(IsNativeInstanceReady())
+        {
+            return CurrentScore(m_GamePtr);
+        }
+        return 0;
+    }
+
+    public int CurrentNbAsteroids()
+    {
+        if(IsNativeInstanceReady())
+        {
+            return CurrentNbAsteroids(m_GamePtr);
+        }
+        return 0;
     }
 }

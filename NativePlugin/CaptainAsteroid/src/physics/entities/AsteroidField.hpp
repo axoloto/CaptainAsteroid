@@ -13,11 +13,13 @@ namespace AsteroidsCPP
 class AsteroidField
 {
 public:
-  AsteroidField(entityx::EntityManager &entityManager) : m_entityManager(entityManager),
-                                                         m_nbMaxAsteroidsByType(200),
-                                                         m_nbAsteroidsXXL(0),
-                                                         m_nbAsteroidsM(0),
-                                                         m_nbAsteroidsS(0){};
+  AsteroidField(entityx::EntityManager &entityManager,
+    entityx::EventManager &eventManager) : m_entityManager(entityManager),
+                                           m_eventManager(eventManager),
+                                           m_nbMaxAsteroidsByType(200),
+                                           m_nbAsteroidsXXL(0),
+                                           m_nbAsteroidsM(0),
+                                           m_nbAsteroidsS(0){};
 
   void init(Def::InitParams initParams);
 
@@ -27,10 +29,13 @@ public:
 
   void destroyAsteroid(entityx::Entity asteroid);
 
+  int totalNbAsteroids() const { return m_nbAsteroidsXXL + m_nbAsteroidsM + m_nbAsteroidsS; }
+
 private:
   void initFieldWithRandomPos(Type type, float boundaryH, float boundaryV);
 
   entityx::EntityManager &m_entityManager;
+  entityx::EventManager &m_eventManager;
 
   size_t m_nbMaxAsteroidsByType;
 

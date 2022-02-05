@@ -133,4 +133,40 @@ AsteroidsCPP::Def::GameState CurrentGameState(AsteroidsCPP::Game *gamePtr)
   return currentGameState;
 }
 
+std::int32_t CurrentScore(AsteroidsCPP::Game *gamePtr)
+{
+  std::int32_t currentScore = 0;
+  try
+  {
+    if (gamePtr) currentScore = gamePtr->currentScore();
+  }
+  catch (const std::exception &e)
+  {
+    LOG_ERROR(" Run-time error while filling pos entity list, error type : {}", e.what());
+  }
+  catch (...)
+  {
+    LOG_ERROR(" Run-time error while filling pos entity list, error type unknown");
+  }
+  return currentScore;
+}
+
+std::int32_t CurrentNbAsteroids(AsteroidsCPP::Game *gamePtr)
+{
+  std::int32_t currentNbAsteroids = 0;
+  try
+  {
+    if (gamePtr) currentNbAsteroids = gamePtr->currentNbAsteroids();
+  }
+  catch (const std::exception &e)
+  {
+    LOG_ERROR(" Run-time error while filling pos entity list, error type : {}", e.what());
+  }
+  catch (...)
+  {
+    LOG_ERROR(" Run-time error while filling pos entity list, error type unknown");
+  }
+  return currentNbAsteroids;
+}
+
 }// namespace AsteroidsCPP

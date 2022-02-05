@@ -24,7 +24,7 @@ Game::Game() : m_eventManager(),
                m_systemManager(m_entityManager, m_eventManager),
                m_gameManager(m_entityManager, m_eventManager),
                m_spaceShip(m_entityManager),
-               m_asteroidField(m_entityManager),
+               m_asteroidField(m_entityManager, m_eventManager),
                m_laserShots(m_entityManager)
 {
   Utils::InitializeLogger();
@@ -101,6 +101,16 @@ void Game::fillPosEntityList(float *posEntities, int size, int *nbEntities, Def:
 Def::GameState Game::currentGameState() const
 {
   return m_gameManager.gameState();
+}
+
+std::int32_t Game::currentScore() const
+{
+  return m_gameManager.score();
+}
+
+std::int32_t Game::currentNbAsteroids() const
+{
+  return m_asteroidField.totalNbAsteroids();
 }
 
 }// namespace AsteroidsCPP

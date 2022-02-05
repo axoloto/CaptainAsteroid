@@ -10,6 +10,8 @@
 #include "components/IdentityC.hpp"
 #include "components/AsteroidTypeC.hpp"
 
+#include "events/AsteroidDestroyedE.hpp"
+
 #include <cmath>
 
 using namespace AsteroidsCPP;
@@ -132,6 +134,7 @@ void AsteroidField::destroyAsteroid(entityx::Entity asteroid)
       m_nbAsteroidsS--;
     }
 
+    m_eventManager.emit<AsteroidDestroyedE>(type);
     asteroid.destroy();
   }
 }

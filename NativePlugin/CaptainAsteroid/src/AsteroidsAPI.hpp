@@ -37,5 +37,8 @@ extern "C"
 
     ASTEROID_EXPORT AsteroidsCPP::Def::GameState CurrentGameState(AsteroidsCPP::Game *gamePtr);
 
+    ASTEROID_EXPORT std::int32_t CurrentScore(AsteroidsCPP::Game *gamePtr);
+
+    ASTEROID_EXPORT std::int32_t CurrentNbAsteroids(AsteroidsCPP::Game *gamePtr);
   }// namespace AsteroidsCPP
 }

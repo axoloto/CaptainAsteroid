@@ -28,11 +28,17 @@ public:
   // Helper function for specific access to Space Ship coords
   void getSpaceShipCoords(float &x, float &y, float &angle) const;
 
-  // Generic Access to any entities in the game (SpaceShip, Asteroids and LaserShots)
+  // Generic access to any entities in the game (SpaceShip, Asteroids and LaserShots)
   void fillPosEntityList(float *posEntities, int size, int *nbEntities, Def::EntityType entityType) const;
 
-  // Game Status StartMenu / Playing / Victory / GameOver
+  // Game status StartMenu / Playing / Victory / GameOver
   Def::GameState currentGameState() const;
+
+  // Current game score
+  std::int32_t currentScore() const;
+
+  // Current number of remaining asteroids
+  std::int32_t currentNbAsteroids() const;
 
 private:
   // Creating DOD pipeline

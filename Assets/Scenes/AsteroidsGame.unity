@@ -422,6 +422,7 @@ GameObject:
   - component: {fileID: 759937918}
   - component: {fileID: 759937920}
   - component: {fileID: 759937919}
+  - component: {fileID: 759937921}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -481,7 +482,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ' Score : 0  Remaining Asteroids : 0'
+  m_Text: ' Score : 0  Asteroids : 0'
 --- !u!222 &759937920
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -490,6 +491,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 759937917}
   m_CullTransparentMesh: 1
+--- !u!114 &759937921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759937917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 861ac40ad819d994f9ee16a36ffa41e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_pluginController: {fileID: 23843697}
 --- !u!1 &804539427 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6023077191482882407, guid: f559b15a470e1ca4fa2d1464866aca69, type: 3}
