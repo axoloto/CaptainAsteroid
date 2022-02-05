@@ -4,7 +4,7 @@
 
 #include "entities/AsteroidField.hpp"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 class SplitAsteroidS : public entityx::System<SplitAsteroidS>
 {
@@ -18,4 +18,4 @@ public:
 private:
   AsteroidField &m_asteroidField;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

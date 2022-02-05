@@ -6,7 +6,7 @@
 #include "components/LifeTimeC.hpp"
 #include "components/IdentityC.hpp"
 
-using namespace AsteroidsCPP;
+using namespace CaptainAsteroidCPP;
 
 void LaserShots::createShot(const PositionC &initPos, const MotionC &initMot)
 {

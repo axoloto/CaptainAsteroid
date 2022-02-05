@@ -2,7 +2,7 @@
 
 #include "entityx/System.h"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 class ReduceLifeTimeS : public entityx::System<ReduceLifeTimeS>
 {
@@ -13,4 +13,4 @@ public:
     entityx::EventManager &events,
     double dt);
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

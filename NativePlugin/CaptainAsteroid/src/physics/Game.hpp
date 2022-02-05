@@ -14,7 +14,7 @@
 #include <cstdint>
 #include <memory>
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 class Game
 {
@@ -66,4 +66,4 @@ private:
   // All current laser shots in the universe!
   LaserShots m_laserShots;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

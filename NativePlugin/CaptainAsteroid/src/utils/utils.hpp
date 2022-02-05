@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 namespace Utils
 {
@@ -11,4 +11,4 @@ namespace Utils
   const std::string GetVersions();
   const std::string FloatToStr(float val, size_t precision = 10);
 }// namespace Utils
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

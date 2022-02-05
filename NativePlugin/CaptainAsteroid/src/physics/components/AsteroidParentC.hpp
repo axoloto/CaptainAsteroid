@@ -2,10 +2,10 @@
 
 #include "entityx/Entity.h"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 struct AsteroidParentC : public entityx::Component<AsteroidParentC>
 {
   AsteroidParentC(){};
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

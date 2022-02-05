@@ -2,7 +2,7 @@
 
 #include "entityx/Entity.h"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 enum class AstSize
 {
@@ -18,4 +18,4 @@ struct AsteroidSizeC : public entityx::Component<AsteroidSizeC>
 
   AstSize type;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

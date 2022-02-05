@@ -3,10 +3,10 @@
 #include "entityx/Event.h"
 #include "entityx/Entity.h"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 struct GameOverE : public entityx::Event<GameOverE>
 {
   GameOverE(){};
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

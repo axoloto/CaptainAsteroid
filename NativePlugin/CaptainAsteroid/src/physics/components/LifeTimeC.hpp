@@ -1,7 +1,7 @@
 #pragma once
 
 #include "entityx/Entity.h"
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 struct LifeTimeC : public entityx::Component<LifeTimeC>
 {
@@ -9,4 +9,4 @@ struct LifeTimeC : public entityx::Component<LifeTimeC>
 
   float lifeTime;//sec
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

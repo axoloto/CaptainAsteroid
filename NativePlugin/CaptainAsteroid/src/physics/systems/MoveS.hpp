@@ -2,7 +2,7 @@
 
 #include "entityx/System.h"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 class MoveS : public entityx::System<MoveS>
 {
@@ -16,4 +16,4 @@ public:
 private:
   float m_boundaryV, m_boundaryH;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

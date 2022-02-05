@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-using namespace AsteroidsCPP;
+using namespace CaptainAsteroidCPP;
 
 SplitAsteroidS::SplitAsteroidS(AsteroidField &asteroidField)
   : m_asteroidField(asteroidField){};

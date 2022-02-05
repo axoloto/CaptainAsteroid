@@ -5,7 +5,7 @@
 #include "entityx/System.h"
 #include "entityx/Event.h"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 class CollideS : public entityx::System<CollideS>
 {
@@ -37,4 +37,4 @@ private:
   void splitAsteroid(
     entityx::Entity asteroid);
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

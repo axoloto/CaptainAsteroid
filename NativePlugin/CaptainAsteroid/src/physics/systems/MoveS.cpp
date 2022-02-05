@@ -1,5 +1,5 @@
 #include "MoveS.hpp"
-using namespace AsteroidsCPP;
+using namespace CaptainAsteroidCPP;
 
 #include "Define.hpp"
 #include "components/MotionC.hpp"

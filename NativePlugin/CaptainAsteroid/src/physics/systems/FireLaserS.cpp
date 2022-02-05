@@ -6,7 +6,7 @@
 #include "components/LaserC.hpp"
 #include "components/LifeTimeC.hpp"
 
-using namespace AsteroidsCPP;
+using namespace CaptainAsteroidCPP;
 
 void FireLaserS::update(entityx::EntityManager &entities,
   entityx::EventManager &events,

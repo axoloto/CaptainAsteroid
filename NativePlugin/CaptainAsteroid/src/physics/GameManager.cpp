@@ -1,7 +1,7 @@
 
 #include "GameManager.hpp"
 
-using namespace AsteroidsCPP;
+using namespace CaptainAsteroidCPP;
 
 GameManager::GameManager(entityx::EntityManager &entityManager,
   entityx::EventManager &eventManager)

@@ -8,7 +8,7 @@
 
 #include "components/AsteroidSizeC.hpp"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 class AsteroidField
 {
@@ -48,4 +48,4 @@ private:
   size_t m_nbAsteroidsS;
   const float m_radiusS = 0.15f;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

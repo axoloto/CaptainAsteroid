@@ -9,7 +9,7 @@
 
 #include <array>
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 class LaserShots
 {
@@ -28,4 +28,4 @@ private:
   size_t m_maxNbShots;
   size_t m_nbShots;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

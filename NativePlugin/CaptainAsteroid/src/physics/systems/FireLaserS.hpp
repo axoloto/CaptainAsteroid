@@ -5,7 +5,7 @@
 #include "entityx/System.h"
 #include "entityx/Event.h"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 class FireLaserS : public entityx::System<FireLaserS>
 {
@@ -19,4 +19,4 @@ public:
 private:
   LaserShots &m_laserShots;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

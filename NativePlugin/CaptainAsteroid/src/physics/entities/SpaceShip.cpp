@@ -9,7 +9,7 @@
 #include "components/LaserC.hpp"
 #include "components/IdentityC.hpp"
 
-using namespace AsteroidsCPP;
+using namespace CaptainAsteroidCPP;
 
 void SpaceShip::init()
 {

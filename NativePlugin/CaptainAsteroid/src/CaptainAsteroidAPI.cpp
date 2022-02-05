@@ -1,19 +1,19 @@
-#include "AsteroidsAPI.hpp"
+#include "CaptainAsteroidAPI.hpp"
 
 #include "Game.hpp"
 #include "Logging.hpp"
 
 #include <string>
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
-AsteroidsCPP::Game *CreateNativeInstance()
+CaptainAsteroidCPP::Game *CreateNativeInstance()
 {
-  AsteroidsCPP::Game *gamePtr = nullptr;
+  CaptainAsteroidCPP::Game *gamePtr = nullptr;
   try
   {
     LOG_INFO("Creating Asteroids Plugin instance");
-    gamePtr = new AsteroidsCPP::Game();
+    gamePtr = new CaptainAsteroidCPP::Game();
   }
   catch (const std::exception &e)
   {
@@ -30,7 +30,7 @@ AsteroidsCPP::Game *CreateNativeInstance()
   return gamePtr;
 }
 
-void DeleteNativeInstance(AsteroidsCPP::Game *gamePtr)
+void DeleteNativeInstance(CaptainAsteroidCPP::Game *gamePtr)
 {
   try
   {
@@ -51,7 +51,7 @@ void DeleteNativeInstance(AsteroidsCPP::Game *gamePtr)
   }
 }
 
-void Init(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Def::InitParams initParams)
+void Init(CaptainAsteroidCPP::Game *gamePtr, CaptainAsteroidCPP::Def::InitParams initParams)
 {
   try
   {
@@ -67,7 +67,7 @@ void Init(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Def::InitParams initParams)
   }
 }
 
-void Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Def::KeyState keyState, float deltaTime)
+void Update(CaptainAsteroidCPP::Game *gamePtr, CaptainAsteroidCPP::Def::KeyState keyState, float deltaTime)
 {
   try
   {
@@ -83,7 +83,7 @@ void Update(AsteroidsCPP::Game *gamePtr, AsteroidsCPP::Def::KeyState keyState, f
   }
 }
 
-void GetSpaceShipCoords(AsteroidsCPP::Game *gamePtr, float &x, float &y, float &angle)
+void GetSpaceShipCoords(CaptainAsteroidCPP::Game *gamePtr, float &x, float &y, float &angle)
 {
   try
   {
@@ -99,7 +99,7 @@ void GetSpaceShipCoords(AsteroidsCPP::Game *gamePtr, float &x, float &y, float &
   }
 }
 
-void FillPosEntityList(AsteroidsCPP::Game *gamePtr, float *posEntities, int size, int *nbEntities, AsteroidsCPP::Def::EntityType entityType)
+void FillPosEntityList(CaptainAsteroidCPP::Game *gamePtr, float *posEntities, int size, int *nbEntities, CaptainAsteroidCPP::Def::EntityType entityType)
 {
   try
   {
@@ -115,9 +115,9 @@ void FillPosEntityList(AsteroidsCPP::Game *gamePtr, float *posEntities, int size
   }
 }
 
-AsteroidsCPP::Def::GameState CurrentGameState(AsteroidsCPP::Game *gamePtr)
+CaptainAsteroidCPP::Def::GameState CurrentGameState(CaptainAsteroidCPP::Game *gamePtr)
 {
-  auto currentGameState = AsteroidsCPP::Def::GameState::GS_GameOver;
+  auto currentGameState = CaptainAsteroidCPP::Def::GameState::GS_GameOver;
   try
   {
     if (gamePtr) currentGameState = gamePtr->currentGameState();
@@ -133,7 +133,7 @@ AsteroidsCPP::Def::GameState CurrentGameState(AsteroidsCPP::Game *gamePtr)
   return currentGameState;
 }
 
-std::int32_t CurrentScore(AsteroidsCPP::Game *gamePtr)
+std::int32_t CurrentScore(CaptainAsteroidCPP::Game *gamePtr)
 {
   std::int32_t currentScore = 0;
   try
@@ -151,7 +151,7 @@ std::int32_t CurrentScore(AsteroidsCPP::Game *gamePtr)
   return currentScore;
 }
 
-std::int32_t CurrentNbAsteroids(AsteroidsCPP::Game *gamePtr)
+std::int32_t CurrentNbAsteroids(CaptainAsteroidCPP::Game *gamePtr)
 {
   std::int32_t currentNbAsteroids = 0;
   try
@@ -169,4 +169,4 @@ std::int32_t CurrentNbAsteroids(AsteroidsCPP::Game *gamePtr)
   return currentNbAsteroids;
 }
 
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

@@ -13,7 +13,7 @@
 #define LOG_INFO(...) SPDLOG_INFO(__VA_ARGS__)
 #define LOG_ERROR(...) SPDLOG_ERROR(__VA_ARGS__)
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 namespace Utils
 {
@@ -23,4 +23,4 @@ namespace Utils
     spdlog::set_pattern("[%H:%M:%S] [thread %t] [%l] [%!] %v");
   }
 }// namespace Utils
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

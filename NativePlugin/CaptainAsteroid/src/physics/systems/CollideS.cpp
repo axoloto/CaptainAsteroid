@@ -14,7 +14,7 @@
 
 #include <cmath>
 
-using namespace AsteroidsCPP;
+using namespace CaptainAsteroidCPP;
 
 void CollideS::update(
   entityx::EntityManager &entities,

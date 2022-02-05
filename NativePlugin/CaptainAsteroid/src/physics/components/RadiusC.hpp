@@ -2,7 +2,7 @@
 
 #include "entityx/Entity.h"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 struct RadiusC : public entityx::Component<RadiusC>
 {
@@ -10,4 +10,4 @@ struct RadiusC : public entityx::Component<RadiusC>
 
   float radius;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

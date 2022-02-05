@@ -5,7 +5,7 @@
 
 #include "components/AsteroidSizeC.hpp"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 struct AsteroidDestroyedE : public entityx::Event<AsteroidDestroyedE>
 {
@@ -13,4 +13,4 @@ struct AsteroidDestroyedE : public entityx::Event<AsteroidDestroyedE>
 
   AstSize type;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

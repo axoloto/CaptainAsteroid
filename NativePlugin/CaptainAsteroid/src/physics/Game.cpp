@@ -17,7 +17,7 @@
 
 #include "events/PlayGameE.hpp"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 Game::Game() : m_eventManager(),
                m_entityManager(m_eventManager),
@@ -113,4 +113,4 @@ std::int32_t Game::currentNbAsteroids() const
   return m_asteroidField.totalNbAsteroids();
 }
 
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

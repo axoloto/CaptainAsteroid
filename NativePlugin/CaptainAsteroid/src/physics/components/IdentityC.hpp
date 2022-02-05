@@ -2,7 +2,7 @@
 
 #include "entityx/Entity.h"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 enum class Id
 {
@@ -18,4 +18,4 @@ struct IdentityC : public entityx::Component<IdentityC>
 
   Id id;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

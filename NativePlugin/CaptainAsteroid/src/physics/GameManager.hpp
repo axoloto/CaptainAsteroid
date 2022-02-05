@@ -10,7 +10,7 @@
 
 #include "Define.hpp"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 class GameManager : public entityx::Receiver<GameManager>
 {
@@ -42,4 +42,4 @@ private:
 };
 
 
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

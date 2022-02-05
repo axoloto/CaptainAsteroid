@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 namespace Def
 {
@@ -56,4 +56,4 @@ namespace Def
   constexpr float PI = 3.14159274101257324219;
 
 }// namespace Def
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

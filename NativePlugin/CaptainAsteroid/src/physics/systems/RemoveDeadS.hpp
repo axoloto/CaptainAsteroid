@@ -5,7 +5,7 @@
 #include "entities/AsteroidField.hpp"
 #include "entities/LaserShots.hpp"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 class RemoveDeadS : public entityx::System<RemoveDeadS>
 {
@@ -20,4 +20,4 @@ private:
   AsteroidField &m_asteroidField;
   LaserShots &m_laserShots;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

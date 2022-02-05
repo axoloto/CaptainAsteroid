@@ -1,7 +1,7 @@
 #pragma once
 
 #include "entityx/Entity.h"
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 struct MotionC : public entityx::Component<MotionC>
 {
@@ -10,4 +10,4 @@ struct MotionC : public entityx::Component<MotionC>
   float vel;
   float rot;// deg
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

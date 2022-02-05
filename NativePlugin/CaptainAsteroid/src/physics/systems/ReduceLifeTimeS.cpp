@@ -4,7 +4,7 @@
 #include "components/IdentityC.hpp"
 #include "components/DeathC.hpp"
 
-using namespace AsteroidsCPP;
+using namespace CaptainAsteroidCPP;
 
 void ReduceLifeTimeS::update(
   entityx::EntityManager &entities,

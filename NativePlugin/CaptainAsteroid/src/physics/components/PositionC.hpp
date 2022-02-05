@@ -4,7 +4,7 @@
 
 #include <cmath>
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 struct PositionC : entityx::Component<PositionC>
 {
@@ -23,4 +23,4 @@ struct PositionC : entityx::Component<PositionC>
   float x, y;
   float angle;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

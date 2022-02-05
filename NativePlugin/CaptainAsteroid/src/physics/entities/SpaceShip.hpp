@@ -4,7 +4,7 @@
 
 #include "entityx/System.h"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 class SpaceShip
 {
@@ -18,4 +18,4 @@ public:
 private:
   entityx::EntityManager &m_entityManager;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

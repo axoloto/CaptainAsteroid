@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <cmath>
 
-using namespace AsteroidsCPP;
+using namespace CaptainAsteroidCPP;
 
 PlayerControlS::PlayerControlS(){};
 

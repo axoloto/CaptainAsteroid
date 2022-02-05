@@ -6,7 +6,7 @@
 #include "events/PlayerInputE.hpp"
 #include "Define.hpp"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 class PlayerControlS : public entityx::System<PlayerControlS>
   , public entityx::Receiver<PlayerInputE>
@@ -24,4 +24,4 @@ public:
 private:
   Def::KeyState m_keyState;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

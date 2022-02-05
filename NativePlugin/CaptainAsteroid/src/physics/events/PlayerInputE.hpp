@@ -5,7 +5,7 @@
 
 #include "Define.hpp"
 
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 struct PlayerInputE : public entityx::Event<PlayerInputE>
 {
@@ -13,4 +13,4 @@ struct PlayerInputE : public entityx::Event<PlayerInputE>
 
   Def::KeyState keyState;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

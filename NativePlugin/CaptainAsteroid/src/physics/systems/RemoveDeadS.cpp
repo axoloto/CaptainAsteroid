@@ -7,7 +7,7 @@
 
 #include <cmath>
 
-using namespace AsteroidsCPP;
+using namespace CaptainAsteroidCPP;
 
 RemoveDeadS::RemoveDeadS(AsteroidField &asteroidField, LaserShots &laserShots)
   : m_asteroidField(asteroidField),

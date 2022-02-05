@@ -1,7 +1,7 @@
 #pragma once
 
 #include "entityx/Entity.h"
-namespace AsteroidsCPP
+namespace CaptainAsteroidCPP
 {
 struct LaserC : public entityx::Component<LaserC>
 {
@@ -12,4 +12,4 @@ struct LaserC : public entityx::Component<LaserC>
   float nextShotTimer;
   bool isFiring;
 };
-}// namespace AsteroidsCPP
+}// namespace CaptainAsteroidCPP

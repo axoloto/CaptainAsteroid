@@ -15,7 +15,7 @@
 
 #include <cmath>
 
-using namespace AsteroidsCPP;
+using namespace CaptainAsteroidCPP;
 
 void AsteroidField::init(Def::InitParams initParams)
 {
