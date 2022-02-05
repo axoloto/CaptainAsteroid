@@ -14,10 +14,7 @@ public class GameOver : MonoBehaviour
     {
 		gameOver = GetComponent<Text>();
 		gameOver.enabled = false;
-	}
 
-	void Update () 
-    {
         m_plg = m_pluginController.GetComponent<CaptainAsteroidPlugin>();
 
         if(!m_plg.IsPluginReady())
@@ -25,7 +22,10 @@ public class GameOver : MonoBehaviour
             Debug.LogError("Incorrect plugin instantiation");
             return;
         }
+	}
 
-		gameOver.enabled = (m_plg.gameState() == CaptainAsteroidPlugin.GameState.GameOver);
+	void Update () 
+    {
+		gameOver.enabled = (m_plg.CurrentGameState() == CaptainAsteroidPlugin.GameState.GameOver);
 	}
 }

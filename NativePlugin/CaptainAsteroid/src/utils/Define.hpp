@@ -7,12 +7,12 @@ namespace AsteroidsCPP
 namespace Def
 {
 
-  enum GameState
+  enum GameState : std::uint32_t
   {
-    GS_Start,
-    GS_Playing,
-    GS_GameOver,
-    GS_Victory,
+    GS_Start = 1 << 0,
+    GS_Playing = 1 << 1,
+    GS_GameOver = 1 << 2,
+    GS_Victory = 1 << 3,
   };
 
   enum EntityType : std::uint32_t

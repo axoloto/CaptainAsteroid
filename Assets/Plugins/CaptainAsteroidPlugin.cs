@@ -11,7 +11,10 @@ public class CaptainAsteroidPlugin : MonoBehaviour
 
     public enum GameState : int
     {
-        GameOver = 1 << 0,
+        StartGame = 1 << 0,
+        Playing = 1 << 1,
+        GameOver = 1 << 2,
+        Victory = 1 << 3,
     }
 
     // Input parameters to initialize the plugin
@@ -60,6 +63,9 @@ public class CaptainAsteroidPlugin : MonoBehaviour
     // Native plugin is only filling it up to nbEntities
     [DllImport(CaptainAsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
     static extern void FillPosEntityList(IntPtr gamePtr, IntPtr posEntities, int size, out int nbEntities, int typeEntity);
+
+    [DllImport(CaptainAsteroidNativeDLL, CallingConvention = CallingConvention.Cdecl)]
+    static extern GameState CurrentGameState(IntPtr gamePtr);
 
     #endregion
 
@@ -144,5 +150,14 @@ public class CaptainAsteroidPlugin : MonoBehaviour
                 FillPosEntityList(m_GamePtr, (IntPtr)fixPtr, size, out nbEntities, entityType);
             }
         }
+    }
+
+    public GameState CurrentGameState()
+    {
+        if(IsNativeInstanceReady())
+        {
+            return CurrentGameState(m_GamePtr);
+        }
+        return GameState.GameOver;
     }
 }

@@ -114,4 +114,23 @@ void FillPosEntityList(AsteroidsCPP::Game *gamePtr, float *posEntities, int size
     LOG_ERROR(" Run-time error while filling pos entity list, error type unknown");
   }
 }
+
+AsteroidsCPP::Def::GameState CurrentGameState(AsteroidsCPP::Game *gamePtr)
+{
+  auto currentGameState = AsteroidsCPP::Def::GameState::GS_GameOver;
+  try
+  {
+    if (gamePtr) currentGameState = gamePtr->currentGameState();
+  }
+  catch (const std::exception &e)
+  {
+    LOG_ERROR(" Run-time error while filling pos entity list, error type : {}", e.what());
+  }
+  catch (...)
+  {
+    LOG_ERROR(" Run-time error while filling pos entity list, error type unknown");
+  }
+  return currentGameState;
+}
+
 }// namespace AsteroidsCPP

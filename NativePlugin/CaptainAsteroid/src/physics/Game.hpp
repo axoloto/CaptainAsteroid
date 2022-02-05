@@ -31,6 +31,9 @@ public:
   // Generic Access to any entities in the game (SpaceShip, Asteroids and LaserShots)
   void fillPosEntityList(float *posEntities, int size, int *nbEntities, Def::EntityType entityType) const;
 
+  // Game Status StartMenu / Playing / Victory / GameOver
+  Def::GameState currentGameState() const;
+
 private:
   // Creating DOD pipeline
   void createSystems(float boundaryV, float boundaryH);

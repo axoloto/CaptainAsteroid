@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StartGame : MonoBehaviour 
+public class Victory : MonoBehaviour 
 {
     public GameObject m_pluginController;
     CaptainAsteroidPlugin m_plg;
 
-	private Text startGame;
+	private Text victory;
 
 	void Start()
     {
-		startGame = GetComponent<Text>();
-		startGame.enabled = false; 
-        
+		victory = GetComponent<Text>();
+		victory.enabled = false;
+
         m_plg = m_pluginController.GetComponent<CaptainAsteroidPlugin>();
 
         if(!m_plg.IsPluginReady())
@@ -26,6 +26,6 @@ public class StartGame : MonoBehaviour
 
 	void Update() 
     {
-		startGame.enabled = (m_plg.CurrentGameState() == CaptainAsteroidPlugin.GameState.StartGame);
+		victory.enabled = (m_plg.CurrentGameState() == CaptainAsteroidPlugin.GameState.Victory);
 	}
 }

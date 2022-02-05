@@ -35,5 +35,7 @@ extern "C"
 
     ASTEROID_EXPORT void FillPosEntityList(AsteroidsCPP::Game *gamePtr, float *posEntities, int size, int *nbEntities, AsteroidsCPP::Def::EntityType entityType);
 
+    ASTEROID_EXPORT AsteroidsCPP::Def::GameState CurrentGameState(AsteroidsCPP::Game *gamePtr);
+
   }// namespace AsteroidsCPP
 }

@@ -27,23 +27,26 @@ public class CaptainAsteroidGame : MonoBehaviour
     public GameObject m_pluginController;
     CaptainAsteroidPlugin m_plg;
 
+    // Asteroids
     public List<GameObject> m_pooledAsteroidsXXL;
     public GameObject m_asteroidObjectXXL;
-    public int m_initNbAsteroidsXXL = 30;
+    public int m_initNbAsteroidsXXL;
 
     public List<GameObject> m_pooledAsteroidsM;
     public GameObject m_asteroidObjectM;
-    public int m_initNbAsteroidsM = 0;
+    public int m_initNbAsteroidsM;
 
     public List<GameObject> m_pooledAsteroidsS;
     public GameObject m_asteroidObjectS;
-    public int m_initNbAsteroidsS = 0;
+    public int m_initNbAsteroidsS;
     
     public const int m_maxNbAsteroidsByType = 200; 
     float[] m_posAsteroidList = new float[m_maxNbAsteroidsByType * 3];
 
+    // Laser Shots
     public List<GameObject> m_pooledLaserShots;
     public GameObject m_laserShotObject;
+
     public const int m_maxNbLaserShots = 100;
     float[] m_posLaserShotList = new float[m_maxNbLaserShots * 3];
 

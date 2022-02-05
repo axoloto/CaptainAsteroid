@@ -98,4 +98,9 @@ void Game::fillPosEntityList(float *posEntities, int size, int *nbEntities, Def:
   }
 }
 
+Def::GameState Game::currentGameState() const
+{
+  return m_gameManager.gameState();
+}
+
 }// namespace AsteroidsCPP
