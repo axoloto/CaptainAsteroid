@@ -96,7 +96,7 @@ public class CaptainAsteroidPlugin : MonoBehaviour
         {
             DeleteNativeInstance(m_GamePtr);
             m_GamePtr = IntPtr.Zero;
-            Debug.Log("Removing Native Instance");
+            //Debug.Log("Removing Native Instance");
         }
     }
 
@@ -122,7 +122,7 @@ public class CaptainAsteroidPlugin : MonoBehaviour
         {
             m_GamePtr = CreateNativeInstance();
         }
-        Debug.Log("Resetting Native Instance");
+        //Debug.Log("Resetting Native Instance");
     }
 
     // Friendlier than IsNativeInstanceReady outside of this class

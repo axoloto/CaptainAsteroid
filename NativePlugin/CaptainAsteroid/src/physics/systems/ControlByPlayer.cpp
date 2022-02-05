@@ -3,6 +3,7 @@
 #include "components/Motion.hpp"
 #include "components/Laser.hpp"
 #include "components/PlayerControl.hpp"
+#include "components/Position.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -18,38 +19,41 @@ void ControlByPlayer::update(
 {
   constexpr float maxAcc = 0.05f;
   constexpr float maxSpeed = 10.0f;
-  constexpr float thrustCoeff = 20.0f;
-  constexpr float angleCoeff = 0.5f;
+  constexpr float thrustCoeff = 15.0f;
+  constexpr float angleCoeff = 190.0f;
   constexpr float frictionCoeff = 0.997f;
 
-  Comp::Motion::Handle motion;
   Comp::Laser::Handle laser;
+  Comp::Motion::Handle motion;
+  Comp::Position::Handle position;
   Comp::PlayerControl::Handle playerControl;
-  for (entityx::Entity entity : entities.entities_with_components(playerControl, motion, laser))
+  for (entityx::Entity entity : entities.entities_with_components(playerControl, motion, laser, position))
   {
     float acc = 0.0f;
     if (m_keyState.pressed(Def::KeyState::Keys::Down))
     {
       acc = -thrustCoeff;
+      position->angle = motion->rot;
     }
     if (m_keyState.pressed(Def::KeyState::Keys::Up))
     {
       acc = thrustCoeff;
+      position->angle = motion->rot;
     }
-
-    motion->rot = 0.0f;
-    if (m_keyState.pressed(Def::KeyState::Keys::Left))
-    {
-      motion->rot = angleCoeff;
-    }
-    if (m_keyState.pressed(Def::KeyState::Keys::Right))
-    {
-      motion->rot = -angleCoeff;
-    }
-
     motion->vel += acc * (float)dt;
     motion->vel *= frictionCoeff;
     motion->vel = std::max(0.0f, std::min(motion->vel, maxSpeed));
+
+    float rot = 0.0f;
+    if (m_keyState.pressed(Def::KeyState::Keys::Left))
+    {
+      rot += angleCoeff;
+    }
+    if (m_keyState.pressed(Def::KeyState::Keys::Right))
+    {
+      rot -= angleCoeff;
+    }
+    motion->rot += rot * (float)dt;
 
     laser->isFiring = m_keyState.pressed(Def::KeyState::Keys::Space);
   }

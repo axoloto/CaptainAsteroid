@@ -24,12 +24,13 @@ void SpaceShip::init()
 
 std::array<float, 3> SpaceShip::getPosAndDir() const
 {
+  Comp::Motion::Handle motion;
   Comp::Position::Handle position;
   Comp::PlayerControl::Handle playerControl;
   std::array<float, 3> coordsAndRot = { 0, 0, 0 };
-  for (entityx::Entity entity : m_entityManager.entities_with_components(playerControl, position))
+  for (entityx::Entity entity : m_entityManager.entities_with_components(playerControl, position, motion))
   {
-    coordsAndRot = { position->x, position->y, position->angle };
+    coordsAndRot = { position->x, position->y, motion->rot };
     break;
   }
 

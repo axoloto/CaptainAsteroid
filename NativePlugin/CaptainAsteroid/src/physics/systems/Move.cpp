@@ -20,7 +20,6 @@ void Move::update(
     float y = position->y;
     float angleDeg = position->angle;
 
-    angleDeg += motion->rot;
     x += std::cos(angleDeg * Def::PI / 180.0f) * motion->vel * (float)dt;
     y += std::sin(angleDeg * Def::PI / 180.0f) * motion->vel * (float)dt;
 

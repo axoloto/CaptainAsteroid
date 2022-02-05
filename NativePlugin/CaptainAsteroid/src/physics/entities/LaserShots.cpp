@@ -15,7 +15,7 @@ void LaserShots::createShot(const Comp::Position &initPos, const Comp::Motion &i
     entityx::Entity laserShot = m_entityManager.create();
     laserShot.assign<Comp::Identity>(Comp::Id::LaserShot);
     laserShot.assign<Comp::Motion>(m_shotVel + initMot.vel, 0.0f);
-    laserShot.assign<Comp::Position>(initPos);
+    laserShot.assign<Comp::Position>(initPos.x, initPos.y, initMot.rot);
     laserShot.assign<Comp::LifeTime>(1.5f);
     laserShot.assign<Comp::Radius>(0.1f);
     m_nbShots++;

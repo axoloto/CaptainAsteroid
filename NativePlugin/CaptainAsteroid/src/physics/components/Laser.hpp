@@ -10,7 +10,7 @@ namespace Comp
     Laser() : nextShotTimer(0.0f), isFiring(false){};
 
     const float initVel = 20.0f;
-    const float coolDownTime = 0.1f;
+    const float coolDownTime = 0.07f;
     float nextShotTimer;
     bool isFiring;
   };
